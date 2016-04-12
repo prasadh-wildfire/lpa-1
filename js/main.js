@@ -9,6 +9,7 @@
     ref.onAuth(function(authData) {
         if (authData) {
             authUserData = authData;
+            localStorage.setItem("lpa1-authData", JSON.stringify(authData) );
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
             $("#login-form").hide();
             $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
@@ -35,14 +36,19 @@
             $("#form-email-field").val());
         var curUnixTime = new Date().getTime();
         var disTime = new Date().toJSON().slice(0, 21);
-        ref.child("mentors").child(authData.uid).set({
-                name: $("#form-name-field").val(),
-                email: $("#form-email-field").val(),
-                phone: $("#form-phone-field").val(),
+        var name = $("#form-name-field").val();
+        var emailKey = $("#form-email-field").val();
+        var tel = $("#form-phone-field").val();
+        //var authData = JSON.parse(localStorage.getItem("lpa1-authData") );
+
+        ref.child("mentors").child(tel).set({
+                name: name,
+                email: emailKey,
+                phone: tel,
                 country: $("#form-country-field").val(),
                 city: $("#form-city-field").val(),
-                domain: $("#form-domain-select option:selected").text();
-                expertise: $("#form-expertise-field").val(),
+                domain: $("#form-domain-select option:selected").text(),
+                expertise: $("#form-expertise").val(),
                 linkedin: $("#form-linkedin-url").val(),
                 site: $("#form-personal-url").val(),
                 pic: $("#form-pic-url").val(),

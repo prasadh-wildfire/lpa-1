@@ -11,7 +11,7 @@
     ref.onAuth(function(authData) {
         if (authData) {
             authUserData = authData;
-            localStorage.setItem("lpa1-authData", JSON.stringify(authData) );
+            localStorage.setItem("lpa1-authData", JSON.stringify(authData));
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
             $("#login-form").hide();
             $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
@@ -28,31 +28,52 @@
     //
     $("#form-save-mentor").click(function() {
         // validation - TODO: take it out to a function
-        if ($("#form-name-field").val().length < 2) {
+        var name = $("#form-name-field").val();
+        var emailKey = $("#form-email-field").val();
+        var tel = $("#form-phone-field").val();
+        // name validation
+        if (name.length < 2) {
             $("#nameError").html("Please give a name - So you could remember it in the future!");
             $("#nameError").removeClass("sr-only");
             $("#nameError").addClass("alert");
             $("#form-name-field").focus();
             setTimeout(function() {
-              $("#nameError").removeClass("alert");
-              $("#nameError").addClass("sr-only");
+                $("#nameError").removeClass("alert");
+                $("#nameError").addClass("sr-only");
             }, 1500);
             return;
         }
-        
-        var emailRegEx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+
+        // email validation
         if ($("#form-email-field").val().length < 2) {
-            alert("Please give a email - So we could spam you.");
+            $("#emailError").html("Please give an email - Don't worry we will never spam you.");
+            $("#emailError").removeClass("sr-only");
+            $("#emailError").addClass("alert");
             $("#form-email-field").focus();
+            setTimeout(function() {
+                $("#emailError").removeClass("alert");
+                $("#emailError").addClass("sr-only");
+            }, 1500);
             return;
         }
-        console.log("saving to Firebase: " + $("#form-name-field").val() + " , " +
-            $("#form-email-field").val());
+        var emailRegEx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+        if (!emailRegEx.test(emailKey)) {
+            $("#emailError").html("Please give a valid email (e.g. momo@okko.com");
+            $("#emailError").removeClass("sr-only");
+            $("#emailError").addClass("alert");
+            $("#form-email-field").focus();
+            setTimeout(function() {
+                $("#emailError").removeClass("alert");
+                $("#emailError").addClass("sr-only");
+            }, 1500);
+            return;
+        }
+
+
+        console.log("saving to Firebase: " + name + " , " + email);
         var curUnixTime = new Date().getTime();
         var disTime = new Date().toJSON().slice(0, 21);
-        var name = $("#form-name-field").val();
-        var emailKey = $("#form-email-field").val();
-        var tel = $("#form-phone-field").val();
+
         //var authData = JSON.parse(localStorage.getItem("lpa1-authData") );
 
         ref.child("mentors").child(tel).set({
@@ -73,11 +94,11 @@
                 if (error) {
                     alert("Data could not be saved :( Details: " + error);
                 } else {
-                  console.log(name+ " saved!"); 
-                  $(".save-alert").show();
-                  setTimeout(function() {
-                      $(".save-alert").hide();
-                  }, 1500);
+                    console.log(name + " saved!");
+                    $(".save-alert").show();
+                    setTimeout(function() {
+                        $(".save-alert").hide();
+                    }, 1500);
                 }
             })
             // TODO - confirmation on the save
@@ -97,7 +118,7 @@
                     '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
                     mentorData.name + " ( " + mentorData.phone + " )" + '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
                     '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + mentorData.email + '<br>' +
-                    mentorData.domain + '<br>'+ mentorData.expertise + ' </div> </div>'
+                    mentorData.domain + '<br>' + mentorData.expertise + ' </div> </div>'
                 );
             });
         });
@@ -116,19 +137,19 @@
 
     // enable removing mentors
     $('body').on('click', '.remove-mentor', function(event) {
-      var key = this.dataset.key;
-      console.log("going to delete mentor with key: TODO");
-      var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + key);
-      var onComplete = function(error) {
-          if (error) {
-              console.log('Synchronization failed');
-          } else {
-              console.log('Synchronization succeeded - mentor was removed');
-              $("#mentors-list").html('<div id="loading-mentors"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-              readMentors(authUserData);
-          }
-      };
-      fredRef.remove(onComplete);
+        var key = this.dataset.key;
+        console.log("going to delete mentor with key: TODO");
+        var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + key);
+        var onComplete = function(error) {
+            if (error) {
+                console.log('Synchronization failed');
+            } else {
+                console.log('Synchronization succeeded - mentor was removed');
+                $("#mentors-list").html('<div id="loading-mentors"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
+                readMentors(authUserData);
+            }
+        };
+        fredRef.remove(onComplete);
     });
 
     //

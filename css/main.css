@@ -11,6 +11,9 @@ body {
 label {
     padding-top: .5em;
 }
+.save-alert {
+  margin: 1em;
+}
 
 .fa {
     background: wheat;
@@ -20,7 +23,7 @@ label {
     padding: 2em;
 }
 
-.remove-note {
+.remove-mentor {
     position: relative;
     left: 2em;
 }

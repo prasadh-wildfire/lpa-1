@@ -1,9 +1,11 @@
 (function() {
-    $("#save-alert").hide();
+    $(".save-alert").hide();
     $("#spin").hide();
     var unixTime = Math.floor(Date.now() / 1000);
 
+    //
     // start the connection with firebase DB
+    //
     var ref = new Firebase("https://lpa-1.firebaseio.com");
     authUserData = null;
     ref.onAuth(function(authData) {
@@ -21,6 +23,9 @@
         }
     });
 
+    //
+    // Save mentors
+    //
     $("#form-save-mentor").click(function() {
         if ($("#form-name-field").val().length < 2) {
             alert("Please give a name - So you could remember it in the future!");
@@ -59,10 +64,11 @@
                 if (error) {
                     alert("Data could not be saved :( Details: " + error);
                 } else {
-                    $(".saved-alert").show();
-                    setTimeout(function() {
-                        $(".saved-alert").hide();
-                    }, 1500);
+                  console.log(name+ " saved!"); 
+                  $(".save-alert").show();
+                  setTimeout(function() {
+                      $(".save-alert").hide();
+                  }, 1500);
                 }
             })
             // TODO - confirmation on the save
@@ -70,7 +76,7 @@
 
     //
     function readMentors(authData) {
-        var readRef = new Firebase("https://lpa-1.firebaseio.com/mentors/" + authData.uid);
+        var readRef = new Firebase("https://lpa-1.firebaseio.com/mentors/");
         readRef.orderByKey().on("value", function(snapshot) {
             //console.log("The mentors: " + JSON.stringify(snapshot.val()));
             $("#mentors-list").html("");
@@ -80,8 +86,9 @@
                 console.log("key: " + key + " data: " + mentorData);
                 $("#mentors-list").append(
                     '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
-                    mentorData.name + " ( " + mentorTime + " )" + '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
-                    '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + mentorData.email + ' </div> </div>'
+                    mentorData.name + " ( " + mentorData.phone + " )" + '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
+                    '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + mentorData.email + '<br>' +
+                    mentorData.domain + '<br>'+ mentorData.expertise + ' </div> </div>'
                 );
             });
         });
@@ -100,21 +107,19 @@
 
     // enable removing mentors
     $('body').on('click', '.remove-mentor', function(event) {
-        unixTime = this.dataset.key;
-        var uid = authUserData.uid;
-        console.log("going to delete mentor with key: " + unixTime + " for user: " + uid);
-        var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + uid + "/" + unixTime);
-        var onComplete = function(error) {
-            if (error) {
-                console.log('Synchronization failed');
-            } else {
-                console.log('Synchronization succeeded - mentor was removed');
-                $("#mentors-list").html('<div id="loading-mentors"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-                readMentors(authUserData);
-            }
-        };
-        fredRef.remove(onComplete);
-
+      var key = this.dataset.key;
+      console.log("going to delete mentor with key: TODO");
+      var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + key);
+      var onComplete = function(error) {
+          if (error) {
+              console.log('Synchronization failed');
+          } else {
+              console.log('Synchronization succeeded - mentor was removed');
+              $("#mentors-list").html('<div id="loading-mentors"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
+              readMentors(authUserData);
+          }
+      };
+      fredRef.remove(onComplete);
     });
 
     //

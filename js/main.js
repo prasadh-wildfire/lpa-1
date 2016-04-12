@@ -27,11 +27,20 @@
     // Save mentors
     //
     $("#form-save-mentor").click(function() {
+        // validation - TODO: take it out to a function
         if ($("#form-name-field").val().length < 2) {
-            alert("Please give a name - So you could remember it in the future!");
+            $("#nameError").html("Please give a name - So you could remember it in the future!");
+            $("#nameError").removeClass("sr-only");
+            $("#nameError").addClass("alert");
             $("#form-name-field").focus();
+            setTimeout(function() {
+              $("#nameError").removeClass("alert");
+              $("#nameError").addClass("sr-only");
+            }, 1500);
             return;
         }
+        
+        var emailRegEx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
         if ($("#form-email-field").val().length < 2) {
             alert("Please give a email - So we could spam you.");
             $("#form-email-field").focus();

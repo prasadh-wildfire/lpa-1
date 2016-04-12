@@ -1,0 +1,259 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Green Ido | @greenido | plus.google.com/+greenido">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LPA</title>
+    <meta name="description" content="A note for our LPA">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel=manifest href=manifest.json>
+    <meta name=mobile-web-app-capable content=yes>
+    <meta name=application-name content="LPA-1">
+    <link rel=icon sizes=192x192 href=img/pencil-192.png>
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <meta name=apple-mobile-web-app-status-bar-style content=black>
+    <meta name=apple-mobile-web-app-title content="LPA">
+    <link rel=apple-touch-icon href=img/pencil-192.png>
+    <meta name=msapplication-TileImage content=img/pencil-144.png>
+    <meta name=msapplication-TileColor content=#2196F3>
+    <meta name=theme-color content=#2196F3>
+    <meta property=og:title content="LPA">
+    <meta property=og:type content=website>
+    <meta property=og:image content=https://lpa-1.firebaseapp.com/img/pencil-192.png>
+    <meta property=og:url content="https://lpa-1.firebaseapp.com/">
+    <meta property=og:description content="Our LPA web app! Smile!">
+    <meta name=twitter:card content=summary>
+    <meta name=twitter:url content="https://lpa-1.firebaseapp.com">
+    <meta name=twitter:title content="LPA">
+    <meta name=twitter:description content="Our LPA web app! Smile!">
+    <meta name=twitter:image content=https://lpa-1.firebaseapp.com/img/pencil-192.png>
+    <meta name=twitter:creator content=@greenido>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+    <style>
+    body {
+      padding-top: 50px;
+      padding-bottom: 20px;
+    }
+    label {
+      padding-top: .5em;
+    }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+          <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">LPA</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/todo-add-our-slack-channel.html">Slack</a></li>
+                    <li><a href="https://github.com/greenido/lpa-1" target="_blank">Code</a></li>
+                </ul>
+                <form id="login-form" class="navbar-form navbar-right" role="form">
+                    <div class="form-group">
+                        <input id="email" type="text" placeholder="Email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input id="passwd" type="password" placeholder="Password" class="form-control">
+                    </div>
+                    <button type="submit" id="sign-in-but" class="btn btn-success">Sign in</button>
+                    <span id='spin'><i class="fa fa-spinner fa-spin"></i></span>
+                </form>
+                <div id="logout-div"></div>
+                <form class='navbar-form navbar-right' role='form'>
+                    <button id="online-status" type="button" class="btn btn-info">Online</button>
+                </form>
+            </div>
+            <!--/.navbar-collapse -->
+        </div>
+    </nav>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            TODO
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mentors</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Startups</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Schedule</a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Attendees</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h3>New Mentor</h3>
+                                <div class="form-group">
+                                    <div id="nameError" class="sr-only" role="alert"></div>
+                                    <label for="form-name-field" class="sr-only">Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                        <input type="text" class="form-control" id="form-name-field" 
+                                        value="" placeholder="Name">
+                                    </div>
+                                </div>
+                                <!-- email field -->
+                                <div class="form-group">
+                                    <div id="emailError" class="sr-only" role="alert"></div>
+                                    <label for="form-email-field" class="sr-only">Email</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+                                        <input type="email" class="form-control" id="form-email-field" 
+                                        value="" placeholder="Email">
+                                    </div>
+                                </div>
+                                <!-- phone field -->
+                                <div class="form-group">
+                                    <div id="phoneError" class="sr-only" role="alert "></div>
+                                    <label for="form-phone-field " class="sr-only ">Phone</label>
+                                    <div class="input-group ">
+                                        <div class="input-group-addon "><span class="glyphicon glyphicon-phone "></span></div>
+                                        <input type="tel " class="form-control " id="form-phone-field " 
+                                        value="" placeholder="Phone">
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <div id="nameError" class="sr-only" role="alert"></div>
+                                    <label for="form-name-field" class="sr-only">Country</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-road"></span></div>
+                                        <input type="text" class="form-control" id="form-country-field" value="" placeholder="Country">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div id="nameError" class="sr-only" role="alert"></div>
+                                    <label for="form-name-field" class="sr-only">City</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
+                                        <input type="text" class="form-control" id="form-city-field" value="" placeholder="City">
+                                    </div>
+                                </div>
+
+                                <label for="domain-select">Domain</label>
+                                <div class="input-group">
+                                    <select id="domain-select" class="selectpicker">
+                                        <option>UX</option>
+                                        <option>Tech</option>
+                                        <option>Product</option>
+                                        <option>Marketing</option>
+                                        <option>Business</option>
+                                    </select>
+                                </div>
+                                <label for="expertise">Expertise</label>
+                                
+                                    <textarea class="form-control col-lg-6" id="expertise"
+                                    name="expertise" ></textarea>
+                                
+
+                                <label for="linkedin-url">Your LinkedIn</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="linkedin-url">http://www.linkedin.com/in/</span>
+                                    <input type="text " class="form-control " id="basic-url " aria-describedby="basic-addon3 ">
+                                </div>
+                                <label for="basic-url ">Personal Site</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon " id="basic-addon4 ">http://</span>
+                                    <input type="text " class="form-control " id="basic-url " aria-describedby="basic-addon4 ">
+                                </div>
+                                <label for="basic-url ">Picture Url</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon " id="pic-url ">http://</span>
+                                    <input type="text " class="form-control " id="pic-url " aria-describedby="pic-url">
+                                </div>
+
+                                <hr>
+                                <button id="cancel-mentor " class="btn btn-default ">Cancel</button>
+                                <button id="save-mentor " class="btn btn-success ">Save</button>
+                            </div>
+                        </div>
+                        <!-- row end -->
+                    </div>
+                    <div role="tabpanel " class="tab-pane " id="profile "> bla bla bla</div>
+                    <div role="tabpanel " class="tab-pane " id="messages "> bla bla blacka</div>
+                    <div role="tabpanel " class="tab-pane " id="settings "> bla bla bla dfsfdsfsdf</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Small modal for errors/warnings -->
+    <div id='err-modal' class="modal fade " tabindex="-1 " role="dialog ">
+        <div class="modal-dialog ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal " aria-label="Close "><span aria-hidden="true ">&times;</span></button>
+                    <h4 class="modal-title ">Oppss... A little problam</h4>
+                </div>
+                <div class="modal-body ">
+                    <h3>Check again your email/password.</h3>
+                    <p>If you can't login please check with @greenido</p>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-default " data-dismiss="modal ">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container ">
+        <hr>
+        <footer>
+            <div class="col-md-4 ">
+                <p><a href="https://twitter.com/greenido ">@greenido</a> 2016 &copy; </p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js "></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js "></script>
+    <script>
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js "><\/script>')
+    </script>
+    <script src="js/vendor/bootstrap.min.js "></script>
+    <script src="js/bootstrap-markdown.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <script src="js/main.js "></script>
+    <script>
+    (function(b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+            function() {
+                (b[l].q = b[l].q || []).push(arguments)
+            });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = '//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-27750723-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</body>
+<!-- v0.1 -->
+
+</html>

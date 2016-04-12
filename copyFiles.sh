@@ -1,5 +1,4 @@
 echo "-- Copy files to public dir --"
-cp index-m.html public/index-m.html
 cp index.html public/index.html
 cp js/main.js public/js/main.js
 cp sw.js public/sw.js

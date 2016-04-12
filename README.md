@@ -6,7 +6,7 @@ Currently it's a "Work in progress".
 * [Basic version](https://lpa-1.firebaseapp.com/) - 
 
 
-![LPA PWA](https://lpa-1.firebaseapp.com/LPA-1-pwa-x.png)
+![LPA PWA](https://lpa-1.firebaseapp.com/img/lion-hd.jpeg)
 
 ## ToDos
 

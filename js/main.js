@@ -99,27 +99,29 @@
     });
   }
 
-// enable to edit startups from the list
+  //
+  // enable to edit startups from the list
+  //
   $('body').on('click', '.startup-edit', function(event) {
     var stName = this.dataset.key;
     console.log("TODO: edit startup: " + stName);
     var ref = new Firebase("https://lpa-1.firebaseio.com/startups/" + stName);
-    ref.on("value", function(mentorSnap) {
-      var mentor = mentorSnap.val();
-      if (mentor != null) {
-        console.log("Setting data for: " + JSON.stringify(mentor));
-        $("#form-name-field").val(mentor.name);
-        $("#form-email-field").val(mentor.email);
-        $("#form-phone-field").val(mentor.phone);
-        $("#form-country-field").val(mentor.country);
-        $("#form-city-field").val(mentor.city);
-        $("#form-domain-select").val(mentor.domain);
-        $("#form-expertise").val(mentor.expertise);
-        $("#form-linkedin-url").val(mentor.linkedin);
-        $("#form-personal-url").val(mentor.site);
-        $("#form-pic-url").val(mentor.pic);
-        $("#form-comments").val(mentor.comments);
-        $("#form-name-field").focus();
+    ref.on("value", function(startupSnap) {
+      var st = startupSnap.val();
+      if (st != null) {
+        console.log("Setting data for startup: " + JSON.stringify(st));
+        $("#st-name-field").val(st.name);
+        $("#st-desc-field").val(st.description);
+        $("#st-country-field").val(st.country);
+        $("#st-city-field").val(st.city);
+        $("#st-st-fund-select").val(st.fund);
+        $("#st-num-employees-select").val(st.numEmployees);
+        $("#st-date-field").val(st.dateFounded);
+        $("#st-logo-url").val(st.logo);
+        $("#st-team-url").val(st.team);
+        $("#st-video-url").val(st.video);
+        $("#st-history-url").val(st.historyUrl);
+        $("#st-name-field").focus();
         $('body').scrollTop(120);
       }
     });

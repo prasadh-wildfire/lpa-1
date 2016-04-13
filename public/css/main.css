@@ -4,30 +4,41 @@
 ========================================================================== */
 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
 
 label {
-    padding-top: .5em;
+  padding-top: .5em;
 }
+
 .save-alert {
   margin: 1em;
 }
 
 .fa {
-    background: wheat;
+  background: wheat;
 }
 
 .warning-mode {
-    padding: 2em;
+  padding: 2em;
 }
 
 .remove-mentor {
-    position: relative;
-    left: 2em;
+  position: relative;
+  left: 2em;
 }
+
 .edit-mentor {
-    position: relative;
-    left: 2em;
+  position: relative;
+  left: 2em;
+}
+
+.startup-edit {
+  position: relative;
+  left: 2em;
+}
+.remove-startup {
+  position: relative;
+  left: 2em;
 }

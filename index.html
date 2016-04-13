@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -39,7 +40,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -86,7 +86,6 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
@@ -106,8 +105,7 @@
                                     <label for="form-name-field" class="sr-only">Name</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                        <input type="text" class="form-control" id="form-name-field" 
-                                        value="" placeholder="Name" autocomplete="name" required>
+                                        <input type="text" class="form-control" id="form-name-field" value="" placeholder="Name" autocomplete="name" required>
                                     </div>
                                 </div>
                                 <!-- email field -->
@@ -116,8 +114,7 @@
                                     <label for="form-email-field" class="sr-only">Email</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-                                        <input type="email" class="form-control" id="form-email-field" 
-                                        value="" placeholder="Email" autocomplete="email" required>
+                                        <input type="email" class="form-control" id="form-email-field" value="" placeholder="Email" autocomplete="email" required>
                                     </div>
                                 </div>
                                 <!-- phone field -->
@@ -126,13 +123,12 @@
                                     <label for="form-phone-field" class="sr-only">Phone</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
-                                        <input type="tel" class="form-control" id="form-phone-field" 
-                                        value="" placeholder="xxx-xxx-xxxx" autocomplete="tel">
+                                        <input type="tel" class="form-control" id="form-phone-field" value="" placeholder="xxx-xxx-xxxx" autocomplete="tel">
                                     </div>
                                 </div>
-                                 <div class="form-group">
-                                    <div id="nameError" class="sr-only" role="alert"></div>
-                                    <label for="form-name-field" class="sr-only">Country</label>
+                                <div class="form-group">
+                                    <div id="countryError" class="sr-only" role="alert"></div>
+                                    <label for="form-country-field" class="sr-only">Country</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-road"></span></div>
                                         <input type="text" class="form-control" id="form-country-field" value="" placeholder="Country" autocomplete="country">
@@ -140,14 +136,12 @@
                                 </div>
                                 <div class="form-group">
                                     <div id="nameError" class="sr-only" role="alert"></div>
-                                    <label for="form-name-field" class="sr-only">City</label>
+                                    <label for="form-city-field" class="sr-only">City</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
-                                        <input type="text" class="form-control" id="form-city-field" 
-                                        value="" placeholder="City" autocomplete="city">
+                                        <input type="text" class="form-control" id="form-city-field" value="" placeholder="City" autocomplete="city">
                                     </div>
                                 </div>
-
                                 <label for="form-domain-select">Domain</label>
                                 <div class="input-group">
                                     <select id="form-domain-select" class="selectpicker">
@@ -159,9 +153,7 @@
                                     </select>
                                 </div>
                                 <label for="form-expertise">Expertise</label>
-                                    <textarea class="form-control col-lg-6" id="form-expertise"
-                                    name="expertise" ></textarea>
-
+                                <textarea class="form-control col-lg-6" id="form-expertise" name="expertise"></textarea>
                                 <label for="form-linkedin-url">Your LinkedIn</label>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="linkedin-url">http://www.linkedin.com/in/</span>
@@ -177,41 +169,113 @@
                                     <span class="input-group-addon" id="form-pic-url">http://</span>
                                     <input type="text" class="form-control" id="pic-url">
                                 </div>
-
                                 <label for="form-comments">Comments</label>
-                                    <textarea class="form-control col-lg-6" id="form-comments"
-                                    name="comments" ></textarea>
-
+                                <textarea class="form-control col-lg-6" id="form-comments" name="comments"></textarea>
                                 <hr>
                                 <button id="form-cancel-mentor" class="btn btn-default">Cancel</button>
                                 <button id="form-save-mentor" type="submit" class="btn btn-success">Save</button>
                             </div>
-
                             <div class="col-lg-2 col-md-2 col-sm-2 alert alert-success save-alert">
-                              <strong>Saved!</strong>
+                                <strong>Saved!</strong>
                             </div>
                         </div>
                         <!-- row end -->
-                        
-                          
                         <h3>Mentors</h3>
                         <div id="mentors-list">todo: list of mentors</div>
-
                     </div>
-
                     <div role="tabpanel" class="tab-pane" id="startup-tab">
-                      <h3>TODO</h3>
-                      <img src="img/lion-hd.jpeg">
-                    </div>
+                        <h3>Startup</h3>
+                        <div class="form-group">
+                            <div id="st-nameError" class="sr-only" role="alert"></div>
+                            <label for="st-name-field" class="sr-only">Name</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                <input type="text" class="form-control" id="st-name-field" value="" placeholder="Name" autocomplete="name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="st-descError" class="sr-only" role="alert"></div>
+                            <label for="st-desc-field" class="sr-only">Description</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                <input type="text" class="form-control" id="st-desc-field" value="" placeholder="Name" autocomplete="st-desc" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="st-countryError" class="sr-only" role="alert"></div>
+                            <label for="st-country-field" class="sr-only">Country</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-road"></span></div>
+                                <input type="text" class="form-control" id="st-country-field" value="" placeholder="Country" autocomplete="country">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="st-cityError" class="sr-only" role="alert"></div>
+                            <label for="st-city-field" class="sr-only">City</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
+                                <input type="text" class="form-control" id="st-city-field" value="" placeholder="City" autocomplete="city">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="st-fundError" class="sr-only" role="alert"></div>
+                            <label for="st-fund-field" class="sr-only">Fund Raised</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                <input type="number" class="form-control" id="st-fund-field" value="" placeholder="Name">
+                            </div>
+                        </div>
+                        <label for="form-domain-select">Number Of Employees</label>
+                        <div class="input-group">
+                            <select id="form-domain-select" class="selectpicker">
+                                <option>1-10</option>
+                                <option>11-50</option>
+                                <option>51-100</option>
+                                <option>100-250</option>
+                                <option>250-1000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div id="st-dateError" class="sr-only" role="alert"></div>
+                            <label for="st-date-field" class="sr-only">Date Founded</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                <input type="date" class="form-control" id="st-date-field" value="" placeholder="">
+                            </div>
+                        </div>
 
+                        <label for="st-logo-url">Logo Url</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="st-logo-url-icon">http://</span>
+                            <input type="text" class="form-control" id="st-logo-url">
+                        </div>
+                        <label for="st-team-url">Team Photo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="st-team-url-icon">http://</span>
+                            <input type="text" class="form-control" id="st-team-url">
+                        </div>
+                        <label for="st-video-url">Application Video</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="st-video-url-icon">http://</span>
+                            <input type="text" class="form-control" id="st-video-url">
+                        </div>
+                        <label for="st-video-url">Application Video</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="st-video-url-icon">http://</span>
+                            <input type="text" class="form-control" id="st-video-url">
+                        </div>
+                             Patient File Url
+                        <br>
+                        <br>
+                        <img src="img/lion-hd.jpeg">
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="schedule-tab">
-                      <h3>TODO</h3>
-                      <img src="img/books.jpeg">
+                        <h3>TODO</h3>
+                        <img src="img/books.jpeg">
                     </div>
-
-                    <div role="tabpanel" class="tab-pane" id="attendees-tab"> 
-                      <h3>TODO</h3>
-                      <img src="img/city.jpeg">
+                    <div role="tabpanel" class="tab-pane" id="attendees-tab">
+                        <h3>TODO</h3>
+                        <img src="img/city.jpeg">
                     </div>
                 </div>
             </div>

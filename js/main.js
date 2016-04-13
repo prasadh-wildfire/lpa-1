@@ -24,6 +24,80 @@
   });
 
   //
+  // Save startups
+  //
+  $("#st-save-button").click(function() {
+    // Validation - TODO: take it out to a function
+    var name = $("#st-name-field").val();
+    var desc = $("#st-desc-field").val();
+    var country = $("#st-country-field").val();
+    // name validation
+    if (name.length < 2) {
+      $("#st-nameError").html("Please give a name - So you could remember this startup in the future!");
+      $("#st-nameError").removeClass("sr-only");
+      $("#st-nameError").addClass("alert");
+      $("#st-name-field").focus();
+      setTimeout(function() {
+        $("#st-nameError").removeClass("alert");
+        $("#st-nameError").addClass("sr-only");
+      }, 1500);
+      return;
+    }
+
+    console.log("saving startup to Firebase: " + name + " | desc: " + desc);
+    var curUnixTime = new Date().getTime();
+    var disTime = new Date().toJSON().slice(0, 21);
+
+    ref.child("startups").child(name).set({
+      name: name,
+      description: desc,
+      country: $("#st-country-field").val(),
+      city: $("#st-city-field").val(),
+      fund: $("#st-fund-select option:selected").text(),
+      numEmployees: $("#st-num-employees-select option:selected").text(),
+      dateFounded: $("#st-date-field").val(),
+      logo: $("#st-logo-url").val(),
+      team: $("#st-team-url").val(),
+      video: $("#st-video-url").val(),
+      historyUrl: $("#st-history-url").val(),
+      unixTime: curUnixTime,
+      date: disTime
+    }, function(error) {
+      if (error) {
+        alert("Startup data could not be saved :( Details: " + error);
+      } else {
+        console.log(name + " saved!");
+        $(".save-alert").show();
+        setTimeout(function() {
+          $(".save-alert").hide();
+        }, 1500);
+      }
+    })
+  });
+
+  //
+  // read the list of mentors and display it
+  //
+  function readStartups(authData) {
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/startups/");
+    readRef.orderByKey().on("value", function(snapshot) {
+      console.log("The mentors: " + JSON.stringify(snapshot.val()));
+      $("#startups-list").html("");
+      snapshot.forEach(function(childSnapshot) {
+        var key = childSnapshot.key();
+        var startupData = childSnapshot.val();
+        console.log("key: " + key + " data: " + startupData);
+        $("#startups-list").append(
+          '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
+          startupData.name + " ( " + startupData.logo + " )" + '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
+          '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + startupData.desc + '<br>' +
+          startupData.country + '<br>' + startupData.city + ' </div> </div>'
+        );
+      });
+    });
+  }
+
+  //
   // Save mentors
   //
   $("#form-save-mentor").click(function() {

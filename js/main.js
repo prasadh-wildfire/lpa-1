@@ -80,12 +80,12 @@
   function readStartups(authData) {
     var readRef = new Firebase("https://lpa-1.firebaseio.com/startups/");
     readRef.orderByKey().on("value", function(snapshot) {
-      console.log("The Startups: " + JSON.stringify(snapshot.val()));
+      //console.log("The Startups: " + JSON.stringify(snapshot.val()));
       $("#startups-list").html("");
       snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key();
         var startupData = childSnapshot.val();
-        console.log("key: " + key + " data: " + startupData);
+        //console.log("key: " + key + " data: " + startupData);
         $("#startups-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           startupData.name + " ( " + startupData.logo + " )" +
@@ -123,7 +123,6 @@
   //
   $('body').on('click', '.startup-edit', function(event) {
     var stName = this.dataset.key;
-    console.log("TODO: edit startup: " + stName);
     var ref = new Firebase("https://lpa-1.firebaseio.com/startups/" + stName);
     ref.on("value", function(startupSnap) {
       var st = startupSnap.val();
@@ -309,7 +308,6 @@
   //
   $('body').on('click', '.mentor-edit', function(event) {
     var key = this.dataset.key;
-    console.log("TODO: edit mentor with key: " + key);
     var ref = new Firebase("https://lpa-1.firebaseio.com/mentors/" + key);
     ref.on("value", function(mentorSnap) {
       var mentor = mentorSnap.val();

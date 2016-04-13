@@ -127,22 +127,28 @@
     });
   });
 
-  // enable removing startups
+  // Enable removing startups
   // TODO: ask r u sure?!
   $('body').on('click', '.remove-startup', function(event) {
     var key = this.dataset.key;
-    console.log("going to delete mentor with key: TODO");
-    var fredRef = new Firebase('https://lpa-1.firebaseio.com/startups/' + key);
-    var onComplete = function(error) {
-      if (error) {
-        console.log('Synchronization failed');
+    bootbox.confirm("Are you sure? For Real?", function(result) {
+      if (result == true) {
+        var fredRef = new Firebase('https://lpa-1.firebaseio.com/startups/' + key);
+        var onComplete = function(error) {
+          if (error) {
+            console.log('Synchronization failed');
+          } else {
+            console.log('Synchronization succeeded - mentor was removed');
+            $("#startups-list").html('<div id="loading-startup"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
+            readStartups(authUserData);
+          }
+        };
+        fredRef.remove(onComplete);
       } else {
-        console.log('Synchronization succeeded - mentor was removed');
-        $("#startups-list").html('<div id="loading-startup"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-        readStartups(authUserData);
+        console.log("let not remove " + key + " for now");
       }
-    };
-    fredRef.remove(onComplete);
+    });
+
   });
 
 
@@ -284,18 +290,21 @@
   // TODO: ask r u sure?!
   $('body').on('click', '.remove-mentor', function(event) {
     var key = this.dataset.key;
-    console.log("going to delete mentor with key: TODO");
-    var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + key);
-    var onComplete = function(error) {
-      if (error) {
-        console.log('Synchronization failed');
-      } else {
-        console.log('Synchronization succeeded - mentor was removed');
-        $("#mentors-list").html('<div id="loading-mentors"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-        readMentors(authUserData);
+    bootbox.confirm("Are you sure? For Real?", function(result) {
+      if (result == true) {
+        var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + key);
+        var onComplete = function(error) {
+          if (error) {
+            console.log('Synchronization failed');
+          } else {
+            console.log('Synchronization succeeded - mentor was removed');
+            $("#mentors-list").html('<div id="loading-mentors"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
+            readMentors(authUserData);
+          }
+        };
+        fredRef.remove(onComplete);
       }
-    };
-    fredRef.remove(onComplete);
+    });
   });
 
   //

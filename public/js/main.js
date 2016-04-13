@@ -81,7 +81,7 @@
   function readStartups(authData) {
     var readRef = new Firebase("https://lpa-1.firebaseio.com/startups/");
     readRef.orderByKey().on("value", function(snapshot) {
-      console.log("The mentors: " + JSON.stringify(snapshot.val()));
+      console.log("The Startups: " + JSON.stringify(snapshot.val()));
       $("#startups-list").html("");
       snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key();
@@ -210,7 +210,8 @@
         console.log("key: " + key + " data: " + mentorData);
         $("#mentors-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
-          mentorData.name + " ( " + mentorData.phone + " )" + '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
+          mentorData.name + " ( " + mentorData.phone + " )" +
+          '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
           '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + mentorData.email + '<br>' +
           mentorData.domain + '<br>' + mentorData.expertise + ' </div> </div>'
         );
@@ -226,7 +227,25 @@
 
   // enable to edit mentors from the list
   $('body').on('click', '.mentor-edit', function(event) {
-    console.log("TODO: edit mentor with key: " + unixTime);
+    var key = this.dataset.key;
+    console.log("TODO: edit mentor with key: " + key);
+    var ref = new Firebase("https://lpa-1.firebaseio.com/mentors/" + key);
+    // Retrieve new posts as they are added to our database
+    ref.on("value", function(mentorSnap) {
+      var mentor = mentorSnap.val();
+      console.log("Setting data for: " + JSON.stringify(mentor) );
+      $("#form-name-field").val(mentor.name);
+      $("#form-email-field").val(mentor.email);
+      $("#form-phone-field").val(mentor.phone);
+      $("#form-country-field").val(mentor.country);
+      $("#form-city-field").val(mentor.city);
+      $("#form-domain-select").val(mentor.domain);
+      $("#form-expertise").val(mentor.expertise);
+      $("#form-linkedin-url").val(mentor.linkedin);
+      $("#form-personal-url").val(mentor.site);
+      $("#form-pic-url").val(mentor.pic);
+      $("#form-comments").val(mentor.comments);
+    });
   });
 
   // enable removing mentors

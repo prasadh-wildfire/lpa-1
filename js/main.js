@@ -233,18 +233,20 @@
     // Retrieve new posts as they are added to our database
     ref.on("value", function(mentorSnap) {
       var mentor = mentorSnap.val();
-      console.log("Setting data for: " + JSON.stringify(mentor) );
-      $("#form-name-field").val(mentor.name);
-      $("#form-email-field").val(mentor.email);
-      $("#form-phone-field").val(mentor.phone);
-      $("#form-country-field").val(mentor.country);
-      $("#form-city-field").val(mentor.city);
-      $("#form-domain-select").val(mentor.domain);
-      $("#form-expertise").val(mentor.expertise);
-      $("#form-linkedin-url").val(mentor.linkedin);
-      $("#form-personal-url").val(mentor.site);
-      $("#form-pic-url").val(mentor.pic);
-      $("#form-comments").val(mentor.comments);
+      if (mentor != null) {
+        console.log("Setting data for: " + JSON.stringify(mentor));
+        $("#form-name-field").val(mentor.name);
+        $("#form-email-field").val(mentor.email);
+        $("#form-phone-field").val(mentor.phone);
+        $("#form-country-field").val(mentor.country);
+        $("#form-city-field").val(mentor.city);
+        $("#form-domain-select").val(mentor.domain);
+        $("#form-expertise").val(mentor.expertise);
+        $("#form-linkedin-url").val(mentor.linkedin);
+        $("#form-personal-url").val(mentor.site);
+        $("#form-pic-url").val(mentor.pic);
+        $("#form-comments").val(mentor.comments);
+      }
     });
   });
 

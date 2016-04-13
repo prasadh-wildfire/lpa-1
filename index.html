@@ -5,7 +5,6 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -91,8 +90,8 @@
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#mentors-tab" aria-controls="mentors-tab" role="tab" data-toggle="tab">Mentors</a></li>
           <li role="presentation"><a href="#startup-tab" aria-controls="startup-tab" role="tab" data-toggle="tab">Startups</a></li>
-          <li role="presentation"><a href="#schedule-tab" aria-controls="schedule-tab" role="tab" data-toggle="tab">Schedule</a></li>
           <li role="presentation"><a href="#attendees-tab" aria-controls="attendees-tab" role="tab" data-toggle="tab">Attendees</a></li>
+          <li role="presentation"><a href="#schedule-tab" aria-controls="schedule-tab" role="tab" data-toggle="tab">Schedule</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -172,13 +171,12 @@
                 </div>
                 <label for="form-comments">Comments</label>
                 <textarea class="form-control col-lg-6" id="form-comments" name="comments"></textarea>
-                
-                <div class="col-lg-2 col-md-2 col-sm-2 col-offset-4 centered alert alert-success save-alert">
-                  <strong>Saved!</strong>
-                </div>
-                <div class="mentor-buttons">
+                <div class="action-buttons">
                   <button id="form-cancel-mentor" class="btn btn-default">Clear</button>
                   <button id="form-save-mentor" type="submit" class="btn btn-success">Save</button>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-offset-4 centered alert alert-success save-alert">
+                  <strong>Saved!</strong>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4">
@@ -198,7 +196,7 @@
                   <div id="st-nameError" class="sr-only" role="alert"></div>
                   <label for="st-name-field" class="sr-only">Startup Name</label>
                   <div class="input-group">
-                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-leaf"></span></div>
                     <input type="text" class="form-control" id="st-name-field" value="" placeholder="Name" autocomplete="name" required>
                   </div>
                 </div>
@@ -274,10 +272,11 @@
                   <span class="input-group-addon" id="st-history-url-icon">http://</span>
                   <input type="text" class="form-control" id="st-history-url">
                 </div>
-                <br>
-                <button id="st-cancel-button" class="btn btn-default">Clear</button>
-                <button id="st-save-button" type="submit" class="btn btn-success">Save</button>
-                <div class="col-lg-2 col-md-2 col-sm-2 centered alert alert-success save-alert">
+                <div class="action-buttons">
+                  <button id="st-cancel-button" class="btn btn-default">Clear</button>
+                  <button id="st-save-button" type="submit" class="btn btn-success">Save</button>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-offset-4 centered alert alert-success save-alert">
                   <strong>Saved!</strong>
                 </div>
               </div>
@@ -289,19 +288,62 @@
             <h3>Startups</h3>
             <div id="startups-list"></div>
           </div>
-          <div role="tabpanel" class="tab-pane" id="schedule-tab">
-            <h3>TODO: think a bit more</h3>
-            <iframe src="https://docs.google.com/a/google.com/spreadsheets/d/1g0xnPln_0tEoXAXZ4op3JVTmfUBibodtB0JiJGeNUIM/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="600px" id="g-sheet-schedule" marginheight="0" frameborder="0" onLoad="autoResize('g-sheet-schedule');"></iframe>
-            <img src="img/books.jpeg">
-          </div>
+          <!-- Attendees -->
           <div role="tabpanel" class="tab-pane" id="attendees-tab">
             <h3>Attendees</h3>
             <div class="col-lg-6 col-md-6">
-              todo: attendees
+              <div class="form-group">
+                <div id="att-nameError" class="sr-only" role="alert"></div>
+                <label for="att-name-field" class="sr-only">Name</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                  <input type="text" class="form-control" id="att-name-field" value="" placeholder="Name" autocomplete="name" required>
+                </div>
+              </div>
+              <!-- email field -->
+              <div class="form-group">
+                <div id="att-emailError" class="sr-only" role="alert"></div>
+                <label for="att-email-field" class="sr-only">Email</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+                  <input type="email" class="form-control" id="att-email-field" value="" placeholder="Email" autocomplete="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div id="att-st-nameError" class="sr-only" role="alert"></div>
+                <label for="att-st-name-field" class="sr-only">Startup Name</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><span class="glyphicon glyphicon-leaf"></span></div>
+                  <input type="text" class="form-control" id="att-st-name-field" value="" placeholder="Name" autocomplete="name" required>
+                </div>
+              </div>
+              <label for="att-linkedin-url">Your LinkedIn</label>
+              <div class="input-group">
+                <span class="input-group-addon" id="att-linkedin-url">http://www.linkedin.com/in/</span>
+                <input type="text" class="form-control" id="att-linkedin-url">
+              </div>
+              <label for="att-pic-url">Picture Url</label>
+              <div class="input-group">
+                <span class="input-group-addon" id="att-pic-url">http://</span>
+                <input type="text" class="form-control" id="att-pic-url">
+              </div>
+              <div class="action-buttons">
+                <button id="att-cancel-button" class="btn btn-default">Clear</button>
+                <button id="att-save-button" type="submit" class="btn btn-success">Save</button>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2 col-offset-4 centered alert alert-success save-alert">
+                <strong>Saved!</strong>
+              </div>
             </div>
             <div class="col-lg-6 col-md-6">
               <img src="img/city.jpeg">
             </div>
+          </div>
+          <!-- Schedule -->
+          <div role="tabpanel" class="tab-pane" id="schedule-tab">
+            <h3>TODO: think a bit more</h3>
+            <iframe src="https://docs.google.com/a/google.com/spreadsheets/d/1g0xnPln_0tEoXAXZ4op3JVTmfUBibodtB0JiJGeNUIM/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="600px" id="g-sheet-schedule" marginheight="0" frameborder="0" onLoad="autoResize('g-sheet-schedule');"></iframe>
+            <img src="img/books.jpeg">
           </div>
         </div>
       </div>
@@ -361,6 +403,5 @@
   ga('send', 'pageview');
   </script>
 </body>
-<!-- v0.1 -->
-
+<!-- v0.3 -->
 </html>

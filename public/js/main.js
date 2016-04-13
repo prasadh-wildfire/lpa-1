@@ -211,7 +211,7 @@
         $("#mentors-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           mentorData.name + " ( " + mentorData.phone + " )" +
-          '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
+          '<button type="button" class="edit-mentor mentor-edit btn btn-info" aria-label="Edit" data-key="' + key + '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-mentor btn btn-danger" aria-label="Close" data-key="' + key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
           '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + mentorData.email + '<br>' +
           mentorData.domain + '<br>' + mentorData.expertise + ' </div> </div>'
         );
@@ -246,6 +246,8 @@
         $("#form-personal-url").val(mentor.site);
         $("#form-pic-url").val(mentor.pic);
         $("#form-comments").val(mentor.comments);
+        $("#form-name-field").focus();
+        $('body').scrollTop(120);
       }
     });
   });

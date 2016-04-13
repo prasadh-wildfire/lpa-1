@@ -88,7 +88,7 @@
         //console.log("key: " + key + " data: " + startupData);
         $("#startups-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
-          startupData.name + " ( " + startupData.logo + " )" +
+          startupData.name + " ( <img src='http://" + startupData.logo + "' class='logo-img' alt='startup logo'> )" +
           '<button type="button" class="edit-startup startup-edit btn btn-info" aria-label="Edit" data-key="' + key +
           '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-startup btn btn-danger" aria-label="Close" data-key="' +
           key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +

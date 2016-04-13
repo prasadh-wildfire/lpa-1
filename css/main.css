@@ -52,3 +52,8 @@ label {
   background: rgba(7, 131, 236, 0.15);
   padding-bottom: 1em;
 }
+
+.logo-img {
+  height: 40px;
+  border-radius: 50%;
+}

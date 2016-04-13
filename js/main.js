@@ -44,7 +44,6 @@
       }, 1500);
       return;
     }
-
     console.log("saving startup to Firebase: " + name + " | desc: " + desc);
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
@@ -99,6 +98,25 @@
       });
     });
   }
+
+  //
+  // clear the startup values
+  //
+  $("#st-cancel-button").click(function() {
+    $("#st-name-field").val("");
+    $("#st-desc-field").val("");
+    $("#st-country-field").val("");
+    $("#st-city-field").val("");
+    $("#st-st-fund-select").val("");
+    $("#st-num-employees-select").val("1-10");
+    $("#st-date-field").val("");
+    $("#st-logo-url").val("");
+    $("#st-team-url").val("");
+    $("#st-video-url").val("");
+    $("#st-history-url").val("");
+    $("#st-name-field").focus();
+    $('body').scrollTop(120);
+  });
 
   //
   // enable to edit startups from the list
@@ -268,7 +286,7 @@
   }
 
   //
-  //
+  // clear the values of the mentor
   //
   $("#form-cancel-mentor").click(function() {
     $("#form-name-field").val("");
@@ -286,7 +304,9 @@
     $('body').scrollTop(120);
   });
 
+  //
   // enable to edit mentors from the list
+  //
   $('body').on('click', '.mentor-edit', function(event) {
     var key = this.dataset.key;
     console.log("TODO: edit mentor with key: " + key);

@@ -47,3 +47,8 @@ label {
 #form-comments {
   margin-bottom: 2em;
 }
+
+.fields-block {
+  background: rgba(7, 131, 236, 0.15);
+  padding-bottom: 1em;
+}

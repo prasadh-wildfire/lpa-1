@@ -89,9 +89,9 @@
         console.log("key: " + key + " data: " + startupData);
         $("#startups-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
-          startupData.name + " ( " + startupData.logo + " )" + 
+          startupData.name + " ( " + startupData.logo + " )" +
           '<button type="button" class="remove-startup btn" aria-label="Close" data-key="' + key +
-           '"> <span aria-hidden="true">&times;</span></button>' +
+          '"> <span aria-hidden="true">&times;</span></button>' +
           '</h3> </div> <div class="panel-body startup-edit" data-key="' + key + '"> ' + startupData.desc + '<br>' +
           startupData.country + '<br>' + startupData.city + ' </div> </div>'
         );
@@ -285,6 +285,17 @@
     var sec = a.getSeconds();
     var time = date + '/' + month + '/' + year + ' - ' + hour + ':' + min + ':' + sec;
     return time;
+  }
+
+  function autoResize(id) {
+    var newheight;
+    var newwidth;
+    if (document.getElementById) {
+      newheight = document.getElementById(id).contentWindow.document.body.scrollHeight;
+      newwidth = document.getElementById(id).contentWindow.document.body.scrollWidth;
+    }
+    document.getElementById(id).height = (newheight) + "px";
+    document.getElementById(id).width = (newwidth) + "px";
   }
 
   // check for online / lie-fi / offline

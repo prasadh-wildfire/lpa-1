@@ -197,8 +197,8 @@
                             <div id="st-descError" class="sr-only" role="alert"></div>
                             <label for="st-desc-field" class="sr-only">Description</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input type="text" class="form-control" id="st-desc-field" value="" placeholder="Name" autocomplete="st-desc" required>
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-list"></span></div>
+                                <input type="text" class="form-control" id="st-desc-field" value="" placeholder="Description" autocomplete="st-desc" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -217,14 +217,17 @@
                                 <input type="text" class="form-control" id="st-city-field" value="" placeholder="City" autocomplete="city">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div id="st-fundError" class="sr-only" role="alert"></div>
-                            <label for="st-fund-field" class="sr-only">Fund Raised</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input type="number" class="form-control" id="st-fund-field" value="" placeholder="Name">
-                            </div>
+                        
+                        <label for="form-domain-select">Fund Raised</label>
+                        <div class="input-group">
+                            <select id="form-domain-select" class="selectpicker">
+                                <option>< $1M</option>
+                                <option>$1M - $5M</option>
+                                <option>$6M - $10M</option>
+                                <option>> $10M</option>
+                            </select>
                         </div>
+
                         <label for="form-domain-select">Number Of Employees</label>
                         <div class="input-group">
                             <select id="form-domain-select" class="selectpicker">
@@ -235,9 +238,10 @@
                                 <option>250-1000</option>
                             </select>
                         </div>
+
                         <div class="form-group">
                             <div id="st-dateError" class="sr-only" role="alert"></div>
-                            <label for="st-date-field" class="sr-only">Date Founded</label>
+                            <label for="st-date-field">Date Founded</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
                                 <input type="date" class="form-control" id="st-date-field" value="" placeholder="">
@@ -259,12 +263,11 @@
                             <span class="input-group-addon" id="st-video-url-icon">http://</span>
                             <input type="text" class="form-control" id="st-video-url">
                         </div>
-                        <label for="st-video-url">Application Video</label>
+                        <label for="st-history-url">History File</label>
                         <div class="input-group">
-                            <span class="input-group-addon" id="st-video-url-icon">http://</span>
-                            <input type="text" class="form-control" id="st-video-url">
+                            <span class="input-group-addon" id="st-history-url-icon">http://</span>
+                            <input type="text" class="form-control" id="st-history-url">
                         </div>
-                             Patient File Url
                         <br>
                         <br>
                         <img src="img/lion-hd.jpeg">

@@ -16,6 +16,7 @@
       $("#login-form").hide();
       $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
       readMentors(authData);
+      readStartups(authData);
     } else {
       console.log("User is logged out");
       $("#login-form").show();
@@ -47,7 +48,6 @@
     console.log("saving startup to Firebase: " + name + " | desc: " + desc);
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
-
     ref.child("startups").child(name).set({
       name: name,
       description: desc,
@@ -89,13 +89,34 @@
         console.log("key: " + key + " data: " + startupData);
         $("#startups-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
-          startupData.name + " ( " + startupData.logo + " )" + '<button type="button" class="remove-mentor btn" aria-label="Close" data-key="' + key + '"> <span aria-hidden="true">&times;</span></button>' +
-          '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + startupData.desc + '<br>' +
+          startupData.name + " ( " + startupData.logo + " )" + 
+          '<button type="button" class="remove-startup btn" aria-label="Close" data-key="' + key +
+           '"> <span aria-hidden="true">&times;</span></button>' +
+          '</h3> </div> <div class="panel-body startup-edit" data-key="' + key + '"> ' + startupData.desc + '<br>' +
           startupData.country + '<br>' + startupData.city + ' </div> </div>'
         );
       });
     });
   }
+
+  // enable removing startups
+  // TODO: ask r u sure?!
+  $('body').on('click', '.remove-startup', function(event) {
+    var key = this.dataset.key;
+    console.log("going to delete mentor with key: TODO");
+    var fredRef = new Firebase('https://lpa-1.firebaseio.com/startups/' + key);
+    var onComplete = function(error) {
+      if (error) {
+        console.log('Synchronization failed');
+      } else {
+        console.log('Synchronization succeeded - mentor was removed');
+        $("#startups-list").html('<div id="loading-startup"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
+        readStartups(authUserData);
+      }
+    };
+    fredRef.remove(onComplete);
+  });
+
 
   //
   // Save mentors
@@ -142,8 +163,6 @@
       }, 1500);
       return;
     }
-
-
     console.log("saving to Firebase: " + name + " , " + email);
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
@@ -211,6 +230,7 @@
   });
 
   // enable removing mentors
+  // TODO: ask r u sure?!
   $('body').on('click', '.remove-mentor', function(event) {
     var key = this.dataset.key;
     console.log("going to delete mentor with key: TODO");

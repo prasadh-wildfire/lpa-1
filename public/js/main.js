@@ -92,7 +92,7 @@
           startupData.name + " ( " + startupData.logo + " )" +
           '<button type="button" class="edit-startup startup-edit btn btn-info" aria-label="Edit" data-key="' + key +
           '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-startup btn btn-danger" aria-label="Close" data-key="' +
-           key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
+          key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
           '</h3> </div> <div class="panel-body startup-edit" data-key="' + key + '"> <b>' + startupData.description + '</b><br>' +
           startupData.country + '<br>' + startupData.city + ' </div> </div>'
         );
@@ -268,9 +268,22 @@
   }
 
   //
-  $("#logout-but").click(function() {
-    ref.unauth();
-    return false;
+  //
+  //
+  $("#form-cancel-mentor").click(function() {
+    $("#form-name-field").val("");
+    $("#form-email-field").val("");
+    $("#form-phone-field").val("");
+    $("#form-country-field").val("");
+    $("#form-city-field").val("");
+    $("#form-domain-select").val("UX");
+    $("#form-expertise").val("");
+    $("#form-linkedin-url").val("");
+    $("#form-personal-url").val("");
+    $("#form-pic-url").val("");
+    $("#form-comments").val("");
+    $("#form-name-field").focus();
+    $('body').scrollTop(120);
   });
 
   // enable to edit mentors from the list
@@ -299,8 +312,9 @@
     });
   });
 
+  //
   // enable removing mentors
-  // TODO: ask r u sure?!
+  //
   $('body').on('click', '.remove-mentor', function(event) {
     var key = this.dataset.key;
     bootbox.confirm("Are you sure? For Real?", function(result) {
@@ -339,6 +353,14 @@
         console.log("Authenticated successfully with payload:", authData);
       }
     });
+    return false;
+  });
+
+  //
+  //
+  //
+  $("#logout-but").click(function() {
+    ref.unauth();
     return false;
   });
 

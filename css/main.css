@@ -38,7 +38,12 @@ label {
   position: relative;
   left: 2em;
 }
+
 .remove-startup {
   position: relative;
   left: 2em;
+}
+
+#form-comments {
+  margin-bottom: 2em;
 }

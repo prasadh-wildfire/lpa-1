@@ -1,6 +1,6 @@
 echo "-- Copy files to public dir --"
 cp index.html public/index.html
-cp js/main.js public/js/main.js
+cp -R js/ public/js/
 cp sw.js public/sw.js
 cp cache-polyfill.js public/cache-polyfill.js
 cp css/main.css public/css/main.css

@@ -5,8 +5,9 @@
 
     Ido Green - CEO - @greenido
 
+# TECHNOLOGY
 
-# TECHNOLOGY COLOPHON
-
-    HTML5, CSS3, Bootstrap 3
-    jQuery, Modernizr
+* HTML5, CSS3, 
+* jQuery, Modernizr
+* Bootstrap 3
+  * https://silviomoreto.github.io/bootstrap-select/examples/

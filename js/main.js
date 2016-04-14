@@ -1,7 +1,8 @@
 (function() {
   $(".save-alert").hide();
   $("#spin").hide();
-  var unixTime = Math.floor(Date.now() / 1000);
+
+  var startupNameList = [];
 
   //
   // start the connection with firebase DB
@@ -17,6 +18,7 @@
       $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
       readMentors(authData);
       readStartups(authData);
+
     } else {
       console.log("User is logged out");
       $("#login-form").show();
@@ -24,6 +26,22 @@
     }
   });
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Startups
+  //////////////////////////////////////////////////////////////////////////////
+
+  //
+  // get list of startups
+  //
+  function getStartupSelect() {
+    var html = '<select id="att-startup-list-select" class="selectpicker">';
+    var len = startupNameList.length;
+    for (var i = 0; i < len; i++) {
+      html += '<option>' + startupNameList[i] + '</option>'
+    }
+    html += '</select>';
+    return html;
+  }
   //
   // Save startups
   //
@@ -75,15 +93,17 @@
   });
 
   //
-  // read the list of mentors and display it
+  // read the list of startups and display it
   //
   function readStartups(authData) {
     var readRef = new Firebase("https://lpa-1.firebaseio.com/startups/");
     readRef.orderByKey().on("value", function(snapshot) {
       //console.log("The Startups: " + JSON.stringify(snapshot.val()));
       $("#startups-list").html("");
+      startupNameList = [];
       snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key();
+        startupNameList.push(key);
         var startupData = childSnapshot.val();
         //console.log("key: " + key + " data: " + startupData);
         $("#startups-list").append(
@@ -96,6 +116,10 @@
           startupData.country + '<br>' + startupData.city + ' </div> </div>'
         );
       });
+      var selHtml = getStartupSelect();
+      $("#att-startup-sel-div").html("");
+      $("#att-startup-sel-div").append(selHtml);
+      $('#att-startup-list-select').selectpicker();
     });
   }
 
@@ -145,8 +169,9 @@
     });
   });
 
+  //
   // Enable removing startups
-  // TODO: ask r u sure?!
+  //
   $('body').on('click', '.remove-startup', function(event) {
     var key = this.dataset.key;
     bootbox.confirm("Are you sure? For Real?", function(result) {
@@ -169,7 +194,9 @@
 
   });
 
-
+  //////////////////////////////////////////////////////////////////////////////
+  // Mentors
+  //////////////////////////////////////////////////////////////////////////////
   //
   // Save mentors
   //
@@ -383,7 +410,7 @@
   });
 
   //////////////////////////////////////////////////////////////////////////////////
-  // utils
+  // Utils
   //////////////////////////////////////////////////////////////////////////////////
 
   //

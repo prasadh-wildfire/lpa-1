@@ -144,7 +144,7 @@
                 </div>
                 <label for="form-domain-select">Domain</label>
                 <div class="input-group">
-                  <select id="form-domain-select" class="selectpicker">
+                  <select id="form-domain-select" class="selectpicker" data-style="btn-info">
                     <option>UX</option>
                     <option>Tech</option>
                     <option>Product</option>
@@ -292,7 +292,7 @@
           <!-- Attendees -->
           <div role="tabpanel" class="tab-pane" id="attendees-tab">
             <div class="col-lg-6 col-md-6 fields-block">
-              <h3>Attendees</h3>
+              <h4>Attendee</h4>
               <div class="form-group">
                 <div id="att-nameError" class="sr-only" role="alert"></div>
                 <label for="att-name-field" class="sr-only">Name</label>
@@ -310,13 +310,13 @@
                   <input type="email" class="form-control" id="att-email-field" value="" placeholder="Email" autocomplete="email" required>
                 </div>
               </div>
-              <div class="form-group">
-                <div id="att-st-nameError" class="sr-only" role="alert"></div>
-                <label for="att-st-name-field" class="sr-only">Startup Name</label>
+              <label for="att-st-name-field">Startup Name</label>
+              <div id="att-startup-sel-div">
+                <!-- <div id="att-st-nameError" class="sr-only" role="alert"></div>              
                 <div class="input-group">
                   <div class="input-group-addon"><span class="glyphicon glyphicon-leaf"></span></div>
                   <input type="text" class="form-control" id="att-st-name-field" value="" placeholder="Startup Name" autocomplete="name" required>
-                </div>
+                </div> -->
               </div>
               <label for="att-linkedin-url">Your LinkedIn</label>
               <div class="input-group">
@@ -339,6 +339,9 @@
             <div class="col-lg-6 col-md-6">
               <img src="img/city.jpeg">
             </div>
+            <h3>Attendees</h3>
+            <div id="att-list"></div>
+
           </div>
           <!-- Schedule -->
           <div role="tabpanel" class="tab-pane" id="schedule-tab">

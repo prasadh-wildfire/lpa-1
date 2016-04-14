@@ -18,7 +18,7 @@
       $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
       readMentors(authData);
       readStartups(authData);
-
+      readAttendees(authData);
     } else {
       console.log("User is logged out");
       $("#login-form").show();
@@ -378,6 +378,160 @@
       }
     });
   });
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Attendees
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  // Save Attendee
+  //
+  $("#att-save-button").click(function() {
+    var name = $("#att-name-field").val();
+    var email = $("#att-email-field").val();
+    // name validation
+    if (name.length < 2) {
+      $("#att-nameError").html("Please give a name - C'mon dude");
+      $("#att-nameError").removeClass("sr-only");
+      $("#att-nameError").addClass("alert");
+      $("#form-name-field").focus();
+      setTimeout(function() {
+        $("#att-nameError").removeClass("alert");
+        $("#att-nameError").addClass("sr-only");
+      }, 1500);
+      return;
+    }
+
+    // email validation
+    if ($("#att-email-field").val().length < 2) {
+      $("#att-emailError").html("Please give an email - Don't worry we will never spam you.");
+      $("#att-emailError").removeClass("sr-only");
+      $("#att-emailError").addClass("alert");
+      $("#form-email-field").focus();
+      setTimeout(function() {
+        $("#att-emailError").removeClass("alert");
+        $("#att-emailError").addClass("sr-only");
+      }, 1500);
+      return;
+    }
+    var emailRegEx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+    if (!emailRegEx.test(email)) {
+      $("#att-emailError").html("Please give a valid email (e.g. momo@okko.com");
+      $("#att-emailError").removeClass("sr-only");
+      $("#att-emailError").addClass("alert");
+      $("#form-email-field").focus();
+      setTimeout(function() {
+        $("#att-emailError").removeClass("alert");
+        $("#att-emailError").addClass("sr-only");
+      }, 1500);
+      return;
+    }
+
+    console.log("saving attendee: " + name + " , " + email);
+    var curUnixTime = new Date().getTime();
+    var disTime = new Date().toJSON().slice(0, 21);
+    emailKey = email.replace('.', '-');
+    ref.child("attendees").child(emailKey).set({
+      name: name,
+      email: email,
+      startup: $("#att-startup-list-select option:selected").text(),
+      linkedin: $("#att-linkedin-url").val(),
+      pic: $("#att-pic-url").val(),
+      unixTime: curUnixTime,
+      date: disTime
+    }, function(error) {
+      if (error) {
+        alert("Attendee could not be saved :( Details: " + error);
+      } else {
+        console.log(name + " saved!");
+        $(".save-alert").show();
+        setTimeout(function() {
+          $(".save-alert").hide();
+        }, 1500);
+      }
+    })
+  });
+
+  //
+  // read the list of Attendees and display it
+  //
+  function readAttendees(authData) {
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/attendees/");
+    readRef.orderByKey().on("value", function(snapshot) {
+      //console.log("The attendees: " + JSON.stringify(snapshot.val()));
+      $("#att-list").html("");
+      snapshot.forEach(function(childSnapshot) {
+        var key = childSnapshot.key();
+        var attData = childSnapshot.val();
+        console.log("key: " + key + " data: " + attData);
+        $("#att-list").append(
+          '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
+          attData.name + " ( " + attData.email + " )" +
+          '<button type="button" class="edit-att att-edit btn btn-info" aria-label="Edit" data-key="' + key +
+          '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-att btn btn-danger" aria-label="Close" data-key="' + key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
+          '</h3> </div> <div class="panel-body att-edit" data-key="' + key + '"> ' + attData.startup + '<br>' +
+          attData.pic + '<br>' + attData.linkedin + ' </div> </div>'
+        );
+      });
+    });
+  }
+
+  //
+  // clear the values of the att
+  //
+  $("#att-cancel-button").click(function() {
+    $("#att-name-field").val("");
+    $("#att-email-field").val("");
+    $("#att-startup-list-select").val("");
+    $("#att-linkedin-url").val("");
+    $("#att-pic-url").val("");
+    $("#att-name-field").focus();
+    $('body').scrollTop(120);
+  });
+
+  //
+  // enable to edit  from the list
+  //
+  $('body').on('click', '.att-edit', function(event) {
+    var key = this.dataset.key;
+    var ref = new Firebase("https://lpa-1.firebaseio.com/attendees/" + key);
+    ref.on("value", function(attSnap) {
+      var att = attSnap.val();
+      if (att != null) {
+        console.log("Setting data for: " + JSON.stringify(att));
+        $("#att-name-field").val(att.name);
+        $("#att-email-field").val(att.email);
+        $("#att-startup-list-select").val(att.startup);
+        $("#att-linkedin-url").val(att.linkedin);
+        $("#att-pic-url").val(att.pic);
+
+        $("#att-name-field").focus();
+        $('body').scrollTop(120);
+      }
+    });
+  });
+
+  //
+  // enable removing attendees
+  //
+  $('body').on('click', '.remove-att', function(event) {
+    var key = this.dataset.key;
+    bootbox.confirm("Are you sure? Delete " + key + " For Real?", function(result) {
+      if (result == true) {
+        var fredRef = new Firebase('https://lpa-1.firebaseio.com/attendees/' + key);
+        var onComplete = function(error) {
+          if (error) {
+            console.log('Synchronization failed');
+          } else {
+            console.log('Synchronization succeeded - mentor was removed');
+            $("#att-list").html('<div id="loading-attendees"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
+            readAttendees(authUserData);
+          }
+        };
+        fredRef.remove(onComplete);
+      }
+    });
+  });
+
 
   //
   // Sign in

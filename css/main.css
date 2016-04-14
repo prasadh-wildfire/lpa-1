@@ -20,6 +20,10 @@ label {
   background: wheat;
 }
 
+#form-comments {
+  margin-bottom: 1em;
+}
+
 .warning-mode {
   padding: 2em;
 }
@@ -53,6 +57,7 @@ label {
   height: 40px;
   border-radius: 50%;
 }
+
 .action-buttons {
   padding-top: 1em;
 }

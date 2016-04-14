@@ -34,7 +34,7 @@
   // get list of startups
   //
   function getStartupSelect() {
-    var html = '<select id="att-startup-list-select" class="selectpicker">';
+    var html = '<select id="att-startup-list-select" class="selectpicker" data-style="btn-info">';
     var len = startupNameList.length;
     for (var i = 0; i < len; i++) {
       html += '<option>' + startupNameList[i] + '</option>'

@@ -51,6 +51,7 @@ label {
 .fields-block {
   background: rgba(7, 131, 236, 0.15);
   padding-bottom: 1em;
+  padding-top: 0.5em;
 }
 
 .logo-img {
@@ -60,4 +61,8 @@ label {
 
 .action-buttons {
   padding-top: 1em;
+}
+
+.main-balagan {
+  padding-top: .5em;
 }

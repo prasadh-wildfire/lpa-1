@@ -38,6 +38,16 @@ label {
   left: 2em;
 }
 
+.remove-att {
+  position: relative;
+  left: 2em;
+}
+
+.edit-att {
+  position: relative;
+  left: 2em;
+}
+
 .startup-edit {
   position: relative;
   left: 2em;

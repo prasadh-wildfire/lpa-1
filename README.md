@@ -19,4 +19,9 @@ Currently it's a "Work in progress".
 ### Sing-in
 * [ ] Enable an option to use Facebook, Google, Twitter.
 
+### Help 
+* [ ] Add mailto explanation for Chrome: chrome://settings/handlers
+* [ ] Add an introJS to show the funtion/power user option in the app.
+
+
 --

@@ -300,7 +300,7 @@
         var key = childSnapshot.key();
         var mentorData = childSnapshot.val();
         var mPicUrl = addhttp(mentorData.pic);
-        console.log("key: " + key + " data: " + mentorData);
+        //console.log("key: " + key + " data: " + mentorData);
         $("#mentors-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           mentorData.name + " ( " + mentorData.phone + " )" +
@@ -466,7 +466,7 @@
         var key = childSnapshot.key();
         var attData = childSnapshot.val();
         var picUrl = addhttp(attData.pic);
-        console.log("key: " + key + " data: " + attData);
+        //console.log("key: " + key + " data: " + attData);
         $("#att-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           attData.name + " ( <a href='mailto:" + attData.email + "' target='_blank'>" + attData.email + "</a> )" +

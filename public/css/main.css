@@ -84,3 +84,16 @@ label {
   background-color: rgba(7, 131, 236, 0.15);
   font-weight: bold;
 }
+
+.schedule-day-x {
+  margin: 0.4em;
+}
+
+.mentor-selector {
+  width: 6em;
+}
+
+.sc-comments {
+  margin-left: 2em;
+  margin-bottom: 0.5em;
+}

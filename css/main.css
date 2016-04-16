@@ -84,3 +84,6 @@ label {
   background-color: rgba(7, 131, 236, 0.15);
   font-weight: bold;
 }
+.schedule-day-x {
+ margin: 0.4em;
+}

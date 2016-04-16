@@ -76,3 +76,11 @@ label {
 .main-balagan {
   padding-top: .5em;
 }
+
+.vcenter-s-header {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+  background-color: yellow;
+  font-weight: bold;
+}

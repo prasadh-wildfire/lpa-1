@@ -298,6 +298,7 @@
       snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key();
         var mentorData = childSnapshot.val();
+        var mPicUrl = addhttp(mentorData.pic);
         console.log("key: " + key + " data: " + mentorData);
         $("#mentors-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
@@ -305,6 +306,7 @@
           '<button type="button" class="edit-mentor mentor-edit btn btn-info" aria-label="Edit" data-key="' + key +
           '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-mentor btn btn-danger" aria-label="Close" data-key="' + key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
           '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + mentorData.email + '<br>' +
+          '<img src="' + mPicUrl + '" class="att-pic-card" alt="mentor picture" /> ' + 
           mentorData.domain + '<br>' + mentorData.expertise + ' </div> </div>'
         );
       });

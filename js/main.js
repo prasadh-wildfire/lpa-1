@@ -462,6 +462,7 @@
       snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key();
         var attData = childSnapshot.val();
+        var picUrl = addhttp(attData.pic);
         console.log("key: " + key + " data: " + attData);
         $("#att-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
@@ -469,7 +470,7 @@
           '<button type="button" class="edit-att att-edit btn btn-info" aria-label="Edit" data-key="' + key +
           '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-att btn btn-danger" aria-label="Close" data-key="' + key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
           '</h3> </div> <div class="panel-body att-edit" data-key="' + key + '"> ' + attData.startup + '<br>' +
-          '<img src="' + attData.pic + '" class="att-pic-card" alt="attendee picture"/> <br>' + attData.linkedin + ' </div> </div>'
+          '<img src="' + picUrl + '" class="att-pic-card" alt="attendee picture"/> <br>' + attData.linkedin + ' </div> </div>'
         );
       });
     });
@@ -581,6 +582,19 @@
     return time;
   }
 
+  //
+  // check if our url contain http and if not - add it.
+  //
+  function addhttp(url) {
+   if (!/^(f|ht)tps?:\/\//i.test(url)) {
+      url = "http://" + url;
+   }
+   return url;
+}
+
+  //
+  // auto resize iframe for the full space it can take.
+  //
   function autoResize(id) {
     var newheight;
     var newwidth;

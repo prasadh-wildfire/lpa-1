@@ -81,6 +81,6 @@ label {
   display: inline-block;
   vertical-align: middle;
   float: none;
-  background-color: yellow;
+  background-color: rgba(7, 131, 236, 0.15);
   font-weight: bold;
 }

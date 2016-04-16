@@ -83,6 +83,7 @@ label {
   float: none;
   /* background-color: rgba(7, 131, 236, 0.15); */
   font-weight: bold;
+  font-size: 80%;
 }
 
 .schedule-day-x {
@@ -97,6 +98,12 @@ label {
   margin-left: 2em;
   margin-bottom: 0.5em;
 }
+
 #schedule-tab {
-    background-color: aqua;
+  background-color: aqua;
+}
+
+.schedule-back-img {
+  padding: 1em;
+  border-radius: 10%;
 }

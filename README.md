@@ -3,10 +3,7 @@
 An LPA web app
 Currently it's a "Work in progress".
 
-* [Basic version](https://lpa-1.firebaseapp.com/) - 
-
-
-![LPA PWA](https://lpa-1.firebaseapp.com/img/lion-hd.jpeg)
+* [Basic version](https://lpa-1.firebaseapp.com/)
 
 ## ToDos
 
@@ -23,5 +20,6 @@ Currently it's a "Work in progress".
 * [ ] Add mailto explanation for Chrome: chrome://settings/handlers
 * [ ] Add an introJS to show the funtion/power user option in the app.
 
+-----
 
---
+![LPA PWA](https://lpa-1.firebaseapp.com/img/lion-hd.jpeg)

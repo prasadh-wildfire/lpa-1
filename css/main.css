@@ -81,7 +81,7 @@ label {
   display: inline-block;
   vertical-align: middle;
   float: none;
-  background-color: rgba(7, 131, 236, 0.15);
+  /* background-color: rgba(7, 131, 236, 0.15); */
   font-weight: bold;
 }
 
@@ -96,4 +96,7 @@ label {
 .sc-comments {
   margin-left: 2em;
   margin-bottom: 0.5em;
+}
+#schedule-tab {
+    background-color: aqua;
 }

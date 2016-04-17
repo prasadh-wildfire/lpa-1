@@ -1,250 +1,429 @@
 <!doctype html>
-<html lang="en">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="author" content="Green Ido | @greenido | plus.google.com/+greenido">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LPA - Mentor</title>
-  <meta name="description" content="LPA web app for mentors">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" sizes="192x192" href="img/pencil-192.png">
-  <!-- Add to homescreen for Safari on iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-  <link rel="apple-touch-icon-precomposed" href="img/pencil-192.png">
-  <!-- Tile icon for Win8 (144x144 + tile color) -->
-  <meta name="msapplication-TileImage" content="img/pencil-144.png">
-  <meta name="msapplication-TileColor" content="#3372DF">
-  <link rel="shortcut icon" href="favicon.ico">
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.deep_purple-pink.min.css">
-  <link rel="stylesheet" href="css/mdl-styles.css">
+  <meta name="description" content="A note for our LPA">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel=manifest href=manifest.json>
+  <meta name=mobile-web-app-capable content=yes>
+  <meta name=application-name content="LPA-1">
+  <link rel=icon sizes=192x192 href=img/pencil-192.png>
+  <meta name=apple-mobile-web-app-capable content=yes>
+  <meta name=apple-mobile-web-app-status-bar-style content=black>
+  <meta name=apple-mobile-web-app-title content="LPA">
+  <link rel=apple-touch-icon href=img/pencil-192.png>
+  <meta name=msapplication-TileImage content=img/pencil-144.png>
+  <meta name=msapplication-TileColor content=#2196F3>
+  <meta name=theme-color content=#2196F3>
+  <meta property=og:title content="LPA">
+  <meta property=og:type content=website>
+  <meta property=og:image content=https://lpa-1.firebaseapp.com/img/pencil-192.png>
+  <meta property=og:url content="https://lpa-1.firebaseapp.com/">
+  <meta property=og:description content="Our LPA web app! Smile!">
+  <meta name=twitter:card content=summary>
+  <meta name=twitter:url content="https://lpa-1.firebaseapp.com">
+  <meta name=twitter:title content="LPA">
+  <meta name=twitter:description content="Our LPA web app! Smile!">
+  <meta name=twitter:image content=https://lpa-1.firebaseapp.com/img/pencil-192.png>
+  <meta name=twitter:creator content=@greenido>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 
-<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-      </div>
-      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-        <h3>LPA - Mentor (todo: pic+name)</h3>
-      </div>
-      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-      </div>
-      <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-        <a href="#overview" class="mdl-layout__tab is-active">Overview</a>
-        <a href="#notes" class="mdl-layout__tab">Notes</a>
-        <a href="#chat" class="mdl-layout__tab">Chat</a>
-        <a href="#help" class="mdl-layout__tab">Help</a>
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
-          <i class="material-icons" role="presentation">add</i>
-          <span class="visuallyhidden">Add</span>
+<body>
+  <!--[if lt IE 8]>
+          <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
         </button>
+        <a class="navbar-brand" href="#">LPA - Mentor</a>
       </div>
-    </header>
-    <main class="mdl-layout__content">
-      <div class="mdl-layout__tab-panel is-active" id="overview">
-        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-          <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
-            <i class="material-icons">play_circle_filled</i>
-          </header>
-          <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-            <div class="mdl-card__supporting-text">
-              <h4>Features</h4> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Nostrud in laboris labore nisi amet do dolor eu fugiat consectetur elit cillum esse.
-            </div>
-            <div class="mdl-card__actions">
-              <a href="#" class="mdl-button">Read our features</a>
-            </div>
-          </div>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
-            <li class="mdl-menu__item">Lorem</li>
-            <li class="mdl-menu__item" disabled>Ipsum</li>
-            <li class="mdl-menu__item">Dolor</li>
-          </ul>
-        </section>
-        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
-              <h4 class="mdl-cell mdl-cell--12-col">Details</h4>
-              <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                <div class="section__circle-container__circle mdl-color--primary"></div>
-              </div>
-              <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                <h5>Lorem ipsum dolor sit amet</h5> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-              </div>
-              <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                <div class="section__circle-container__circle mdl-color--primary"></div>
-              </div>
-              <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                <h5>Lorem ipsum dolor sit amet</h5> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-              </div>
-              <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                <div class="section__circle-container__circle mdl-color--primary"></div>
-              </div>
-              <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                <h5>Lorem ipsum dolor sit amet</h5> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-              </div>
-            </div>
-            <div class="mdl-card__actions">
-              <a href="#" class="mdl-button">Read our features</a>
-            </div>
-          </div>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn2">
-            <li class="mdl-menu__item">Lorem</li>
-            <li class="mdl-menu__item" disabled>Ipsum</li>
-            <li class="mdl-menu__item">Dolor</li>
-          </ul>
-        </section>
-        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__supporting-text">
-              <h4>Technology</h4> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Nostrud in laboris labore nisi amet do dolor eu fugiat consectetur elit cillum esse. Pariatur occaecat nisi laboris tempor laboris eiusmod qui id Lorem esse commodo in. Exercitation aute dolore deserunt culpa consequat elit labore incididunt elit anim.
-            </div>
-            <div class="mdl-card__actions">
-              <a href="#" class="mdl-button">Read our features</a>
-            </div>
-          </div>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn3">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn3">
-            <li class="mdl-menu__item">Lorem</li>
-            <li class="mdl-menu__item" disabled>Ipsum</li>
-            <li class="mdl-menu__item">Dolor</li>
-          </ul>
-        </section>
-        <section class="section--footer mdl-color--white mdl-grid">
-          <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-            <div class="section__circle-container__circle mdl-color--accent section__circle--big"></div>
-          </div>
-          <div class="section__text mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-            <h5>Lorem ipsum dolor sit amet</h5> Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-          </div>
-          <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-            <div class="section__circle-container__circle mdl-color--accent section__circle--big"></div>
-          </div>
-          <div class="section__text mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-            <h5>Lorem ipsum dolor sit amet</h5> Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-          </div>
-        </section>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <!-- <li><a href="/todo-add-our-slack-channel.html">Slack</a></li> -->
+          <li><a href="https://github.com/greenido/lpa-1" target="_blank">Code</a></li>
+          <li><a href="https://github.com/greenido/lpa-1/blob/master/README.md" target="_blank">Help</a></li>
+        </ul>
+        <form id="login-form" class="navbar-form navbar-right" role="form">
+          <button type="submit" id="google-sign-in-but" class="btn btn-success">Sign in</button>
+          <span id='spin'><i class="fa fa-spinner fa-spin"></i></span>
+        </form>
+        <div id="logout-div"></div>
+        <form class='navbar-form navbar-right' role='form'>
+          <button id="online-status" type="button" class="btn btn-info">Online</button>
+        </form>
       </div>
-      <div class="mdl-layout__tab-panel" id="notes">
-        <section class="section--center mdl-grid mdl-grid--no-spacing">
-          <div class="mdl-cell mdl-cell--12-col">
-            <h4>Features</h4> Minim duis incididunt est cillum est ex occaecat consectetur. Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-            <ul class="toc">
-              <h4>Contents</h4>
-              <a href="#lorem1">Lorem ipsum</a>
-              <a href="#lorem2">Lorem ipsum</a>
-              <a href="#lorem3">Lorem ipsum</a>
-              <a href="#lorem4">Lorem ipsum</a>
-              <a href="#lorem5">Lorem ipsum</a>
-            </ul>
-            <h5 id="lorem1">Lorem ipsum dolor sit amet</h5> Excepteur et pariatur officia veniam anim culpa cupidatat consequat ad velit culpa est non.
-            <ul>
-              <li>Nisi qui nisi duis commodo duis reprehenderit consequat velit aliquip.</li>
-              <li>Dolor consectetur incididunt in ipsum laborum non et irure pariatur excepteur anim occaecat officia sint.</li>
-              <li>Lorem labore proident officia excepteur do.</li>
-            </ul>
-            <p>
-              Sit qui est voluptate proident minim cillum in aliquip cupidatat labore pariatur id tempor id. Proident occaecat occaecat sint mollit tempor duis dolor cillum anim. Dolore sunt ea mollit fugiat in aliqua consequat nostrud aliqua ut irure in dolore. Proident aliqua culpa sint sint exercitation. Non proident occaecat reprehenderit veniam et proident dolor id culpa ea tempor do dolor. Nulla adipisicing qui fugiat id dolor. Nostrud magna voluptate irure veniam veniam labore ipsum deserunt adipisicing laboris amet eu irure. Sunt dolore nisi velit sit id. Nostrud voluptate labore proident cupidatat enim amet Lorem officia magna excepteur occaecat eu qui. Exercitation culpa deserunt non et tempor et non.
-            </p>
-            <p>
-              Do dolor eiusmod eu mollit dolore nostrud deserunt cillum irure esse sint irure fugiat exercitation. Magna sit voluptate id in tempor elit veniam enim cupidatat ea labore elit. Aliqua pariatur eu nulla labore magna dolore mollit occaecat sint commodo culpa. Eu non minim duis pariatur Lorem quis exercitation. Sunt qui ex incididunt sit anim incididunt sit elit ad officia id.
-            </p>
-            <p id="lorem2">
-              Tempor voluptate ex consequat fugiat aliqua. Do sit et reprehenderit culpa deserunt culpa. Excepteur quis minim mollit irure nulla excepteur enim quis in laborum. Aliqua elit voluptate ad deserunt nulla reprehenderit adipisicing sint. Est in eiusmod exercitation esse commodo. Ea reprehenderit exercitation veniam adipisicing minim nostrud. Veniam dolore ex ea occaecat non enim minim id ut aliqua adipisicing ad. Occaecat excepteur aliqua tempor cupidatat aute dolore deserunt ipsum qui incididunt aliqua occaecat sit quis. Culpa sint aliqua aliqua reprehenderit veniam irure fugiat ea ad.
-            </p>
-            <p>
-              Eu minim fugiat laborum irure veniam Lorem aliqua enim. Aliqua veniam incididunt consequat irure consequat tempor do nisi deserunt. Elit dolore ad quis consectetur sint laborum anim magna do nostrud amet. Ea nulla sit consequat quis qui irure dolor. Sint deserunt excepteur consectetur magna irure. Dolor tempor exercitation dolore pariatur incididunt ut laboris fugiat ipsum sunt veniam aute sunt labore. Non dolore sit nostrud eu ad excepteur cillum eu ex Lorem duis.
-            </p>
-            <p>
-              Id occaecat velit non ipsum occaecat aliqua quis ut. Eiusmod est magna non esse est ex incididunt aute ullamco. Cillum excepteur sint ipsum qui quis velit incididunt amet. Qui deserunt anim enim laborum cillum reprehenderit duis mollit amet ad officia enim. Minim sint et quis aliqua aliqua do minim officia dolor deserunt ipsum laboris. Nulla nisi voluptate consectetur est voluptate et amet. Occaecat ut quis adipisicing ad enim. Magna est magna sit duis proident veniam reprehenderit fugiat reprehenderit enim velit ex. Ullamco laboris culpa irure aliquip ad Lorem consequat veniam ad ipsum eu. Ipsum culpa dolore sunt officia laborum quis.
-            </p>
-            <h5 id="lorem3">Lorem ipsum dolor sit amet</h5>
-            <p id="lorem4">
-              Eiusmod nulla aliquip ipsum reprehenderit nostrud non excepteur mollit amet esse est est dolor. Dolore quis pariatur sit consectetur veniam esse ullamco duis Lorem qui enim ut veniam. Officia deserunt minim duis laborum dolor in velit pariatur commodo ullamco eu. Aute adipisicing ad duis labore laboris do mollit dolor cillum sunt aliqua ullamco. Esse tempor quis cillum consequat reprehenderit. Adipisicing proident anim eu sint elit aliqua anim dolore cupidatat fugiat aliquip qui.
-            </p>
-            <p id="lorem5">
-              Nisi eiusmod esse cupidatat excepteur exercitation ipsum reprehenderit nostrud deserunt aliqua ullamco. Anim est irure commodo eiusmod pariatur officia. Est dolor ipsum excepteur magna aliqua ad veniam irure qui occaecat eiusmod aute fugiat commodo. Quis mollit incididunt amet sit minim velit eu fugiat voluptate excepteur. Sit minim id pariatur ex cupidatat cupidatat nostrud nostrud ipsum.
-            </p>
-            <p>
-              Enim ea officia excepteur ad veniam id reprehenderit eiusmod esse mollit consequat. Esse non aute ullamco Lorem aliqua qui dolore irure eiusmod aute aliqua proident labore aliqua. Ipsum voluptate voluptate exercitation laborum deserunt nulla elit aliquip et minim ex veniam. Duis cupidatat aute sunt officia mollit dolor ad elit ad aute labore nostrud duis pariatur. In est sint voluptate consectetur velit ea non labore. Ut duis ea aliqua consequat nulla laboris fugiat aute id culpa proident. Minim eiusmod laboris enim Lorem nisi excepteur mollit voluptate enim labore reprehenderit officia mollit.
-            </p>
-            <p>
-              Cupidatat labore nisi ut sunt voluptate quis sunt qui ad Lorem esse nisi. Ex esse velit ullamco incididunt occaecat dolore veniam tempor minim adipisicing amet. Consequat in exercitation est elit anim consequat cillum sint labore cillum. Aliquip mollit laboris ad labore anim.
-            </p>
+      <!--/.navbar-collapse -->
+    </div>
+  </nav>
+  <!-- jumbotron -->
+  <div class="main-balagan">
+    <div class="container">
+      <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#schedule-tab" aria-controls="schedule-tab" role="tab" data-toggle="tab">Schedule</a></li>
+          <li role="presentation"><a href="#startup-tab" aria-controls="startup-tab" role="tab" data-toggle="tab">Startups</a></li>
+          <li role="presentation"><a href="#attendees-tab" aria-controls="attendees-tab" role="tab" data-toggle="tab">Attendees</a></li>
+          <li role="presentation"><a href="#mentors-tab" aria-controls="mentors-tab" role="tab" data-toggle="tab">You</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- Schedule -->
+          <div role="tabpanel" class="tab-pane active" id="schedule-tab">
+            <div class="row">
+              <div class="col-md-12 col-lg-12 text-center vcenter-s-header">Day 1
+                <input type="date" class="schedule-day-x  text-center" id="schedule-day-1" value="" placeholder="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-lg-1 text-center vcenter-s-header">Startup Name</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">9:00 - 10:00</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">10:00 - 11:00</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">11:00 - 12:00</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">12:00 - 13:00</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">13:00 - 14:00</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">14:00 - 15:00</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">16:00 - 17:00</div>
+              <div class="col-md-1 col-lg-1 vcenter-s-header">17:00 - 18:00</div>
+              <div class="col-md-2 col-lg-2 vcenter-s-header">Comments & bla bla</div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-lg-1 text-center ">start 1</div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-2 col-lg-2 text-center ">
+                <textarea class="form-control sc-comments" id="sc-comments-1" name="sc-comments-1" placeholder="e.g. anything you wish"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-lg-1 text-center ">start 2</div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-lg-1 text-center ">
+                <select id="mentor-1-1-select" class=" mentor-selector">
+                  <option value="momo">momo</option>
+                  <option value="koko">koko</option>
+                  <option value="ido">ido</option>
+                </select>
+              </div>
+              <div class="col-md-2 col-lg-2 text-center ">
+                <textarea class="form-control sc-comments" id="sc-comments-1" name="sc-comments-1" placeholder="e.g. anything you wish"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-lg-1 text-center ">start 3</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
+              <div class="col-md-2 col-lg-2 text-center ">ko kdf lsdkfj sdlkjf ldskjf sdlk fjsdlkfjsdlkfj klsdbla bla</div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="col-md-offset-2 col-lg-offset-2 col-lg-6 col-md-6 hidden-md hidden-sm hidden-xs">
+              <img src="img/books.jpeg" class="schedule-back-img">
+            </div>
           </div>
-        </section>
-      </div>
-      <footer class="mdl-mega-footer">
-        <div class="mdl-mega-footer--middle-section">
-          <div class="mdl-mega-footer--drop-down-section">
-            <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-            <h1 class="mdl-mega-footer--heading">Features</h1>
-            <ul class="mdl-mega-footer--link-list">
-              <li><a href="#">About</a></li>
-              <li><a href="#">Terms</a></li>
-              <li><a href="#">Partners</a></li>
-              <li><a href="#">Updates</a></li>
-            </ul>
+          <!-- STARTUPS -->
+          <div role="tabpanel" class="tab-pane" id="startup-tab">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 fields-block">
+                <!-- list of out startups -->
+                <h3>Startups</h3>
+                <div id="startups-list"></div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <img src="img/lion.jpeg">
+              </div>
+            </div>
           </div>
-          <div class="mdl-mega-footer--drop-down-section">
-            <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-            <h1 class="mdl-mega-footer--heading">Details</h1>
-            <ul class="mdl-mega-footer--link-list">
-              <li><a href="#">Spec</a></li>
-              <li><a href="#">Tools</a></li>
-              <li><a href="#">Resources</a></li>
-            </ul>
+          <!-- Attendees -->
+          <div role="tabpanel" class="tab-pane" id="attendees-tab">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 fields-block">
+                <h3>Attendees</h3>
+                <div id="att-list"></div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <img src="img/city.jpeg">
+              </div>
+            </div>
           </div>
-          <div class="mdl-mega-footer--drop-down-section">
-            <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-            <h1 class="mdl-mega-footer--heading">Technology</h1>
-            <ul class="mdl-mega-footer--link-list">
-              <li><a href="#">How it works</a></li>
-              <li><a href="#">Patterns</a></li>
-              <li><a href="#">Usage</a></li>
-              <li><a href="#">Products</a></li>
-              <li><a href="#">Contracts</a></li>
-            </ul>
-          </div>
-          <div class="mdl-mega-footer--drop-down-section">
-            <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-            <h1 class="mdl-mega-footer--heading">FAQ</h1>
-            <ul class="mdl-mega-footer--link-list">
-              <li><a href="#">Questions</a></li>
-              <li><a href="#">Answers</a></li>
-              <li><a href="#">Contact us</a></li>
-            </ul>
+          <div role="tabpanel" class="tab-pane" id="mentors-tab">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 fields-block">
+                <h4>Mentor</h4>
+                <div class="form-group">
+                  <div id="nameError" class="sr-only" role="alert"></div>
+                  <label for="form-name-field" class="sr-only">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                    <input type="text" class="form-control" id="form-name-field" value="" placeholder="Name" autocomplete="name" required>
+                  </div>
+                </div>
+                <!-- email field -->
+                <div class="form-group">
+                  <div id="emailError" class="sr-only" role="alert"></div>
+                  <label for="form-email-field" class="sr-only">Email</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+                    <input type="email" class="form-control" id="form-email-field" value="" placeholder="Email" autocomplete="email" required>
+                  </div>
+                </div>
+                <!-- phone field -->
+                <div class="form-group">
+                  <div id="phoneError" class="sr-only" role="alert"></div>
+                  <label for="form-phone-field" class="sr-only">Phone</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
+                    <input type="tel" class="form-control" id="form-phone-field" value="" placeholder="xxx-xxx-xxxx" autocomplete="tel">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div id="countryError" class="sr-only" role="alert"></div>
+                  <label for="form-country-field" class="sr-only">Country</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-road"></span></div>
+                    <input type="text" class="form-control" id="form-country-field" value="" placeholder="Country" autocomplete="country">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div id="nameError" class="sr-only" role="alert"></div>
+                  <label for="form-city-field" class="sr-only">City</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
+                    <input type="text" class="form-control" id="form-city-field" value="" placeholder="City" autocomplete="city">
+                  </div>
+                </div>
+                <label for="form-domain-select">Domain</label>
+                <div class="input-group">
+                  <select id="form-domain-select" class="selectpicker" data-style="btn-info">
+                    <option>UX</option>
+                    <option>Tech</option>
+                    <option>Product</option>
+                    <option>Marketing</option>
+                    <option>Business</option>
+                  </select>
+                </div>
+                <label for="form-expertise">Expertise</label>
+                <textarea class="form-control col-lg-6" id="form-expertise" name="expertise"></textarea>
+                <br>
+                <label for="form-linkedin-url">Your LinkedIn</label>
+                <div class="input-group">
+                  <span class="input-group-addon" id="form-linkedin-url-pre">http://www.linkedin.com/in/</span>
+                  <input type="text" class="form-control" id="form-linkedin-url">
+                </div>
+                <label for="form-personal-url">Personal Site</label>
+                <div class="input-group">
+                  <span class="input-group-addon" id="form-personal-url-pre">http://</span>
+                  <input type="text" class="form-control" id="form-personal-url">
+                </div>
+                <label for="form-pic-url">Picture Url</label>
+                <div class="input-group">
+                  <span class="input-group-addon" id="form-pic-url-pre">http://</span>
+                  <input type="text" class="form-control" id="form-pic-url">
+                </div>
+                <label for="form-comments">Comments</label>
+                <textarea class="form-control col-lg-6" id="form-comments" name="comments"></textarea>
+                <div class="action-buttons">
+                  <button id="form-cancel-mentor" class="btn btn-default">Clear</button>
+                  <button id="form-save-mentor" type="submit" class="btn btn-success">Save</button>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-offset-4 centered alert alert-success save-alert">
+                  <strong>Saved!</strong>
+                </div>
+              </div>
+              
+            </div>
+            <!-- row end hidden-md hidden-sm hidden-xs -->
           </div>
         </div>
-        <div class="mdl-mega-footer--bottom-section">
-          <div class="mdl-logo">
-            More Information
-          </div>
-          <ul class="mdl-mega-footer--link-list">
-            <li><a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a></li>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Privacy and Terms</a></li>
-          </ul>
-        </div>
-      </footer>
-    </main>
+      </div>
+    </div>
   </div>
-  <a href="https://github.com/google/material-design-lite/blob/master/templates/text-only/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
-  <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+  <!-- Small modal for errors/warnings -->
+  <div id='err-modal' class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Oppss... A little problam</h4>
+        </div>
+        <div class="modal-body">
+          <h3>Check again and try to click 'Allow', cool?</h3>
+          <p>If you can't login please check with <a href="https://twitter.com/greenido">@greenido</a> </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- footer -->
+  <div class="container">
+    <hr>
+    <footer>
+      <div class="col-md-4">
+        <p><a href="https://twitter.com/greenido" target="_blank">@greenido</a> 2016 &copy; </p>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>
+  window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')
+  </script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/bootbox.min.js"></script>
+  <script src="js/bootstrap-markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+  <script src="js/main-mentor.js"></script>
+  <script>
+  (function(b, o, i, l, e, r) {
+    b.GoogleAnalyticsObject = l;
+    b[l] || (b[l] =
+      function() {
+        (b[l].q = b[l].q || []).push(arguments)
+      });
+    b[l].l = +new Date;
+    e = o.createElement(i);
+    r = o.getElementsByTagName(i)[0];
+    e.src = '//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e, r)
+  }(window, document, 'script', 'ga'));
+  ga('create', 'UA-27750723-1', 'auto');
+  ga('send', 'pageview');
+  </script>
 </body>
+<!-- v0.3 -->
 
 </html>

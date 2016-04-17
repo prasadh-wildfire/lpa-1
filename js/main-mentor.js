@@ -1,3 +1,8 @@
+//
+// JS for the mentor web app
+// Author: Ido Green 
+// Date: 4/2016
+//
 (function() {
   $(".save-alert").hide();
   $("#spin").hide();
@@ -12,31 +17,33 @@
   ref.onAuth(function(authData) {
     if (authData) {
       authUserData = authData;
-      localStorage.setItem("lpa1-authData", JSON.stringify(authData));
+      localStorage.setItem("lpa1-g-authData", JSON.stringify(authData));
       console.log("User " + authData.uid + " is logged in with " + authData.provider);
-      $("#login-form").hide();
+      $("#login-form").html("<img src='" + authData.google.profileImageURL + "' class='g-mentor-logo' alt='mentor logo' />");
       $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
-      readMentors(authData);
+      //readMentors(authData);
       readStartups(authData);
       readAttendees(authData);
     } else {
       console.log("User is logged out");
-      $("#login-form").show();
-      $("#logout-div").html("");
+      logoutUI();
     }
   });
 
   //
+  //
+  //
+  function logoutUI() {
+    $("#logout-div").html("");
+    $("#login-form").html('<button type="submit" id="google-sign-in-but" class="btn btn-success">Sign in</button> <span id="spin"><i class="fa fa-spinner fa-spin"></i></span>');
+    $("#spin").hide();
+  }
+  //
   // Sign in user/password
   //
-  $("#sign-in-but").click(function() {
+  $("#google-sign-in-but").click(function() {
     $("#spin").show();
-    var u_email = $("#email").val();
-    var u_passwd = $("#passwd").val();
-    ref.authWithPassword({
-      email: u_email,
-      password: u_passwd
-    }, function(error, authData) {
+    ref.authWithOAuthPopup("google", function(error, authData) {
       $("#spin").hide();
       if (error) {
         console.log("Login Failed!", error);
@@ -54,9 +61,9 @@
   //
   $("#logout-but").click(function() {
     ref.unauth();
+    logoutUI();
     return false;
   });
-
   //////////////////////////////////////////////////////////////////////////////
   // Startups
   //////////////////////////////////////////////////////////////////////////////
@@ -141,9 +148,6 @@
         $("#startups-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           startupData.name + " ( <img src='" + startupLogoUrl + "' class='logo-img' alt='startup logo'> )" +
-          '<button type="button" class="edit-startup startup-edit btn btn-info" aria-label="Edit" data-key="' + key +
-          '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-startup btn btn-danger" aria-label="Close" data-key="' +
-          key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
           '</h3> </div> <div class="panel-body startup-edit" data-key="' + key + '"> <b>' + startupData.description + '</b><br>' +
           startupData.country + '<br>' + startupData.city + ' </div> </div>'
         );
@@ -501,8 +505,6 @@
         $("#att-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           attData.name + " ( <a href='mailto:" + attData.email + "' target='_blank'>" + attData.email + "</a> )" +
-          '<button type="button" class="edit-att att-edit btn btn-info" aria-label="Edit" data-key="' + key +
-          '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-att btn btn-danger" aria-label="Close" data-key="' + key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
           '</h3> </div> <div class="panel-body att-edit" data-key="' + key + '"> ' + attData.startup + '<br>' +
           '<img src="' + picUrl + '" class="att-pic-card" alt="attendee picture"/> <br>' + attData.linkedin + ' </div> </div>'
         );

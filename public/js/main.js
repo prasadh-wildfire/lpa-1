@@ -4,7 +4,7 @@
 
   var startupNameList = [];
 
-  //
+  // AUTH fun
   // start the connection with firebase DB
   //
   var ref = new Firebase("https://lpa-1.firebaseio.com");
@@ -24,6 +24,37 @@
       $("#login-form").show();
       $("#logout-div").html("");
     }
+  });
+
+  //
+  // Sign in user/password
+  //
+  $("#sign-in-but").click(function() {
+    $("#spin").show();
+    var u_email = $("#email").val();
+    var u_passwd = $("#passwd").val();
+    ref.authWithPassword({
+      email: u_email,
+      password: u_passwd
+    }, function(error, authData) {
+      $("#spin").hide();
+      if (error) {
+        console.log("Login Failed!", error);
+        $("#err-modal").modal('show');
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+      }
+    });
+    return false;
+  });
+
+
+  //
+  //
+  //
+  $("#logout-but").click(function() {
+    ref.unauth();
+    return false;
   });
 
   //////////////////////////////////////////////////////////////////////////////
@@ -140,7 +171,7 @@
     $("#st-video-url").val("");
     $("#st-history-url").val("");
     $("#st-name-field").focus();
-    $('body').scrollTop(120);
+    $('body').scrollTop(60);
   });
 
   //
@@ -165,7 +196,7 @@
         $("#st-video-url").val(st.video);
         $("#st-history-url").val(st.historyUrl);
         $("#st-name-field").focus();
-        $('body').scrollTop(120);
+        $('body').scrollTop(60);
       }
     });
   });
@@ -330,7 +361,7 @@
     $("#form-pic-url").val("");
     $("#form-comments").val("");
     $("#form-name-field").focus();
-    $('body').scrollTop(120);
+    $('body').scrollTop(60);
   });
 
   //
@@ -355,7 +386,7 @@
         $("#form-pic-url").val(mentor.pic);
         $("#form-comments").val(mentor.comments);
         $("#form-name-field").focus();
-        $('body').scrollTop(120);
+        $('body').scrollTop(60);
       }
     });
   });
@@ -489,7 +520,7 @@
     $("#att-linkedin-url").val("");
     $("#att-pic-url").val("");
     $("#att-name-field").focus();
-    $('body').scrollTop(120);
+    $('body').scrollTop(60);
   });
 
   //
@@ -509,7 +540,7 @@
         $("#att-pic-url").val(att.pic);
 
         $("#att-name-field").focus();
-        $('body').scrollTop(120);
+        $('body').scrollTop(60);
       }
     });
   });
@@ -536,41 +567,12 @@
     });
   });
 
-
-  //
-  // Sign in
-  //
-  $("#sign-in-but").click(function() {
-    $("#spin").show();
-    var u_email = $("#email").val();
-    var u_passwd = $("#passwd").val();
-    ref.authWithPassword({
-      email: u_email,
-      password: u_passwd
-    }, function(error, authData) {
-      $("#spin").hide();
-      if (error) {
-        console.log("Login Failed!", error);
-        $("#err-modal").modal('show');
-      } else {
-        console.log("Authenticated successfully with payload:", authData);
-      }
-    });
-    return false;
-  });
-
-  //
-  //
-  //
-  $("#logout-but").click(function() {
-    ref.unauth();
-    return false;
-  });
-
   //////////////////////////////////////////////////////////////////////////////////
   // Utils
   //////////////////////////////////////////////////////////////////////////////////
 
+  //
+  //
   //
   function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);

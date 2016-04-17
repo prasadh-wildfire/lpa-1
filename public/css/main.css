@@ -107,6 +107,15 @@ label {
   padding: 1em;
   border-radius: 10%;
 }
+
 .att-pic-card {
   height: 60px;
+}
+
+
+/********* TODO: Mentor page */
+
+.g-mentor-logo {
+  height: 36px;
+  border-radius: 20px;
 }

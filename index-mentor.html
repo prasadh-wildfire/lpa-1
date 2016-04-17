@@ -84,7 +84,7 @@
       <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#schedule-tab" aria-controls="schedule-tab" role="tab" data-toggle="tab">Schedule</a></li>
+          <li role="presentation" class="active"><a href="#m-schedule-tab" aria-controls="schedule-tab" role="tab" data-toggle="tab">Schedule</a></li>
           <li role="presentation"><a href="#startup-tab" aria-controls="startup-tab" role="tab" data-toggle="tab">Startups</a></li>
           <li role="presentation"><a href="#attendees-tab" aria-controls="attendees-tab" role="tab" data-toggle="tab">Attendees</a></li>
           <li role="presentation"><a href="#mentors-tab" aria-controls="mentors-tab" role="tab" data-toggle="tab">You</a></li>
@@ -92,159 +92,59 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <!-- Schedule -->
-          <div role="tabpanel" class="tab-pane active" id="schedule-tab">
+          <div role="tabpanel" class="tab-pane active" id="m-schedule-tab">
             <div class="row">
-              <div class="col-md-12 col-lg-12 text-center vcenter-s-header">Day 1
-                <input type="date" class="schedule-day-x  text-center" id="schedule-day-1" value="" placeholder="">
+              <div class="col-md-12 col-lg-12 text-center">
+                <h3>Day 1 - dd/mm/yyyy</h3>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-2 col-lg-1 text-center vcenter-s-header">Startup Name</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">9:00 - 10:00</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">10:00 - 11:00</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">11:00 - 12:00</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">12:00 - 13:00</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">13:00 - 14:00</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">14:00 - 15:00</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">16:00 - 17:00</div>
-              <div class="col-md-1 col-lg-1 vcenter-s-header">17:00 - 18:00</div>
-              <div class="col-md-2 col-lg-2 vcenter-s-header">Comments & bla bla</div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-lg-1 text-center ">start 1</div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
+              <div class="col-md-12 col-lg-12 text-center">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Startup Name | 9:00 - 10:00</h3>
+                  </div>
+                  <div class="panel-body">
+                    Panel content - bla bla
+                    <p class="collapse" id="meet-details-1">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Startup Name | 10:00 - 11:00</h3>
+                  </div>
+                  <div class="panel-body">
+                    Panel content - bla bla
+                    <p class="collapse" id="meet-details-2">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-2">Details &raquo;</a></p>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Startup Name | 11:00 - 12:00</h3>
+                  </div>
+                  <div class="panel-body">
+                    Panel content - bla bla
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Startup Name | 12:00 - 13:00</h3>
+                  </div>
+                  <div class="panel-body">
+                    Panel content - bla bla
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Startup Name | 13:00 - 14:00</h3>
+                  </div>
+                  <div class="panel-body">
+                    Panel content - bla bla
+                  </div>
+                </div>
               </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-2 col-lg-2 text-center ">
-                <textarea class="form-control sc-comments" id="sc-comments-1" name="sc-comments-1" placeholder="e.g. anything you wish"></textarea>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-lg-1 text-center ">start 2</div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-1 col-lg-1 text-center ">
-                <select id="mentor-1-1-select" class=" mentor-selector">
-                  <option value="momo">momo</option>
-                  <option value="koko">koko</option>
-                  <option value="ido">ido</option>
-                </select>
-              </div>
-              <div class="col-md-2 col-lg-2 text-center ">
-                <textarea class="form-control sc-comments" id="sc-comments-1" name="sc-comments-1" placeholder="e.g. anything you wish"></textarea>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-lg-1 text-center ">start 3</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-1 col-lg-1 text-center ">mentor</div>
-              <div class="col-md-2 col-lg-2 text-center ">ko kdf lsdkfj sdlkjf ldskjf sdlk fjsdlkfjsdlkfj klsdbla bla</div>
             </div>
             <br>
             <br>
@@ -362,7 +262,6 @@
                   <strong>Saved!</strong>
                 </div>
               </div>
-              
             </div>
             <!-- row end hidden-md hidden-sm hidden-xs -->
           </div>

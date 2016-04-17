@@ -403,7 +403,7 @@
         $("#form-phone-field").val(mentor.phone);
         $("#form-country-field").val(mentor.country);
         $("#form-city-field").val(mentor.city);
-        $("#form-domain-select").val(mentor.domain);
+        $("#form-domain-select").selectpicker('val', mentor.domain);
         $("#form-expertise").val(mentor.expertise);
         $("#form-linkedin-url").val(mentor.linkedin);
         $("#form-personal-url").val(mentor.site);

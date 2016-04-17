@@ -34,11 +34,11 @@ Currently it's a "Work in progress".
 * Email
 * Domain (ux, tech, product, marketing)
 * Expertise - free text
-* LinkedIn url
-* Personal website. 
+* LinkedIn Url
+* Personal website Url 
 * Country
 * City
-* Picture url
+* Picture Url
 
 ### Startup
 * Key: Name
@@ -49,7 +49,7 @@ Currently it's a "Work in progress".
 * Fund raised
 * Number of employees 
 * Date founded. 
-* Logo url
+* Logo Url
 * Team photo Url
 * Application Video Url
 * Marketing Video Url
@@ -59,8 +59,8 @@ Currently it's a "Work in progress".
 * Key: Email
 * Name
 * Startup he is working at
-* Pic url
-* Linkedin url
+* Pic Url
+* Linkedin Url
 
 ### Session
 * Key: unixTime + startup name + mentor

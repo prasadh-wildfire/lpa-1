@@ -5,6 +5,7 @@
 //
 (function() {
   $(".save-alert").hide();
+  $("#alert-warning-sign-in").hide();
   $("#spin").hide();
 
   var startupNameList = [];
@@ -21,7 +22,15 @@
       console.log("User " + authData.uid + " is logged in with " + authData.provider);
       $("#login-form").html("<img src='" + authData.google.profileImageURL + "' class='g-mentor-logo' alt='mentor logo' />");
       $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
-      //readMentors(authData);
+
+      var key = localStorage.getItem("lpa1-g-phone");
+      if (key != null) {
+        fetchMentor(key);
+      } else {
+        // init our mentor with what we have from google-login
+        $("#form-name-field").val(authData.google.displayName);
+        $("#form-pic-url").val(authData.google.profileImageURL);
+      }
       readStartups(authData);
       readAttendees(authData);
     } else {
@@ -54,7 +63,6 @@
     });
     return false;
   });
-
 
   //
   //
@@ -237,6 +245,18 @@
   // Save mentors
   //
   $("#form-save-mentor").click(function() {
+    var authData = ref.getAuth();
+    if (authData) {
+      console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    } else {
+      console.log("User is logged out");
+      $("#alert-warning-sign-in").show();
+      setTimeout(function() {
+        $("#alert-warning-sign-in").hide();
+      }, 2000);
+      return;
+    }
+
     // validation - TODO: take it out to a function
     var name = $("#form-name-field").val();
     var emailKey = $("#form-email-field").val();
@@ -290,12 +310,13 @@
       return;
     }
 
-    console.log("saving to Firebase: " + name + " , " + email);
+    console.log("saving to Firebase: " + name + " , " + emailKey);
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
 
-    //var authData = JSON.parse(localStorage.getItem("lpa1-authData") );
-
+    // save our mentor's key in local storage
+    localStorage.setItem("lpa1-g-phone", tel);
+    // save it in firebase
     ref.child("mentors").child(tel).set({
       name: name,
       email: emailKey,
@@ -369,10 +390,9 @@
   });
 
   //
-  // enable to edit mentors from the list
+  // fetch mentor data base on its key (=phone number)
   //
-  $('body').on('click', '.mentor-edit', function(event) {
-    var key = this.dataset.key;
+  function fetchMentor(key) {
     var ref = new Firebase("https://lpa-1.firebaseio.com/mentors/" + key);
     ref.on("value", function(mentorSnap) {
       var mentor = mentorSnap.val();
@@ -393,7 +413,7 @@
         $('body').scrollTop(60);
       }
     });
-  });
+  }
 
   //
   // enable removing mentors

@@ -300,14 +300,14 @@
         var key = childSnapshot.key();
         var mentorData = childSnapshot.val();
         var mPicUrl = addhttp(mentorData.pic);
-        console.log("key: " + key + " data: " + mentorData);
+        //console.log("key: " + key + " data: " + mentorData);
         $("#mentors-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           mentorData.name + " ( " + mentorData.phone + " )" +
           '<button type="button" class="edit-mentor mentor-edit btn btn-info" aria-label="Edit" data-key="' + key +
           '"><span class="glyphicon glyphicon-pencil"></span></button> <button type="button" class="remove-mentor btn btn-danger" aria-label="Close" data-key="' + key + '"> <span class="glyphicon glyphicon-remove"></span></button>' +
           '</h3> </div> <div class="panel-body mentor-edit" data-key="' + key + '"> ' + mentorData.email + '<br>' +
-          '<img src="' + mPicUrl + '" class="att-pic-card" alt="mentor picture" /> ' + 
+          '<img src="' + mPicUrl + '" class="att-pic-card" alt="mentor picture" /> ' +
           mentorData.domain + '<br>' + mentorData.expertise + ' </div> </div>'
         );
       });
@@ -466,7 +466,7 @@
         var key = childSnapshot.key();
         var attData = childSnapshot.val();
         var picUrl = addhttp(attData.pic);
-        console.log("key: " + key + " data: " + attData);
+        //console.log("key: " + key + " data: " + attData);
         $("#att-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           attData.name + " ( <a href='mailto:" + attData.email + "' target='_blank'>" + attData.email + "</a> )" +
@@ -589,11 +589,11 @@
   // check if our url contain http and if not - add it.
   //
   function addhttp(url) {
-   if (!/^(f|ht)tps?:\/\//i.test(url)) {
+    if (!/^(f|ht)tps?:\/\//i.test(url)) {
       url = "http://" + url;
-   }
-   return url;
-}
+    }
+    return url;
+  }
 
   //
   // auto resize iframe for the full space it can take.

@@ -5,6 +5,7 @@
 //
 (function() {
   $(".save-alert").hide();
+  $("#alert-warning-sign-in").hide();
   $("#spin").hide();
 
   var startupNameList = [];
@@ -54,7 +55,6 @@
     });
     return false;
   });
-
 
   //
   //
@@ -237,6 +237,18 @@
   // Save mentors
   //
   $("#form-save-mentor").click(function() {
+    var authData = ref.getAuth();
+    if (authData) {
+      console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    } else {
+      console.log("User is logged out");
+      $("#alert-warning-sign-in").show();
+      setTimeout(function() {
+        $("#alert-warning-sign-in").hide();
+      }, 2000);
+      return;
+    }
+
     // validation - TODO: take it out to a function
     var name = $("#form-name-field").val();
     var emailKey = $("#form-email-field").val();
@@ -290,11 +302,9 @@
       return;
     }
 
-    console.log("saving to Firebase: " + name + " , " + email);
+    console.log("saving to Firebase: " + name + " , " + emailKey);
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
-
-    //var authData = JSON.parse(localStorage.getItem("lpa1-authData") );
 
     ref.child("mentors").child(tel).set({
       name: name,

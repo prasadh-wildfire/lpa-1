@@ -119,3 +119,6 @@ label {
   height: 36px;
   border-radius: 20px;
 }
+.alert {
+  margin-top: 1em;
+}

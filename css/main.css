@@ -80,7 +80,7 @@ label {
 .vcenter-s-header {
   display: inline-block;
   vertical-align: middle;
-  float: none;
+  float: left;
   /* background-color: rgba(7, 131, 236, 0.15); */
   font-weight: bold;
   font-size: 80%;

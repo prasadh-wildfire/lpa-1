@@ -63,6 +63,54 @@
   //////////////////////////////////////////////////////////////////////////////
 
   //
+  // save the current schedule
+  //
+  $("#sc-save-button").click(function() {
+    var scDay = $("#schedule-day-1").val();
+    if (scDay == null || scDay == "") {
+      bootbox.alert("You must set a date!");
+      $("#schedule-day-1").focus();
+      return;
+    }
+    // on each startup we collect the mentors per hours and create sessions
+    $(".sc-start-name").each(function() {
+      var startupName = $.trim( $(this).text()); 
+      var startupKey = startupName.replace(" ", "");
+      var mentorPerHour = []
+      for (var j = 1; j < 9; j++) {
+        var tmpMentor = $("#mentor-" + startupKey + "-" + j + "-select").val();
+        mentorPerHour.push(tmpMentor);
+      }
+      var startupComments = $("#sc-comments-" + startupKey).val();
+      console.log("Saving startup: " + startupName + " mentors: " + mentorPerHour + " comments:" + startupComments);
+      // save the sessions per startup
+      ref.child("sessions").child(scDay).child(startupName).set({
+        mentors: mentorPerHour,
+        comments: startupComments
+      }, function(error) {
+        if (error) {
+          bootbox.alert("Schedule could not be saved :( Details: " + error);
+        } else {
+          console.log("Schedule saved!");
+          $(".save-alert").show();
+          setTimeout(function() {
+            $(".save-alert").hide();
+          }, 1500);
+        }
+      });
+
+    });
+
+  });
+
+  //
+  // Reload the schedule from firebase
+  //
+  $("#sc-reload-button").click(function() {
+    console.log("TODO: read from fb and set the values");
+  });
+
+  //
   // build the html row of our schedule
   //
   function buildScheduleRow() {
@@ -71,13 +119,14 @@
     for (var i = 0; i < len; i++) {
       html += '<div class="row">';
       html += '<div class="col-md-2 col-lg-1 text-center sc-start-name">' + startupNameList[i] + ' </div>';
+      var startupKey = startupNameList[i].replace(" ", "");
       for (var j = 1; j < 9; j++) {
         html += '<div class="col-md-1 col-lg-1 text-center ">';
-        html += getMentorsSelect("mentor-" + i + "-" + j + "-select");
+        html += getMentorsSelect("mentor-" + startupKey + "-" + j + "-select");
         html += '</div>';
       }
       html += '<div class="col-md-2 col-lg-2 text-center ">';
-      html += '<textarea class="form-control sc-comments" id="sc-comments-' + i +
+      html += '<textarea class="form-control sc-comments" id="sc-comments-' + startupKey +
         '" name="sc-comments-' + i + '" placeholder="Anything you wish"></textarea>';
       html += '</div>';
       html += '</div> <!-- row -->';
@@ -98,8 +147,6 @@
     html += '</select>';
     return html;
   }
-
-
 
   //////////////////////////////////////////////////////////////////////////////
   // Startups
@@ -337,8 +384,7 @@
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
 
-    //var authData = JSON.parse(localStorage.getItem("lpa1-authData") );
-
+    // save mentor
     ref.child("mentors").child(tel).set({
       name: name,
       email: emailKey,
@@ -355,7 +401,7 @@
       date: disTime
     }, function(error) {
       if (error) {
-        alert("Data could not be saved :( Details: " + error);
+        bootbox.alert("Data could not be saved :( Details: " + error);
       } else {
         console.log(name + " saved!");
         $(".save-alert").show();
@@ -523,7 +569,7 @@
       date: disTime
     }, function(error) {
       if (error) {
-        alert("Attendee could not be saved :( Details: " + error);
+        bootbox.alert("Attendee could not be saved :( Details: " + error);
       } else {
         console.log(name + " saved!");
         $(".save-alert").show();

@@ -99,7 +99,7 @@
           // per startup set the mentors + comments
           console.log("update mentors and comments for: " + key + " " + scData);
           html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
-            scData.startup + '| ' + key + '</h3> </div> <div class="panel-body">' +
+            scData.startup + ' | ' + getHourAsRange(key) + '</h3> </div> <div class="panel-body">' +
             'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
           <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
           </div> </div>';
@@ -113,6 +113,31 @@
 
   });
 
+  function getHourAsRange(key) {
+    if (key.indexOf("1") > 0) {
+      return "9:00 - 10:00";
+    } else if (key.indexOf("2") > 0) {
+      return "10:00 - 11:00";
+    }  else if (key.indexOf("3") > 0) {
+      return "11:00 - 12:00";
+    } else if (key.indexOf("4") > 0) {
+      return "12:00 - 13:00";
+    } else if (key.indexOf("5") > 0) {
+      return "13:00 - 14:00";
+    } else if (key.indexOf("6") > 0) {
+      return "14:00 - 15:00";
+    } else if (key.indexOf("7") > 0) {
+      return "15:00 - 16:00";
+    } else if (key.indexOf("8") > 0) {
+      return "16:00 - 17:00";
+    } else if (key.indexOf("9") > 0) {
+      return "17:00 - 18:00";
+    }
+    else {
+      return "--";
+    }
+
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // Startups

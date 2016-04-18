@@ -49,9 +49,8 @@
     return false;
   });
 
-
   //
-  //
+  // logout
   //
   $("#logout-but").click(function() {
     ref.unauth();
@@ -74,7 +73,7 @@
     }
     // on each startup we collect the mentors per hours and create sessions
     $(".sc-start-name").each(function() {
-      var startupName = $.trim( $(this).text()); 
+      var startupName = $.trim($(this).text());
       var startupKey = startupName.replace(" ", "");
       var mentorPerHour = []
       for (var j = 1; j < 9; j++) {
@@ -107,7 +106,22 @@
   // Reload the schedule from firebase
   //
   $("#sc-reload-button").click(function() {
-    console.log("TODO: read from fb and set the values");
+    var scDay = $("#schedule-day-1").val();
+    if (scDay == null || scDay == "") {
+      bootbox.alert("You must set a date in order to reload schedule. Daaa!");
+      $("#schedule-day-1").focus();
+      return;
+    }
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay);
+    readRef.orderByKey().on("value", function(snapshot) {
+      console.log("The sessions: " + JSON.stringify(snapshot.val()));
+
+    });
+
+  });
+
+  $("#sc-reset-button").click(function() {
+    buildScheduleRow();
   });
 
   //
@@ -132,7 +146,7 @@
       html += '</div> <!-- row -->';
     }
 
-    $("#schedule-tab").append(html);
+    $("#schedule-tab-table").html(html);
   }
 
   //
@@ -168,8 +182,10 @@
   // Save startups
   //
   $("#st-save-button").click(function() {
-    // Validation - TODO: take it out to a function
     var name = $("#st-name-field").val();
+    // we can't have spaces - easy life (for now)
+    name = name.replace(" ", "-");
+
     var desc = $("#st-desc-field").val();
     var country = $("#st-country-field").val();
     // name validation

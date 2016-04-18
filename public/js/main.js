@@ -188,8 +188,8 @@
         $("#st-desc-field").val(st.description);
         $("#st-country-field").val(st.country);
         $("#st-city-field").val(st.city);
-        $("#st-st-fund-select").val(st.fund);
-        $("#st-num-employees-select").val(st.numEmployees);
+        $("#st-st-fund-select").selectpicker('val', st.fund);
+        $("#st-num-employees-select").selectpicker('val', st.numEmployees);
         $("#st-date-field").val(st.dateFounded);
         $("#st-logo-url").val(st.logo);
         $("#st-team-url").val(st.team);
@@ -354,7 +354,7 @@
     $("#form-phone-field").val("");
     $("#form-country-field").val("");
     $("#form-city-field").val("");
-    $("#form-domain-select").val("UX");
+    $("#form-domain-select").selectpicker('val', "UX");
     $("#form-expertise").val("");
     $("#form-linkedin-url").val("");
     $("#form-personal-url").val("");
@@ -379,7 +379,7 @@
         $("#form-phone-field").val(mentor.phone);
         $("#form-country-field").val(mentor.country);
         $("#form-city-field").val(mentor.city);
-        $("#form-domain-select").val(mentor.domain);
+        $("#form-domain-select").selectpicker('val', mentor.domain);
         $("#form-expertise").val(mentor.expertise);
         $("#form-linkedin-url").val(mentor.linkedin);
         $("#form-personal-url").val(mentor.site);
@@ -535,7 +535,7 @@
         console.log("Setting data for: " + JSON.stringify(att));
         $("#att-name-field").val(att.name);
         $("#att-email-field").val(att.email);
-        $("#att-startup-list-select").val(att.startup);
+        $("#att-startup-list-select").selectpicker('val', att.startup);
         $("#att-linkedin-url").val(att.linkedin);
         $("#att-pic-url").val(att.pic);
 

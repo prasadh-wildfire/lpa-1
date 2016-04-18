@@ -77,8 +77,10 @@
       var startupKey = startupName.replace(" ", "");
       var mentorPerHour = []
       for (var j = 1; j < 9; j++) {
-        var tmpMentor = $("#mentor-" + startupKey + "-" + j + "-select").val();
-        mentorPerHour.push(tmpMentor);
+        var tmpMentorPhone = $("#mentor-" + startupKey + "-" + j + "-select").val();
+        var tmpMentorName = $("#mentor-" + startupKey + "-" + j + "-select option:selected").text();
+        var tmpM = [tmpMentorPhone, tmpMentorName];
+        mentorPerHour.push(tmpM);
       }
       var startupComments = $("#sc-comments-" + startupKey).val();
       console.log("Saving startup: " + startupName + " mentors: " + mentorPerHour + " comments:" + startupComments);
@@ -114,7 +116,21 @@
     }
     var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay);
     readRef.orderByKey().on("value", function(snapshot) {
-      console.log("The sessions: " + JSON.stringify(snapshot.val()));
+      var sessions = snapshot.val();
+      //console.log("The sessions: " + JSON.stringify(sessions));
+      $.each(sessions, function(startupName, scData) {
+        // per startup set the mentors + comments
+        console.log("update mentors and comments for: "+startupName);
+        $("#sc-comments-" + startupName).val(scData.comments);
+        var len = scData.mentors.length;
+        for (var j = 1; j < len; j++) {
+          var curMentor = scData.mentors[j-1];
+          var key = curMentor[0];
+          var name = curMentor[1];
+          $("#mentor-" + startupName + "-" + j + "-select").val(key);
+         }
+
+      });
 
     });
 

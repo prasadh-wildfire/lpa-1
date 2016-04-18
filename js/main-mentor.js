@@ -9,6 +9,7 @@
   $("#spin").hide();
 
   var startupNameList = [];
+  var curMentor = "";
 
   // AUTH fun
   // start the connection with firebase DB
@@ -65,13 +66,52 @@
   });
 
   //
-  //
+  // logout
   //
   $("#logout-but").click(function() {
     ref.unauth();
     logoutUI();
     return false;
   });
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Fetch schedule
+  //////////////////////////////////////////////////////////////////////////////
+
+  //
+  // Reload the schedule from firebase
+  //
+  $("#sc-reload-button").click(function() {
+    var scDay = $("#schedule-day-1").val();
+    if (scDay == null || scDay == "") {
+      bootbox.alert("You must set a date in order to reload schedule. Daaa!");
+      $("#schedule-day-1").focus();
+      return;
+    }
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay);
+    readRef.orderByChild(mentors).equalTo(curMentor).on("value", function(snapshot) {
+      var sessions = snapshot.val();
+      console.log("The sessions: " + JSON.stringify(sessions));
+      $.each(sessions, function(startupName, scData) {
+        // per startup set the mentors + comments
+        console.log("update mentors and comments for: " + startupName + " " + scData);
+        // $("#sc-comments-" + startupName).val(scData.comments);
+        // var len = scData.mentors.length;
+        // for (var j = 1; j < len; j++) {
+        //   var curMentor = scData.mentors[j - 1];
+        //   var key = curMentor[0];
+        //   var name = curMentor[1];
+        //   $("#mentor-" + startupName + "-" + j + "-select").val(key);
+        // }
+
+      });
+
+    });
+
+  });
+
+
   //////////////////////////////////////////////////////////////////////////////
   // Startups
   //////////////////////////////////////////////////////////////////////////////
@@ -399,6 +439,7 @@
       if (mentor != null) {
         console.log("Setting data for: " + JSON.stringify(mentor));
         $("#form-name-field").val(mentor.name);
+        curMentor = mentor.name;
         $("#form-email-field").val(mentor.email);
         $("#form-phone-field").val(mentor.phone);
         $("#form-country-field").val(mentor.country);
@@ -411,6 +452,8 @@
         $("#form-comments").val(mentor.comments);
         $("#form-name-field").focus();
         $('body').scrollTop(60);
+      } else {
+        localStorage.removeItem("lpa1-g-phone");
       }
     });
   }

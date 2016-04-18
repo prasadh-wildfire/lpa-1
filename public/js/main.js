@@ -49,9 +49,8 @@
     return false;
   });
 
-
   //
-  //
+  // logout
   //
   $("#logout-but").click(function() {
     ref.unauth();
@@ -74,17 +73,28 @@
     }
     // on each startup we collect the mentors per hours and create sessions
     $(".sc-start-name").each(function() {
-      var startupName = $.trim( $(this).text()); 
+      var startupName = $.trim($(this).text());
       var startupKey = startupName.replace(" ", "");
       var mentorPerHour = []
       for (var j = 1; j < 9; j++) {
-        var tmpMentor = $("#mentor-" + startupKey + "-" + j + "-select").val();
-        mentorPerHour.push(tmpMentor);
+        var tmpMentorPhone = $("#mentor-" + startupKey + "-" + j + "-select").val();
+        var tmpMentorName = $("#mentor-" + startupKey + "-" + j + "-select option:selected").text();
+        var tmpM = [tmpMentorPhone, tmpMentorName];
+        mentorPerHour.push(tmpM);
+
+        ref.child("sessions").child(scDay).child("mentors").child(tmpMentorPhone).child("hour-" + j).set({
+          name: tmpMentorName,
+          startup: startupKey
+        }, function(error) {
+          if (error) {
+            bootbox.alert("Schedule could not be saved :( Details: " + error);
+          }
+        });
       }
       var startupComments = $("#sc-comments-" + startupKey).val();
       console.log("Saving startup: " + startupName + " mentors: " + mentorPerHour + " comments:" + startupComments);
       // save the sessions per startup
-      ref.child("sessions").child(scDay).child(startupName).set({
+      ref.child("sessions").child(scDay).child("startups").child(startupName).set({
         mentors: mentorPerHour,
         comments: startupComments
       }, function(error) {
@@ -107,7 +117,41 @@
   // Reload the schedule from firebase
   //
   $("#sc-reload-button").click(function() {
-    console.log("TODO: read from fb and set the values");
+    var scDay = $("#schedule-day-1").val();
+    if (scDay == null || scDay == "") {
+      bootbox.alert("You must set a date in order to reload schedule. Daaa!");
+      $("#schedule-day-1").focus();
+      return;
+    }
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/startups");
+    readRef.orderByKey().on("value", function(snapshot) {
+      var sessions = snapshot.val();
+      if (sessions != null) {
+        //console.log("The sessions: " + JSON.stringify(sessions));
+        $.each(sessions, function(startupName, scData) {
+          // per startup set the mentors + comments
+          console.log("update mentors and comments for: " + startupName);
+          $("#sc-comments-" + startupName).val(scData.comments);
+          var len = scData.mentors.length;
+          for (var j = 1; j < len; j++) {
+            var curMentor = scData.mentors[j - 1];
+            var key = curMentor[0];
+            var name = curMentor[1];
+            $("#mentor-" + startupName + "-" + j + "-select").val(key);
+          }
+        });
+      }
+      else {
+        bootbox.alert("Could not find anything for this date.");
+      }
+    });
+  });
+
+  //
+  //
+  //
+  $("#sc-reset-button").click(function() {
+    buildScheduleRow();
   });
 
   //
@@ -132,7 +176,7 @@
       html += '</div> <!-- row -->';
     }
 
-    $("#schedule-tab").append(html);
+    $("#schedule-tab-table").html(html);
   }
 
   //
@@ -168,8 +212,10 @@
   // Save startups
   //
   $("#st-save-button").click(function() {
-    // Validation - TODO: take it out to a function
     var name = $("#st-name-field").val();
+    // we can't have spaces - easy life (for now)
+    name = name.replace(" ", "-");
+
     var desc = $("#st-desc-field").val();
     var country = $("#st-country-field").val();
     // name validation
@@ -203,7 +249,7 @@
       date: disTime
     }, function(error) {
       if (error) {
-        alert("Startup data could not be saved :( Details: " + error);
+        bootbox.alert("Startup data could not be saved :( Details: " + error);
       } else {
         console.log(name + " saved!");
         $(".save-alert").show();

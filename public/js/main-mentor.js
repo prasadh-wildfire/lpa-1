@@ -9,6 +9,7 @@
   $("#spin").hide();
 
   var startupNameList = [];
+  var curMentorPhone = "";
 
   // AUTH fun
   // start the connection with firebase DB
@@ -65,13 +66,54 @@
   });
 
   //
-  //
+  // logout
   //
   $("#logout-but").click(function() {
     ref.unauth();
     logoutUI();
     return false;
   });
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Fetch schedule
+  //////////////////////////////////////////////////////////////////////////////
+
+  //
+  // Reload the schedule from firebase
+  //
+  $("#sc-reload-button").click(function() {
+    var scDay = $("#schedule-day-1").val();
+    if (scDay == null || scDay == "") {
+      bootbox.alert("You must set a date in order to reload schedule. Daaa!");
+      $("#schedule-day-1").focus();
+      return;
+    }
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/mentors/" + curMentorPhone);
+    readRef.orderByKey().on("value", function(snapshot) {
+      var sessions = snapshot.val();
+      if (sessions != null) {
+        console.log("The sessions: " + JSON.stringify(sessions));
+        var html = "";
+        $.each(sessions, function(key, scData) {
+          // per startup set the mentors + comments
+          console.log("update mentors and comments for: " + key + " " + scData);
+          html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
+            scData.startup + '| ' + key + '</h3> </div> <div class="panel-body">' +
+            'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
+          <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
+          </div> </div>';
+        });
+        $("#mentor-schedule-list").html(html);
+
+      } else {
+        bootbox.alert("Could not find anything for this date.");
+      }
+    });
+
+  });
+
+
   //////////////////////////////////////////////////////////////////////////////
   // Startups
   //////////////////////////////////////////////////////////////////////////////
@@ -401,6 +443,7 @@
         $("#form-name-field").val(mentor.name);
         $("#form-email-field").val(mentor.email);
         $("#form-phone-field").val(mentor.phone);
+        curMentorPhone = mentor.phone;
         $("#form-country-field").val(mentor.country);
         $("#form-city-field").val(mentor.city);
         $("#form-domain-select").selectpicker('val', mentor.domain);
@@ -411,6 +454,8 @@
         $("#form-comments").val(mentor.comments);
         $("#form-name-field").focus();
         $('body').scrollTop(60);
+      } else {
+        localStorage.removeItem("lpa1-g-phone");
       }
     });
   }

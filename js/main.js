@@ -66,10 +66,11 @@
   // build the html row of our schedule
   //
   function buildScheduleRow() {
-    var html = '<div class="row">';
+    var html = "";
     var len = startupNameList.length;
     for (var i = 0; i < len; i++) {
-      html += '<div class="col-md-2 col-lg-1 text-center ">' + startupNameList[i] + ' </div>';
+      html += '<div class="row">';
+      html += '<div class="col-md-2 col-lg-1 text-center sc-start-name">' + startupNameList[i] + ' </div>';
       for (var j = 1; j < 9; j++) {
         html += '<div class="col-md-1 col-lg-1 text-center ">';
         html += getMentorsSelect("mentor-" + i + "-" + j + "-select");
@@ -79,8 +80,9 @@
       html += '<textarea class="form-control sc-comments" id="sc-comments-' + i +
         '" name="sc-comments-' + i + '" placeholder="Anything you wish"></textarea>';
       html += '</div>';
+      html += '</div> <!-- row -->';
     }
-    html += '</div>';
+
     $("#schedule-tab").append(html);
   }
 

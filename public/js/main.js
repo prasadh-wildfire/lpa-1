@@ -3,7 +3,7 @@
   $("#spin").hide();
 
   var startupNameList = [];
-
+  var mentorsList = [];
   // AUTH fun
   // start the connection with firebase DB
   //
@@ -19,6 +19,7 @@
       readMentors(authData);
       readStartups(authData);
       readAttendees(authData);
+
     } else {
       console.log("User is logged out");
       $("#login-form").show();
@@ -58,11 +59,53 @@
   });
 
   //////////////////////////////////////////////////////////////////////////////
-  // Startups
+  // Schedule magic
   //////////////////////////////////////////////////////////////////////////////
 
   //
-  // get list of startups
+  // build the html row of our schedule
+  //
+  function buildScheduleRow() {
+    var html = "";
+    var len = startupNameList.length;
+    for (var i = 0; i < len; i++) {
+      html += '<div class="row">';
+      html += '<div class="col-md-2 col-lg-1 text-center sc-start-name">' + startupNameList[i] + ' </div>';
+      for (var j = 1; j < 9; j++) {
+        html += '<div class="col-md-1 col-lg-1 text-center ">';
+        html += getMentorsSelect("mentor-" + i + "-" + j + "-select");
+        html += '</div>';
+      }
+      html += '<div class="col-md-2 col-lg-2 text-center ">';
+      html += '<textarea class="form-control sc-comments" id="sc-comments-' + i +
+        '" name="sc-comments-' + i + '" placeholder="Anything you wish"></textarea>';
+      html += '</div>';
+      html += '</div> <!-- row -->';
+    }
+
+    $("#schedule-tab").append(html);
+  }
+
+  //
+  // get list of mentors in a select 
+  //
+  function getMentorsSelect(htmlObjId) {
+    var html = '<select id="' + htmlObjId + '" class="mentor-selector">';
+    var len = mentorsList.length;
+    for (var i = 0; i < len; i++) {
+      html += '<option value="' + mentorsList[i].phone + '">' + mentorsList[i].name + '</option>'
+    }
+    html += '</select>';
+    return html;
+  }
+
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Startups
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  // get list of startups in a select 
   //
   function getStartupSelect() {
     var html = '<select id="att-startup-list-select" class="selectpicker" data-style="btn-info">';
@@ -73,6 +116,7 @@
     html += '</select>';
     return html;
   }
+
   //
   // Save startups
   //
@@ -152,6 +196,9 @@
       $("#att-startup-sel-div").html("");
       $("#att-startup-sel-div").append(selHtml);
       $('#att-startup-list-select').selectpicker();
+
+      // start with building the basic ui to set a schedule
+      buildScheduleRow();
     });
   }
 
@@ -330,6 +377,8 @@
       snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key();
         var mentorData = childSnapshot.val();
+        mentorsList.push(mentorData);
+
         var mPicUrl = addhttp(mentorData.pic);
         //console.log("key: " + key + " data: " + mentorData);
         $("#mentors-list").append(

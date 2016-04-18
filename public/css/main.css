@@ -100,7 +100,7 @@ label {
 }
 
 #schedule-tab {
-  background-color: aqua;
+  background-color: white;
 }
 
 .schedule-back-img {
@@ -119,6 +119,13 @@ label {
   height: 36px;
   border-radius: 20px;
 }
+
 .alert {
   margin-top: 1em;
+}
+
+.sc-start-name {
+  background-color: yellow;
+  padding-top: .2em;
+  border-radius: 25px;
 }

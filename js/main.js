@@ -81,11 +81,20 @@
         var tmpMentorName = $("#mentor-" + startupKey + "-" + j + "-select option:selected").text();
         var tmpM = [tmpMentorPhone, tmpMentorName];
         mentorPerHour.push(tmpM);
+
+        ref.child("sessions").child(scDay).child("mentors").child(tmpMentorPhone).child("hour-" + j).set({
+          name: tmpMentorName,
+          startup: startupKey
+        }, function(error) {
+          if (error) {
+            bootbox.alert("Schedule could not be saved :( Details: " + error);
+          }
+        });
       }
       var startupComments = $("#sc-comments-" + startupKey).val();
       console.log("Saving startup: " + startupName + " mentors: " + mentorPerHour + " comments:" + startupComments);
       // save the sessions per startup
-      ref.child("sessions").child(scDay).child(startupName).set({
+      ref.child("sessions").child(scDay).child("startups").child(startupName).set({
         mentors: mentorPerHour,
         comments: startupComments
       }, function(error) {
@@ -114,28 +123,33 @@
       $("#schedule-day-1").focus();
       return;
     }
-    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay);
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/startups");
     readRef.orderByKey().on("value", function(snapshot) {
       var sessions = snapshot.val();
-      //console.log("The sessions: " + JSON.stringify(sessions));
-      $.each(sessions, function(startupName, scData) {
-        // per startup set the mentors + comments
-        console.log("update mentors and comments for: "+startupName);
-        $("#sc-comments-" + startupName).val(scData.comments);
-        var len = scData.mentors.length;
-        for (var j = 1; j < len; j++) {
-          var curMentor = scData.mentors[j-1];
-          var key = curMentor[0];
-          var name = curMentor[1];
-          $("#mentor-" + startupName + "-" + j + "-select").val(key);
-         }
-
-      });
-
+      if (sessions != null) {
+        //console.log("The sessions: " + JSON.stringify(sessions));
+        $.each(sessions, function(startupName, scData) {
+          // per startup set the mentors + comments
+          console.log("update mentors and comments for: " + startupName);
+          $("#sc-comments-" + startupName).val(scData.comments);
+          var len = scData.mentors.length;
+          for (var j = 1; j < len; j++) {
+            var curMentor = scData.mentors[j - 1];
+            var key = curMentor[0];
+            var name = curMentor[1];
+            $("#mentor-" + startupName + "-" + j + "-select").val(key);
+          }
+        });
+      }
+      else {
+        bootbox.alert("Could not find anything for this date.");
+      }
     });
-
   });
 
+  //
+  //
+  //
   $("#sc-reset-button").click(function() {
     buildScheduleRow();
   });
@@ -235,7 +249,7 @@
       date: disTime
     }, function(error) {
       if (error) {
-        alert("Startup data could not be saved :( Details: " + error);
+        bootbox.alert("Startup data could not be saved :( Details: " + error);
       } else {
         console.log(name + " saved!");
         $(".save-alert").show();

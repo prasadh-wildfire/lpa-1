@@ -9,7 +9,7 @@
   $("#spin").hide();
 
   var startupNameList = [];
-  var curMentor = "";
+  var curMentorPhone = "";
 
   // AUTH fun
   // start the connection with firebase DB
@@ -89,24 +89,26 @@
       $("#schedule-day-1").focus();
       return;
     }
-    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay);
-    readRef.orderByChild(mentors).equalTo(curMentor).on("value", function(snapshot) {
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/mentors/" + curMentorPhone);
+    readRef.orderByKey().on("value", function(snapshot) {
       var sessions = snapshot.val();
-      console.log("The sessions: " + JSON.stringify(sessions));
-      $.each(sessions, function(startupName, scData) {
-        // per startup set the mentors + comments
-        console.log("update mentors and comments for: " + startupName + " " + scData);
-        // $("#sc-comments-" + startupName).val(scData.comments);
-        // var len = scData.mentors.length;
-        // for (var j = 1; j < len; j++) {
-        //   var curMentor = scData.mentors[j - 1];
-        //   var key = curMentor[0];
-        //   var name = curMentor[1];
-        //   $("#mentor-" + startupName + "-" + j + "-select").val(key);
-        // }
+      if (sessions != null) {
+        console.log("The sessions: " + JSON.stringify(sessions));
+        var html = "";
+        $.each(sessions, function(key, scData) {
+          // per startup set the mentors + comments
+          console.log("update mentors and comments for: " + key + " " + scData);
+          html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
+            scData.startup + '| ' + key + '</h3> </div> <div class="panel-body">' +
+            'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
+          <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
+          </div> </div>';
+        });
+        $("#mentor-schedule-list").html(html);
 
-      });
-
+      } else {
+        bootbox.alert("Could not find anything for this date.");
+      }
     });
 
   });
@@ -439,9 +441,9 @@
       if (mentor != null) {
         console.log("Setting data for: " + JSON.stringify(mentor));
         $("#form-name-field").val(mentor.name);
-        curMentor = mentor.name;
         $("#form-email-field").val(mentor.email);
         $("#form-phone-field").val(mentor.phone);
+        curMentorPhone = mentor.phone;
         $("#form-country-field").val(mentor.country);
         $("#form-city-field").val(mentor.city);
         $("#form-domain-select").selectpicker('val', mentor.domain);

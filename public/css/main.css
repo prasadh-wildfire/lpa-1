@@ -38,6 +38,16 @@ label {
   left: 2em;
 }
 
+.remove-att {
+  position: relative;
+  left: 2em;
+}
+
+.edit-att {
+  position: relative;
+  left: 2em;
+}
+
 .startup-edit {
   position: relative;
   left: 2em;
@@ -65,4 +75,57 @@ label {
 
 .main-balagan {
   padding-top: .5em;
+}
+
+.vcenter-s-header {
+  display: inline-block;
+  vertical-align: middle;
+  float: left;
+  /* background-color: rgba(7, 131, 236, 0.15); */
+  font-weight: bold;
+  font-size: 80%;
+}
+
+.schedule-day-x {
+  margin: 0.4em;
+}
+
+.mentor-selector {
+  width: 6em;
+}
+
+.sc-comments {
+  margin-left: 2em;
+  margin-bottom: 0.5em;
+}
+
+#schedule-tab {
+  background-color: white;
+}
+
+.schedule-back-img {
+  padding: 1em;
+  border-radius: 10%;
+}
+
+.att-pic-card {
+  height: 60px;
+}
+
+
+/********* TODO: Mentor page */
+
+.g-mentor-logo {
+  height: 36px;
+  border-radius: 20px;
+}
+
+.alert {
+  margin-top: 1em;
+}
+
+.sc-start-name {
+  background-color: yellow;
+  padding-top: .2em;
+  border-radius: 25px;
 }

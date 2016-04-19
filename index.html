@@ -43,6 +43,11 @@
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <meta name="google-signin-client_id" content="668636000506-38p891gt5k8jhmborfcktfm7kmf1k4pf.apps.googleusercontent.com">
+  <meta name="google-signin-cookiepolicy" content="single_host_origin">
+
+
 </head>
 
 <body>
@@ -300,7 +305,7 @@
                   <label for="att-name-field" class="sr-only">Name</label>
                   <div class="input-group">
                     <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                    <input type="text" class="form-control" id="att-name-field"  placeholder="Name" autocomplete="name" required>
+                    <input type="text" class="form-control" id="att-name-field" placeholder="Name" autocomplete="name" required>
                   </div>
                 </div>
                 <!-- email field -->
@@ -309,7 +314,7 @@
                   <label for="att-email-field" class="sr-only">Email</label>
                   <div class="input-group">
                     <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-                    <input type="email" class="form-control" id="att-email-field"  placeholder="Email" autocomplete="email" required>
+                    <input type="email" class="form-control" id="att-email-field" placeholder="Email" autocomplete="email" required>
                   </div>
                 </div>
                 <label for="att-st-name-field">Startup Name</label>
@@ -344,14 +349,13 @@
           <div role="tabpanel" class="tab-pane" id="schedule-tab">
             <div class="row">
               <div class="col-md-12 col-lg-12 text-center vcenter-s-header">Day:
-                <input type="date" class="schedule-day-x  text-center" id="schedule-day-1" >
-                  <button id="sc-reset-button" class="btn btn-info">Reset</button>
-                  <button id="sc-reload-button" class="btn btn-default">Reload</button>
-                  <button id="sc-save-button"  class="btn btn-success">Save Schedule</button>
+                <input type="date" class="schedule-day-x  text-center" id="schedule-day-1">
+                <button id="sc-reset-button" class="btn btn-info">Reset</button>
+                <button id="sc-reload-button" class="btn btn-default">Reload</button>
+                <button id="sc-save-button" class="btn btn-success">Save Schedule</button>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-offset-4 centered alert alert-success save-alert">
                   <strong>Saved!</strong>
                 </div>
-
               </div>
             </div>
             <div class="row">
@@ -399,8 +403,19 @@
       </div>
     </footer>
   </div>
-  <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script> 
- 
+  <!-- OLD: <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script> -->
+
+  <script src="https://www.gstatic.com/firebasejs/3.0.0-eap.3/firebase.js"></script>
+  <script>
+  // Initialize Firebase Authentication
+  var config = {
+    apiKey: "AIzaSyDF9dx2xK-B_nANXGP9Y6NdGtTOlgoQg9k",
+    authDomain: "testing123-2a4e5.firebaseapp.com",
+    databaseURL: "https://testing123-2a4e5.firebaseio.com"
+  };
+  firebase.initializeApp(config);
+  </script>
+  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script>
   window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')

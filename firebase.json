@@ -1,5 +1,5 @@
 {
-  "firebase": "LPA-1",
+  "firebase": "launchpad-accelerator-f3439",
   "public": "public",
   "ignore": [
     "firebase.json",

@@ -185,12 +185,24 @@
   function getMentorsSelect(htmlObjId) {
     var html = '<select id="' + htmlObjId + '" class="mentor-selector">';
     var len = mentorsList.length;
+    mentorsList.sort(compare);
     for (var i = 0; i < len; i++) {
       html += '<option value="' + mentorsList[i].phone + '">' + mentorsList[i].name + '</option>'
     }
     html += '</select>';
     return html;
   }
+
+  //
+  function compare(a,b) {
+  if (a.name < b.name)
+    return -1;
+  else if (a.name > b.name)
+    return 1;
+  else 
+    return 0;
+}
+
 
   //////////////////////////////////////////////////////////////////////////////
   // Startups

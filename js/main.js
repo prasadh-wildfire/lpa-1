@@ -6,12 +6,23 @@
   var mentorsList = [];
   // AUTH fun
   // start the connection with firebase DB
-  //
+
   //var ref = new Firebase("https://lpa-1.firebaseio.com");
-  window.app = firebase.app();
+  // Initialize Firebase Authentication
+
+  var config = {
+    apiKey: "AIzaSyDF9dx2xK-B_nANXGP9Y6NdGtTOlgoQg9k",
+    //authDomain: "testing123-2a4e5.firebaseapp.com",
+    databaseURL: "https://testing123-2a4e5.firebaseio.com"
+  };
+
+  window.app = firebase.App.initialize(config); //app(config); //
   window.auth = app.auth();
-  var ref = firebase.app().database().ref("https://lpa-1.firebaseio.com");
+  var ref = app.database().ref("https://testing123-2a4e5.firebaseapp.com");
   authUserData = null;
+
+  //
+  //
   ref.onAuth(function(authData) {
     if (authData) {
       authUserData = authData;
@@ -37,18 +48,27 @@
     $("#spin").show();
     var u_email = $("#email").val();
     var u_passwd = $("#passwd").val();
-    ref.authWithPassword({
-      email: u_email,
-      password: u_passwd
-    }, function(error, authData) {
+    auth.createUserWithEmailAndPassword(u_email, u_passwd).then(function(user) {
       $("#spin").hide();
-      if (error) {
-        console.log("Login Failed!", error);
-        $("#err-modal").modal('show');
-      } else {
-        console.log("Authenticated successfully with payload:", authData);
-      }
+      console.log('Create user and sign in Success', user);
+    }, function(error) {
+      console.error('Create user and sign in Error', error);
+      $("#err-modal").modal('show');
     });
+
+
+    // ref.authWithPassword({
+    //   email: u_email,
+    //   password: u_passwd
+    // }, function(error, authData) {
+    //   $("#spin").hide();
+    //   if (error) {
+    //     console.log("Login Failed!", error);
+    //     $("#err-modal").modal('show');
+    //   } else {
+    //     console.log("Authenticated successfully with payload:", authData);
+    //   }
+    // });
     return false;
   });
 
@@ -143,8 +163,7 @@
             $("#mentor-" + startupName + "-" + j + "-select").val(key);
           }
         });
-      }
-      else {
+      } else {
         bootbox.alert("Could not find anything for this date.");
       }
     });

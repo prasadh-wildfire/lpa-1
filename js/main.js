@@ -7,7 +7,10 @@
   // AUTH fun
   // start the connection with firebase DB
   //
-  var ref = new Firebase("https://lpa-1.firebaseio.com");
+  //var ref = new Firebase("https://lpa-1.firebaseio.com");
+  window.app = firebase.app();
+  window.auth = app.auth();
+  var ref = firebase.app().database().ref("https://lpa-1.firebaseio.com");
   authUserData = null;
   ref.onAuth(function(authData) {
     if (authData) {

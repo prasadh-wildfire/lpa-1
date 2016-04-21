@@ -66,6 +66,7 @@
           <li><a href="https://github.com/greenido/lpa-1" target="_blank">Code</a></li>
           <li><a href="https://github.com/greenido/lpa-1/blob/master/README.md" target="_blank">Help</a></li>
         </ul>
+        <div id="att-name-field"></div>
         <form id="login-form" class="navbar-form navbar-right" role="form">
           <button type="submit" id="google-sign-in-but" class="btn btn-success">Sign in</button>
           <span id='spin'><i class="fa fa-spinner fa-spin"></i></span>
@@ -92,11 +93,12 @@
           <!-- Schedule of the attendee -->
           <div role="tabpanel" class="tab-pane active" id="m-schedule-tab">
             <div class="row">
-              <div class="col-md-12 col-lg-12 text-center">
+              <div class="col-md-8 col-lg-8 text-center">
                 Day:
                 <input type="date" class="schedule-day-x  text-center" id="schedule-day-1">
                 <button id="sc-reload-button" class="btn btn-warning">Reload</button>
               </div>
+              
             </div>
             <div class="row">
               <div id="attendee-schedule-list" class="col-md-12 col-lg-12 text-center">
@@ -171,7 +173,7 @@
   <script src="js/vendor/bootbox.min.js"></script>
   <script src="js/bootstrap-markdown.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-  <script src="js/main-mentor.js"></script>
+  <script src="js/main-startup.js"></script>
   <script>
   (function(b, o, i, l, e, r) {
     b.GoogleAnalyticsObject = l;

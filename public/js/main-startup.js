@@ -1,5 +1,5 @@
 //
-// JS for the mentor web app
+// JS for the attendee web app
 // Author: Ido Green 
 // Date: 4/2016
 //
@@ -9,7 +9,8 @@
   $("#spin").hide();
 
   var startupNameList = [];
-  var curMentorPhone = "";
+  var curAttendeeEmail = "";
+  var curAttendeeStartup = "";
 
   // AUTH fun
   // start the connection with firebase DB
@@ -25,18 +26,18 @@
       $("#login-form").html("<img src='" + authData.google.profileImageURL + "' class='g-mentor-logo' alt='mentor logo' />");
       $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
 
-      var key = localStorage.getItem("lpa1-g-phone");
-      if (key != null) {
-        fetchMentor(key);
-      } else {
-        // init our mentor with what we have from google-login
-        $("#form-name-field").val(authData.google.displayName);
-        $("#form-pic-url").val(authData.google.profileImageURL);
-      }
+      curAttendeeEmail = authData.google.email;
+      // so we could use it as firebase key
+      curAttendeeEmail = curAttendeeEmail.replace(".", "-");
+      fetchAttendee(curAttendeeEmail);
+
+      // init our attendee with what we have from google-login
+      $("#logout-but").text("Logout " + authData.google.displayName);
+
       readStartups(authData);
       readAttendees(authData);
     } else {
-      console.log("User is logged out");
+      console.log("Attendee is logged out");
       logoutUI();
     }
   });
@@ -64,6 +65,8 @@
         $("#sc-reload-button").prop('disabled', false);
         console.log("Authenticated successfully with payload:", authData);
       }
+    }, {
+      scope: "email"
     });
     return false;
   });
@@ -83,7 +86,7 @@
   //////////////////////////////////////////////////////////////////////////////
 
   //
-  // Reload the schedule from firebase
+  // Reload the schedule that the attendee got (= per her startup)
   //
   $("#sc-reload-button").click(function() {
     var scDay = $("#schedule-day-1").val();
@@ -92,25 +95,38 @@
       $("#schedule-day-1").focus();
       return;
     }
-    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/mentors/" + curMentorPhone);
+
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/startups/" + curAttendeeStartup);
     readRef.orderByKey().on("value", function(snapshot) {
       var sessions = snapshot.val();
       if (sessions != null) {
-        console.log("The sessions: " + JSON.stringify(sessions));
-        var html = "";
-        $.each(sessions, function(key, scData) {
-          // per startup set the mentors + comments
-          console.log("update mentors and comments for: " + key + " " + scData);
-          html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
-            scData.startup + ' | ' + getHourAsRange(key) + '</h3> </div> <div class="panel-body">' +
-            'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
+        $("#sc-reload-button").text("Reload " + curAttendeeStartup);
+        //console.log("The sessions: " + JSON.stringify(sessions));
+        var scHtml = "";
+        scHtml += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title"> Comments For The Day' +
+          '</h3> </div> <div class="panel-body">' + sessions.comments +
+          '<p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
           <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
           </div> </div>';
-        });
-        $("#mentor-schedule-list").html(html);
 
+        // we know it's the mentors and hours
+        for (var i = 0; i < sessions.mentors.length; i++) {
+          scHtml += '<div class="panel panel-default"> <div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
+          sessions.mentors[i][1] + ' | ' + getHourAsRange("hour-"+(i+1)) + '</h3> </div> <div class="panel-body">' +
+          'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
+          <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
+          </div> </div>';
+        }
+        //console.log(scHtml);
+        $("#attendee-schedule-list").html(scHtml);
       } else {
-        bootbox.alert("Could not find anything for this date.");
+        if (curAttendeeStartup == "") {
+          bootbox.alert("Please check why you are not part of any startup.");
+          $("#sc-reload-button").text("Reload");
+        } else {
+          bootbox.alert("Could not find anything for " + curAttendeeStartup + " at this date.");
+        }
+
       }
     });
 
@@ -157,55 +173,7 @@
     html += '</select>';
     return html;
   }
-  //
-  // Save startups
-  //
-  $("#st-save-button").click(function() {
-    // Validation - TODO: take it out to a function
-    var name = $("#st-name-field").val();
-    var desc = $("#st-desc-field").val();
-    var country = $("#st-country-field").val();
-    // name validation
-    if (name.length < 2) {
-      $("#st-nameError").html("Please give a name - So you could remember this startup in the future!");
-      $("#st-nameError").removeClass("sr-only");
-      $("#st-nameError").addClass("alert");
-      $("#st-name-field").focus();
-      setTimeout(function() {
-        $("#st-nameError").removeClass("alert");
-        $("#st-nameError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-    console.log("saving startup to Firebase: " + name + " | desc: " + desc);
-    var curUnixTime = new Date().getTime();
-    var disTime = new Date().toJSON().slice(0, 21);
-    ref.child("startups").child(name).set({
-      name: name,
-      description: desc,
-      country: $("#st-country-field").val(),
-      city: $("#st-city-field").val(),
-      fund: $("#st-fund-select option:selected").text(),
-      numEmployees: $("#st-num-employees-select option:selected").text(),
-      dateFounded: $("#st-date-field").val(),
-      logo: $("#st-logo-url").val(),
-      team: $("#st-team-url").val(),
-      video: $("#st-video-url").val(),
-      historyUrl: $("#st-history-url").val(),
-      unixTime: curUnixTime,
-      date: disTime
-    }, function(error) {
-      if (error) {
-        alert("Startup data could not be saved :( Details: " + error);
-      } else {
-        console.log(name + " saved!");
-        $(".save-alert").show();
-        setTimeout(function() {
-          $(".save-alert").hide();
-        }, 1500);
-      }
-    })
-  });
+
 
   //
   // read the list of startups and display it
@@ -236,182 +204,11 @@
     });
   }
 
-  //
-  // clear the startup values
-  //
-  $("#st-cancel-button").click(function() {
-    $("#st-name-field").val("");
-    $("#st-desc-field").val("");
-    $("#st-country-field").val("");
-    $("#st-city-field").val("");
-    $("#st-st-fund-select").val("");
-    $("#st-num-employees-select").val("1-10");
-    $("#st-date-field").val("");
-    $("#st-logo-url").val("");
-    $("#st-team-url").val("");
-    $("#st-video-url").val("");
-    $("#st-history-url").val("");
-    $("#st-name-field").focus();
-    $('body').scrollTop(60);
-  });
 
-  //
-  // enable to edit startups from the list
-  //
-  $('body').on('click', '.startup-edit', function(event) {
-    var stName = this.dataset.key;
-    var ref = new Firebase("https://lpa-1.firebaseio.com/startups/" + stName);
-    ref.on("value", function(startupSnap) {
-      var st = startupSnap.val();
-      if (st != null) {
-        console.log("Setting data for startup: " + JSON.stringify(st));
-        $("#st-name-field").val(st.name);
-        $("#st-desc-field").val(st.description);
-        $("#st-country-field").val(st.country);
-        $("#st-city-field").val(st.city);
-        $("#st-st-fund-select").val(st.fund);
-        $("#st-num-employees-select").val(st.numEmployees);
-        $("#st-date-field").val(st.dateFounded);
-        $("#st-logo-url").val(st.logo);
-        $("#st-team-url").val(st.team);
-        $("#st-video-url").val(st.video);
-        $("#st-history-url").val(st.historyUrl);
-        $("#st-name-field").focus();
-        $('body').scrollTop(60);
-      }
-    });
-  });
-
-  //
-  // Enable removing startups
-  //
-  $('body').on('click', '.remove-startup', function(event) {
-    var key = this.dataset.key;
-    bootbox.confirm("Are you sure? For Real?", function(result) {
-      if (result == true) {
-        var fredRef = new Firebase('https://lpa-1.firebaseio.com/startups/' + key);
-        var onComplete = function(error) {
-          if (error) {
-            console.log('Synchronization failed');
-          } else {
-            console.log('Synchronization succeeded - mentor was removed');
-            $("#startups-list").html('<div id="loading-startup"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-            readStartups(authUserData);
-          }
-        };
-        fredRef.remove(onComplete);
-      } else {
-        console.log("let not remove " + key + " for now");
-      }
-    });
-
-  });
 
   //////////////////////////////////////////////////////////////////////////////
   // Mentors
   //////////////////////////////////////////////////////////////////////////////
-  //
-  // Save mentors
-  //
-  $("#form-save-mentor").click(function() {
-    var authData = ref.getAuth();
-    if (authData) {
-      console.log("User " + authData.uid + " is logged in with " + authData.provider);
-    } else {
-      console.log("User is logged out");
-      $("#alert-warning-sign-in").show();
-      setTimeout(function() {
-        $("#alert-warning-sign-in").hide();
-      }, 2000);
-      return;
-    }
-
-    // validation - TODO: take it out to a function
-    var name = $("#form-name-field").val();
-    var emailKey = $("#form-email-field").val();
-    var tel = $("#form-phone-field").val();
-    // name validation
-    if (name.length < 2) {
-      $("#nameError").html("Please give a name - C'mon dude");
-      $("#nameError").removeClass("sr-only");
-      $("#nameError").addClass("alert");
-      $("#form-name-field").focus();
-      setTimeout(function() {
-        $("#nameError").removeClass("alert");
-        $("#nameError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-
-    // email validation
-    if ($("#form-email-field").val().length < 2) {
-      $("#emailError").html("Please give an email - Don't worry we will never spam you.");
-      $("#emailError").removeClass("sr-only");
-      $("#emailError").addClass("alert");
-      $("#form-email-field").focus();
-      setTimeout(function() {
-        $("#emailError").removeClass("alert");
-        $("#emailError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-    var emailRegEx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-    if (!emailRegEx.test(emailKey)) {
-      $("#emailError").html("Please give a valid email (e.g. momo@okko.com");
-      $("#emailError").removeClass("sr-only");
-      $("#emailError").addClass("alert");
-      $("#form-email-field").focus();
-      setTimeout(function() {
-        $("#emailError").removeClass("alert");
-        $("#emailError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-    if (tel.length < 10) {
-      $("#phoneError").html("Please give a phone - So we can call you late at night");
-      $("#phoneError").removeClass("sr-only");
-      $("#phoneError").addClass("alert");
-      $("#form-name-field").focus();
-      setTimeout(function() {
-        $("#phoneError").removeClass("alert");
-        $("#phoneError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-
-    console.log("saving to Firebase: " + name + " , " + emailKey);
-    var curUnixTime = new Date().getTime();
-    var disTime = new Date().toJSON().slice(0, 21);
-
-    // save our mentor's key in local storage
-    localStorage.setItem("lpa1-g-phone", tel);
-    // save it in firebase
-    ref.child("mentors").child(tel).set({
-      name: name,
-      email: emailKey,
-      phone: tel,
-      country: $("#form-country-field").val(),
-      city: $("#form-city-field").val(),
-      domain: $("#form-domain-select option:selected").text(),
-      expertise: $("#form-expertise").val(),
-      linkedin: $("#form-linkedin-url").val(),
-      site: $("#form-personal-url").val(),
-      pic: $("#form-pic-url").val(),
-      comments: $("#form-comments").val(),
-      unixTime: curUnixTime,
-      date: disTime
-    }, function(error) {
-      if (error) {
-        alert("Data could not be saved :( Details: " + error);
-      } else {
-        console.log(name + " saved!");
-        $(".save-alert").show();
-        setTimeout(function() {
-          $(".save-alert").hide();
-        }, 1500);
-      }
-    })
-  });
 
   //
   // read the list of mentors and display it
@@ -461,125 +258,26 @@
   //
   // fetch mentor data base on its key (=phone number)
   //
-  function fetchMentor(key) {
-    var ref = new Firebase("https://lpa-1.firebaseio.com/mentors/" + key);
-    ref.on("value", function(mentorSnap) {
-      var mentor = mentorSnap.val();
-      if (mentor != null) {
-        console.log("Setting data for: " + JSON.stringify(mentor));
-        $("#form-name-field").val(mentor.name);
-        $("#form-email-field").val(mentor.email);
-        $("#form-phone-field").val(mentor.phone);
-        curMentorPhone = mentor.phone;
-        $("#form-country-field").val(mentor.country);
-        $("#form-city-field").val(mentor.city);
-        $("#form-domain-select").selectpicker('val', mentor.domain);
-        $("#form-expertise").val(mentor.expertise);
-        $("#form-linkedin-url").val(mentor.linkedin);
-        $("#form-personal-url").val(mentor.site);
-        $("#form-pic-url").val(mentor.pic);
-        $("#form-comments").val(mentor.comments);
-        $("#form-name-field").focus();
-        $('body').scrollTop(60);
+  function fetchAttendee(key) {
+    var ref = new Firebase("https://lpa-1.firebaseio.com/attendees/" + key);
+    ref.on("value", function(attSnap) {
+      var att = attSnap.val();
+      if (att != null) {
+        console.log("Setting data for: " + JSON.stringify(att));
+        curAttendeeStartup = att.startup;
+        localStorage.setItem("lpa1-g-att-email", curAttendeeEmail);
+        localStorage.setItem("lpa1-g-att-startup", curAttendeeStartup);
       } else {
-        localStorage.removeItem("lpa1-g-phone");
+        localStorage.removeItem("lpa1-g-att-email");
+        localStorage.removeItem("lpa1-g-att-startup");
       }
     });
   }
 
-  //
-  // enable removing mentors
-  //
-  $('body').on('click', '.remove-mentor', function(event) {
-    var key = this.dataset.key;
-    bootbox.confirm("Are you sure? For Real?", function(result) {
-      if (result == true) {
-        var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + key);
-        var onComplete = function(error) {
-          if (error) {
-            console.log('Synchronization failed');
-          } else {
-            console.log('Synchronization succeeded - mentor was removed');
-            $("#mentors-list").html('<div id="loading-mentors"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-            readMentors(authUserData);
-          }
-        };
-        fredRef.remove(onComplete);
-      }
-    });
-  });
 
   //////////////////////////////////////////////////////////////////////////////
   // Attendees
   //////////////////////////////////////////////////////////////////////////////
-  //
-  // Save Attendee
-  //
-  $("#att-save-button").click(function() {
-    var name = $("#att-name-field").val();
-    var email = $("#att-email-field").val();
-    // name validation
-    if (name.length < 2) {
-      $("#att-nameError").html("Please give a name - C'mon dude");
-      $("#att-nameError").removeClass("sr-only");
-      $("#att-nameError").addClass("alert");
-      $("#form-name-field").focus();
-      setTimeout(function() {
-        $("#att-nameError").removeClass("alert");
-        $("#att-nameError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-
-    // email validation
-    if ($("#att-email-field").val().length < 2) {
-      $("#att-emailError").html("Please give an email - Don't worry we will never spam you.");
-      $("#att-emailError").removeClass("sr-only");
-      $("#att-emailError").addClass("alert");
-      $("#form-email-field").focus();
-      setTimeout(function() {
-        $("#att-emailError").removeClass("alert");
-        $("#att-emailError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-    var emailRegEx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-    if (!emailRegEx.test(email)) {
-      $("#att-emailError").html("Please give a valid email (e.g. momo@okko.com");
-      $("#att-emailError").removeClass("sr-only");
-      $("#att-emailError").addClass("alert");
-      $("#form-email-field").focus();
-      setTimeout(function() {
-        $("#att-emailError").removeClass("alert");
-        $("#att-emailError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-
-    console.log("saving attendee: " + name + " , " + email);
-    var curUnixTime = new Date().getTime();
-    var disTime = new Date().toJSON().slice(0, 21);
-    emailKey = email.replace('.', '-');
-    ref.child("attendees").child(emailKey).set({
-      name: name,
-      email: email,
-      startup: $("#att-startup-list-select option:selected").text(),
-      linkedin: $("#att-linkedin-url").val(),
-      pic: $("#att-pic-url").val(),
-      unixTime: curUnixTime,
-      date: disTime
-    }, function(error) {
-      if (error) {
-        alert("Attendee could not be saved :( Details: " + error);
-      } else {
-        console.log(name + " saved!");
-        $(".save-alert").show();
-        setTimeout(function() {
-          $(".save-alert").hide();
-        }, 1500);
-      }
-    })
-  });
 
   //
   // read the list of Attendees and display it
@@ -604,62 +302,6 @@
     });
   }
 
-  //
-  // clear the values of the att
-  //
-  $("#att-cancel-button").click(function() {
-    $("#att-name-field").val("");
-    $("#att-email-field").val("");
-    $("#att-startup-list-select").val("");
-    $("#att-linkedin-url").val("");
-    $("#att-pic-url").val("");
-    $("#att-name-field").focus();
-    $('body').scrollTop(60);
-  });
-
-  //
-  // enable to edit  from the list
-  //
-  $('body').on('click', '.att-edit', function(event) {
-    var key = this.dataset.key;
-    var ref = new Firebase("https://lpa-1.firebaseio.com/attendees/" + key);
-    ref.on("value", function(attSnap) {
-      var att = attSnap.val();
-      if (att != null) {
-        console.log("Setting data for: " + JSON.stringify(att));
-        $("#att-name-field").val(att.name);
-        $("#att-email-field").val(att.email);
-        $("#att-startup-list-select").val(att.startup);
-        $("#att-linkedin-url").val(att.linkedin);
-        $("#att-pic-url").val(att.pic);
-
-        $("#att-name-field").focus();
-        $('body').scrollTop(60);
-      }
-    });
-  });
-
-  //
-  // enable removing attendees
-  //
-  $('body').on('click', '.remove-att', function(event) {
-    var key = this.dataset.key;
-    bootbox.confirm("Are you sure? Delete " + key + " For Real?", function(result) {
-      if (result == true) {
-        var fredRef = new Firebase('https://lpa-1.firebaseio.com/attendees/' + key);
-        var onComplete = function(error) {
-          if (error) {
-            console.log('Synchronization failed');
-          } else {
-            console.log('Synchronization succeeded - mentor was removed');
-            $("#att-list").html('<div id="loading-attendees"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-            readAttendees(authUserData);
-          }
-        };
-        fredRef.remove(onComplete);
-      }
-    });
-  });
 
   //////////////////////////////////////////////////////////////////////////////////
   // Utils

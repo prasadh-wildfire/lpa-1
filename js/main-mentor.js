@@ -20,6 +20,7 @@
     if (authData) {
       authUserData = authData;
       localStorage.setItem("lpa1-g-authData", JSON.stringify(authData));
+      $("#sc-reload-button").prop('disabled', false);
       console.log("User " + authData.uid + " is logged in with " + authData.provider);
       $("#login-form").html("<img src='" + authData.google.profileImageURL + "' class='g-mentor-logo' alt='mentor logo' />");
       $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
@@ -44,6 +45,7 @@
   //
   //
   function logoutUI() {
+    $("#sc-reload-button").prop('disabled', true);
     $("#logout-div").html("");
     $("#login-form").html('<button type="submit" id="google-sign-in-but" class="btn btn-success">Sign in</button> <span id="spin"><i class="fa fa-spinner fa-spin"></i></span>');
     $("#spin").hide();
@@ -59,6 +61,7 @@
         console.log("Login Failed!", error);
         $("#err-modal").modal('show');
       } else {
+        $("#sc-reload-button").prop('disabled', false);
         console.log("Authenticated successfully with payload:", authData);
       }
     });
@@ -118,7 +121,7 @@
       return "9:00 - 10:00";
     } else if (key.indexOf("2") > 0) {
       return "10:00 - 11:00";
-    }  else if (key.indexOf("3") > 0) {
+    } else if (key.indexOf("3") > 0) {
       return "11:00 - 12:00";
     } else if (key.indexOf("4") > 0) {
       return "12:00 - 13:00";
@@ -132,8 +135,7 @@
       return "16:00 - 17:00";
     } else if (key.indexOf("9") > 0) {
       return "17:00 - 18:00";
-    }
-    else {
+    } else {
       return "--";
     }
 

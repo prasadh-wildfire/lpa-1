@@ -30,7 +30,6 @@
         fetchMentor(key);
       } else {
         // init our mentor with what we have from google-login
-        $("#logout-but").text("Logout " + authData.google.displayName);
         $("#form-name-field").val(authData.google.displayName);
         $("#form-pic-url").val(authData.google.profileImageURL);
       }

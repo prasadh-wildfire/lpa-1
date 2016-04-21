@@ -76,7 +76,7 @@
       var startupName = $.trim($(this).text());
       var startupKey = startupName.replace(" ", "");
       var mentorPerHour = []
-      for (var j = 1; j < 9; j++) {
+      for (var j = 1; j < 10; j++) {
         var tmpMentorPhone = $("#mentor-" + startupKey + "-" + j + "-select").val();
         var tmpMentorName = $("#mentor-" + startupKey + "-" + j + "-select option:selected").text();
         var tmpM = [tmpMentorPhone, tmpMentorName];
@@ -164,7 +164,7 @@
       html += '<div class="row">';
       html += '<div class="col-md-2 col-lg-1 text-center sc-start-name">' + startupNameList[i] + ' </div>';
       var startupKey = startupNameList[i].replace(" ", "");
-      for (var j = 1; j < 9; j++) {
+      for (var j = 1; j < 10; j++) {
         html += '<div class="col-md-1 col-lg-1 text-center ">';
         html += getMentorsSelect("mentor-" + startupKey + "-" + j + "-select");
         html += '</div>';

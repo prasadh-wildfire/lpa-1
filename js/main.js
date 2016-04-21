@@ -132,11 +132,12 @@
           // per startup set the mentors + comments
           console.log("update mentors and comments for: " + startupName);
           $("#sc-comments-" + startupName).val(scData.comments);
-          var len = scData.mentors.length;
+          var len = scData.mentors.length + 1;
           for (var j = 1; j < len; j++) {
             var curMentor = scData.mentors[j - 1];
             var key = curMentor[0];
             var name = curMentor[1];
+            console.log("startup: " + startupName + " key:" + key + " name:" + name);
             $("#mentor-" + startupName + "-" + j + "-select").val(key);
           }
         });

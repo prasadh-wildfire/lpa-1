@@ -98,14 +98,12 @@
                 <input type="date" class="schedule-day-x  text-center" id="schedule-day-1">
                 <button id="sc-reload-button" class="btn btn-warning">Reload</button>
               </div>
-              
             </div>
             <div class="row">
               <div id="attendee-schedule-list" class="col-md-12 col-lg-12 text-center">
                 <img src="img/books.jpeg" class="schedule-back-img">
               </div>
             </div>
-            
           </div>
           <!-- STARTUPS -->
           <div role="tabpanel" class="tab-pane" id="startup-tab">
@@ -132,7 +130,6 @@
               </div>
             </div>
           </div>
-        
         </div>
       </div>
     </div>
@@ -175,21 +172,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
   <script src="js/main-startup.js"></script>
   <script>
-  (function(b, o, i, l, e, r) {
-    b.GoogleAnalyticsObject = l;
-    b[l] || (b[l] =
-      function() {
-        (b[l].q = b[l].q || []).push(arguments)
-      });
-    b[l].l = +new Date;
-    e = o.createElement(i);
-    r = o.getElementsByTagName(i)[0];
-    e.src = '//www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e, r)
-  }(window, document, 'script', 'ga'));
-  ga('create', 'UA-27750723-1', 'auto');
+  (function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-76781519-1', 'auto');
   ga('send', 'pageview');
   </script>
 </body>
 <!-- v0.3 -->
+
 </html>

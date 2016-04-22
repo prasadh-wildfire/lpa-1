@@ -92,7 +92,7 @@
         });
       }
       var startupComments = $("#sc-comments-" + startupKey).val();
-      console.log("Saving startup: " + startupName + " mentors: " + mentorPerHour + " comments:" + startupComments);
+      console.log("Saving startup: " + startupName + " Comments:" + startupComments + " Mentors: " + mentorPerHour );
       // save the sessions per startup
       ref.child("sessions").child(scDay).child("startups").child(startupName).set({
         mentors: mentorPerHour,
@@ -108,7 +108,6 @@
           }, 1500);
         }
       });
-
     });
 
   });

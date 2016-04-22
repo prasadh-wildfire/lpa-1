@@ -3,7 +3,9 @@
 An LPA web app
 Currently it's a "Work in progress".
 
-* [Basic version](https://lpa-1.firebaseapp.com/)
+* [Admin Web App](https://lpa-1.firebaseapp.com/)
+* [Mentor Web App](https://lpa-1.firebaseapp.com/index-mentor.html)
+* [Attendee Web App](https://lpa-1.firebaseapp.com/startup.html)
 
 ## ToDos
 
@@ -14,11 +16,17 @@ Currently it's a "Work in progress".
 * [ ] Add push notifications on special notes that you mark with "todo".
 
 ### Sing-in
-* [ ] Enable an option to use Facebook, Google, Twitter.
+* [x] Enable an option to use Google
+* [ ] Enable an option to use Facebook(?)
+* [ ] Enable an option to use Twitter(?)
 
 ### Help 
 * [ ] Add mailto explanation for Chrome: chrome://settings/handlers
-* [ ] Add an introJS to show the funtion/power user option in the app.
+* [ ] Add an introJS to show the function/power user options in the app.
+
+-----
+## Issue / Bug ?
+Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
 
 -----
 

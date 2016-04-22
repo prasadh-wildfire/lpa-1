@@ -65,6 +65,8 @@
         $("#sc-reload-button").prop('disabled', false);
         console.log("Authenticated successfully with payload:", authData);
       }
+    }, {
+      scope: "email"
     });
     return false;
   });

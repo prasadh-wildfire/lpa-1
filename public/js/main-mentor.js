@@ -106,8 +106,10 @@
           console.log("update mentors and comments for: " + key + " " + scData);
           html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
             scData.startup + ' | ' + getHourAsRange(key) + '</h3> </div> <div class="panel-body">' +
-            'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
-          <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
+            '<b>todo: highlights on the startup</b> <p class="collapse" id="meet-details-' + key + '">Please add your notes:<br> \
+            <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + scDay + "/" + curMentorPhone + "/" + key + "/" + scData.startup + '" name="meeting-notes"></textarea> \
+            <br><button class="btn btn-warning meeting-save-button">Save Notes</button> </p> \
+          <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-' + key + '">Details &raquo;</a></p> \
           </div> </div>';
         });
         $("#mentor-schedule-list").html(html);
@@ -116,9 +118,19 @@
         bootbox.alert("Could not find anything for this date.");
       }
     });
-
   });
 
+  $('#mentor-schedule-list').on('click', '.meeting-save-button', function() {
+    // save the meeting notes
+    var ta = $(this).closest('p').find('textarea');
+    var notes = ta.val();
+    var keyToSession = ta.data('key');
+    console.log("Key: " + keyToSession + " Notes: " + notes );
+  });
+
+  //
+  //
+  //
   function getHourAsRange(key) {
     if (key.indexOf("1") > 0) {
       return "9:00 - 10:00";

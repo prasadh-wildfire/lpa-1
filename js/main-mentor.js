@@ -107,13 +107,13 @@
           html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
             scData.startup + ' | ' + getHourAsRange(key) + '</h3> </div> <div class="panel-body">' +
             '<b>todo: highlights on the startup</b> <p class="collapse" id="meet-details-' + key + '">Please add your notes:<br> \
-            <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + scDay + "/" + curMentorPhone + "/" + key + "/" + scData.startup + '" name="meeting-notes"></textarea> \
+            <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + 
+            scDay + "/mentors/" + curMentorPhone + "/" + key + "/" + scData.startup + '" name="meeting-notes"></textarea> \
             <br><button class="btn btn-warning meeting-save-button">Save Notes</button> </p> \
-          <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-' + key + '">Details &raquo;</a></p> \
-          </div> </div>';
+            <p> <a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-' + key + '">Details &raquo;</a></p> \
+            </div> </div>';
         });
         $("#mentor-schedule-list").html(html);
-
       } else {
         bootbox.alert("Could not find anything for this date.");
       }
@@ -125,7 +125,24 @@
     var ta = $(this).closest('p').find('textarea');
     var notes = ta.val();
     var keyToSession = ta.data('key');
-    console.log("Key: " + keyToSession + " Notes: " + notes );
+    console.log("Key: " + keyToSession + " Notes: " + notes);
+    var curUnixTime = new Date().getTime();
+    var disTime = new Date().toJSON().slice(0, 21);
+    ref.child("sessions").child(keyToSession).set({
+      meetingNotes: notes,
+      unixTime: curUnixTime,
+      date: disTime
+    }, function(error) {
+      if (error) {
+        alert("meeting notes for: " + keyToSession + " could not be saved :( Details: " + error);
+      } else {
+        console.log(keyToSession + " notes Saved!");
+        $(".save-alert").show();
+        setTimeout(function() {
+          $(".save-alert").hide();
+        }, 1500);
+      }
+    });
   });
 
   //
@@ -219,7 +236,7 @@
           $(".save-alert").hide();
         }, 1500);
       }
-    })
+    });
   });
 
   //

@@ -106,11 +106,10 @@
           console.log("update mentors and comments for: " + key + " " + scData);
           html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
             scData.startup + ' | ' + getHourAsRange(key) + '</h3> </div> <div class="panel-body">' +
-            '<b>todo: highlights on the startup</b> <p class="collapse" id="meet-details-' + key + '">Please add your notes:<br> \
+            '<b>todo: highlights on the startup</b> <p class="" id="meet-details-' + key + '">Please add your notes:<br> \
             <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + 
             scDay + "/mentors/" + curMentorPhone + "/" + key + "/" + scData.startup + '" name="meeting-notes"></textarea> \
             <br><button class="btn btn-warning meeting-save-button">Save Notes</button> </p> \
-            <p> <a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-' + key + '">Details &raquo;</a></p> \
             </div> </div>';
         });
         $("#mentor-schedule-list").html(html);

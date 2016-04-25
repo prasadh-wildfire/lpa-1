@@ -103,14 +103,17 @@
         var html = "";
         $.each(sessions, function(key, scData) {
           // per startup set the mentors + comments
+          var meetingNotesKey = scDay + "/mentors/" + curMentorPhone + "/" + key + "/notes";  // + scData.startup;
+          var curNotes = "";
+          if (scData.notes && scData.notes.meetingNotes) {
+            curNotes = scData.notes.meetingNotes;
+          }
           console.log("update mentors and comments for: " + key + " " + scData);
           html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
             scData.startup + ' | ' + getHourAsRange(key) + '</h3> </div> <div class="panel-body">' +
             '<b>todo: highlights on the startup</b> <p class="" id="meet-details-' + key + '">Please add your notes:<br> \
-            <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + 
-            scDay + "/mentors/" + curMentorPhone + "/" + key + "/" + scData.startup + '" name="meeting-notes"></textarea> \
-            <br><button class="btn btn-warning meeting-save-button">Save Notes</button> </p> \
-            </div> </div>';
+            <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + meetingNotesKey + '" name="meeting-notes">' +
+            curNotes + '</textarea> <br><button class="btn btn-warning meeting-save-button">Save Notes</button> </p> </div> </div>';
         });
         $("#mentor-schedule-list").html(html);
       } else {

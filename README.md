@@ -32,11 +32,12 @@ Currently it's a "Work in progress".
 Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
 
 -----
-###A lion runs the fastest when he is hungry. 
+
 ![LPA PWA](https://lpa-1.firebaseapp.com/img/lion-hd.jpeg)
+####A lion runs the fastest when he is hungry. 
 -----
 
-## Data 
+## Data Model
 
 ### Mentor 
 * Key: Phone

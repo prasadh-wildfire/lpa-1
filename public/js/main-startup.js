@@ -21,21 +21,26 @@
     if (authData) {
       authUserData = authData;
       localStorage.setItem("lpa1-g-authData", JSON.stringify(authData));
-      $("#sc-reload-button").prop('disabled', false);
-      console.log("User " + authData.uid + " is logged in with " + authData.provider);
-      $("#login-form").html("<img src='" + authData.google.profileImageURL + "' class='g-mentor-logo' alt='mentor logo' />");
-      $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
+      if (authData.google && authData.google.email) {
+        $("#sc-reload-button").prop('disabled', false);
+        console.log("User " + authData.uid + " is logged in with " + authData.provider);
+        $("#login-form").html("<img src='" + authData.google.profileImageURL + "' class='g-mentor-logo' alt='mentor logo' />");
+        $("#logout-div").html("<form class='navbar-form navbar-right' role='form'><button id='logout-but' class='btn btn-success'>Logout</button> </form>");
 
-      curAttendeeEmail = authData.google.email;
-      // so we could use it as firebase key
-      curAttendeeEmail = curAttendeeEmail.replace(".", "-");
-      fetchAttendee(curAttendeeEmail);
+        curAttendeeEmail = authData.google.email;
+        // so we could use it as firebase key
+        curAttendeeEmail = curAttendeeEmail.replace(".", "-");
+        fetchAttendee(curAttendeeEmail);
 
-      // init our attendee with what we have from google-login
-      $("#logout-but").text("Logout " + authData.google.displayName);
+        // init our attendee with what we have from google-login
+        $("#logout-but").text("Logout " + authData.google.displayName);
 
-      readStartups(authData);
-      readAttendees(authData);
+        readStartups(authData);
+        readAttendees(authData);
+      } else {
+        $("#sc-reload-button").prop('disabled', true);
+        console.log("Not auth with an email :/");
+      }
     } else {
       console.log("Attendee is logged out");
       logoutUI();
@@ -112,8 +117,8 @@
         // we know it's the mentors and hours
         for (var i = 0; i < sessions.mentors.length; i++) {
           scHtml += '<div class="panel panel-default"> <div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
-          sessions.mentors[i][1] + ' | ' + getHourAsRange("hour-"+(i+1)) + '</h3> </div> <div class="panel-body">' +
-          'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
+            sessions.mentors[i][1] + ' | ' + getHourAsRange("hour-" + (i + 1)) + '</h3> </div> <div class="panel-body">' +
+            'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
           <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
           </div> </div>';
         }

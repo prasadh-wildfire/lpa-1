@@ -9,8 +9,11 @@ Currently it's a "Work in progress".
 
 ## ToDos
 
+### General
+* [ ] Add build process (Gulp) - copy, minify, image optimization etc'.
+* [ ] Add unit tests
+
 ### PWA
-* [ ] Add build process (Gulp) - copy, minify etc'.
 * [ ] Use Service workers for caching and local saving of notes.
 * [ ] Add manifest.
 * [ ] Add push notifications on special notes that you mark with "todo".
@@ -29,9 +32,8 @@ Currently it's a "Work in progress".
 Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
 
 -----
-
+###A lion runs the fastest when he is hungry. 
 ![LPA PWA](https://lpa-1.firebaseapp.com/img/lion-hd.jpeg)
-
 -----
 
 ## Data 

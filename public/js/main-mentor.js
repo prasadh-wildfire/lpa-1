@@ -110,10 +110,11 @@
           }
           console.log("update mentors and comments for: " + key + " " + scData);
           html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
-            scData.startup + ' | ' + getHourAsRange(key) + '</h3> </div> <div class="panel-body">' +
-            '<b>todo: highlights on the startup</b> <p class="" id="meet-details-' + key + '">Please add your notes:<br> \
+            scData.startup + ' | ' + getHourAsRange(key) + ' </h3> </div> <div class="panel-body">' +
+            '<b>todo: highlights on the startup</b> <p class="" id="meet-details-' + key + '">Meeting Notes:<br> \
             <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + meetingNotesKey + '" name="meeting-notes">' +
-            curNotes + '</textarea> <br><button class="btn btn-warning meeting-save-button">Save Notes</button> </p> </div> </div>';
+            curNotes + '</textarea> </p> <button class="btn btn-warning meeting-save-button">Save Notes</button></div> </div> </div>';
+            // <div class="row"> <div class="col-lg-3 col-md-3"> <input type="file" name="file" class="input-img" id="notesImg" accept="image/*"> <button type="submit" class="btn btn-info meeting-img-button">Upload Image</button> 
         });
         $("#mentor-schedule-list").html(html);
       } else {
@@ -122,6 +123,9 @@
     });
   });
 
+  //
+  // save the meeting notes
+  //
   $('#mentor-schedule-list').on('click', '.meeting-save-button', function() {
     // save the meeting notes
     var ta = $(this).closest('p').find('textarea');

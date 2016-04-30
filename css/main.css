@@ -133,3 +133,9 @@ label {
 .must-have-field {
   background-color: antiquewhite;
 }
+
+.img-background-max {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}

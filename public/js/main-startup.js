@@ -273,6 +273,8 @@
       } else {
         localStorage.removeItem("lpa1-g-att-email");
         localStorage.removeItem("lpa1-g-att-startup");
+        $("#sc-reload-button").prop('disabled', true);
+        bootbox.alert("Please check with the organizer why you aren't part of any startup"); 
       }
     });
   }

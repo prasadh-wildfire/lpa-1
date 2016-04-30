@@ -11,7 +11,7 @@
   var startupNameList = [];
   var curAttendeeEmail = "";
   var curAttendeeStartup = "";
-
+  //
   // AUTH fun
   // start the connection with firebase DB
   //
@@ -110,7 +110,7 @@
         var scHtml = "";
         scHtml += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title"> Comments For The Day' +
           '</h3> </div> <div class="panel-body">' + sessions.comments +
-          '<p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
+          '<p class="collapse" id="meet-details-1">todo </p> \
           <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
           </div> </div>';
 
@@ -118,9 +118,7 @@
         for (var i = 0; i < sessions.mentors.length; i++) {
           scHtml += '<div class="panel panel-default"> <div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
             sessions.mentors[i][1] + ' | ' + getHourAsRange("hour-" + (i + 1)) + '</h3> </div> <div class="panel-body">' +
-            'todo: bla bla and comments <p class="collapse" id="meet-details-1">More bla bla bla <br>Donec id elit non mi </p> \
-          <p><a class="btn btn-default" data-toggle="collapse" data-target="#meet-details-1">Details &raquo;</a></p> \
-          </div> </div>';
+            'todo: add details? </div> </div>';
         }
         //console.log(scHtml);
         $("#attendee-schedule-list").html(scHtml);

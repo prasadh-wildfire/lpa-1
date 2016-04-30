@@ -130,6 +130,6 @@ label {
   border-radius: 25px;
 }
 
-input#form-email-field {
+.must-have-field {
   background-color: antiquewhite;
 }

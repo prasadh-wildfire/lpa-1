@@ -426,24 +426,25 @@
       }, 1500);
       return;
     }
-    if (tel.length < 10) {
-      $("#phoneError").html("Please give a phone - So we can call you late at night");
-      $("#phoneError").removeClass("sr-only");
-      $("#phoneError").addClass("alert");
-      $("#form-name-field").focus();
-      setTimeout(function() {
-        $("#phoneError").removeClass("alert");
-        $("#phoneError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
+    // if (tel.length < 10) {
+    //   $("#phoneError").html("Please give a phone - So we can call you late at night");
+    //   $("#phoneError").removeClass("sr-only");
+    //   $("#phoneError").addClass("alert");
+    //   $("#form-name-field").focus();
+    //   setTimeout(function() {
+    //     $("#phoneError").removeClass("alert");
+    //     $("#phoneError").addClass("sr-only");
+    //   }, 1500);
+    //   return;
+    // }
 
     console.log("saving to Firebase: " + name + " , " + email);
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
 
-    // save mentor
-    ref.child("mentors").child(tel).set({
+    // Save mentor
+    var mentorKey = emailKey.replace('.', '-');
+    ref.child("mentors").child(mentorKey).set({
       name: name,
       email: emailKey,
       phone: tel,

@@ -114,7 +114,9 @@
             '<b>todo: highlights on the startup</b> <p class="" id="meet-details-' + key + '">Meeting Notes:<br> \
             <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + meetingNotesKey + '" name="meeting-notes">' +
             curNotes + '</textarea> </p> <button class="btn btn-warning meeting-save-button">Save Notes</button></div> </div> </div>';
-            // <div class="row"> <div class="col-lg-3 col-md-3"> <input type="file" name="file" class="input-img" id="notesImg" accept="image/*"> <button type="submit" class="btn btn-info meeting-img-button">Upload Image</button> 
+            // TODO: add an option to take photos: 
+            // <div class="row"> <div class="col-lg-3 col-md-3"> <input type="file" name="file" class="input-img" id="notesImg" accept="image/*"> 
+            // <button type="submit" class="btn btn-info meeting-img-button">Upload Image</button> 
         });
         $("#mentor-schedule-list").html(html);
       } else {
@@ -195,56 +197,7 @@
     html += '</select>';
     return html;
   }
-  //
-  // Save startups
-  //
-  $("#st-save-button").click(function() {
-    // Validation - TODO: take it out to a function
-    var name = $("#st-name-field").val();
-    var desc = $("#st-desc-field").val();
-    var country = $("#st-country-field").val();
-    // name validation
-    if (name.length < 2) {
-      $("#st-nameError").html("Please give a name - So you could remember this startup in the future!");
-      $("#st-nameError").removeClass("sr-only");
-      $("#st-nameError").addClass("alert");
-      $("#st-name-field").focus();
-      setTimeout(function() {
-        $("#st-nameError").removeClass("alert");
-        $("#st-nameError").addClass("sr-only");
-      }, 1500);
-      return;
-    }
-    console.log("saving startup to Firebase: " + name + " | desc: " + desc);
-    var curUnixTime = new Date().getTime();
-    var disTime = new Date().toJSON().slice(0, 21);
-    ref.child("startups").child(name).set({
-      name: name,
-      description: desc,
-      country: $("#st-country-field").val(),
-      city: $("#st-city-field").val(),
-      fund: $("#st-fund-select option:selected").text(),
-      numEmployees: $("#st-num-employees-select option:selected").text(),
-      dateFounded: $("#st-date-field").val(),
-      logo: $("#st-logo-url").val(),
-      team: $("#st-team-url").val(),
-      video: $("#st-video-url").val(),
-      historyUrl: $("#st-history-url").val(),
-      unixTime: curUnixTime,
-      date: disTime
-    }, function(error) {
-      if (error) {
-        alert("Startup data could not be saved :( Details: " + error);
-      } else {
-        console.log(name + " saved!");
-        $(".save-alert").show();
-        setTimeout(function() {
-          $(".save-alert").hide();
-        }, 1500);
-      }
-    });
-  });
-
+  
   //
   // read the list of startups and display it
   //
@@ -274,77 +227,6 @@
     });
   }
 
-  //
-  // clear the startup values
-  //
-  $("#st-cancel-button").click(function() {
-    $("#st-name-field").val("");
-    $("#st-desc-field").val("");
-    $("#st-country-field").val("");
-    $("#st-city-field").val("");
-    $("#st-st-fund-select").val("");
-    $("#st-num-employees-select").val("1-10");
-    $("#st-date-field").val("");
-    $("#st-logo-url").val("");
-    $("#st-team-url").val("");
-    $("#st-video-url").val("");
-    $("#st-history-url").val("");
-    $("#st-name-field").focus();
-    $('body').scrollTop(60);
-  });
-
-  //
-  // enable to edit startups from the list
-  //
-  $('body').on('click', '.startup-edit', function(event) {
-    var stName = this.dataset.key;
-    var ref = new Firebase("https://lpa-1.firebaseio.com/startups/" + stName);
-    ref.on("value", function(startupSnap) {
-      var st = startupSnap.val();
-      if (st != null) {
-        console.log("Setting data for startup: " + JSON.stringify(st));
-        $("#st-name-field").val(st.name);
-        $("#st-desc-field").val(st.description);
-        $("#st-country-field").val(st.country);
-        $("#st-city-field").val(st.city);
-        $("#st-st-fund-select").val(st.fund);
-        $("#st-num-employees-select").val(st.numEmployees);
-        $("#st-date-field").val(st.dateFounded);
-        $("#st-logo-url").val(st.logo);
-        $("#st-team-url").val(st.team);
-        $("#st-video-url").val(st.video);
-        $("#st-history-url").val(st.historyUrl);
-        $("#st-name-field").focus();
-        $('body').scrollTop(60);
-      }
-    });
-  });
-
-  //
-  // Enable removing startups
-  //
-  $('body').on('click', '.remove-startup', function(event) {
-    var key = this.dataset.key;
-    bootbox.confirm("Are you sure? For Real?", function(result) {
-      if (result == true) {
-        var fredRef = new Firebase('https://lpa-1.firebaseio.com/startups/' + key);
-        var onComplete = function(error) {
-          if (error) {
-            console.log('Synchronization failed');
-          } else {
-            console.log('Synchronization succeeded - mentor was removed');
-            $("#startups-list").html('<div id="loading-startup"><h2><i class="fa fa-spinner fa-spin"></i> </h2></div>');
-            readStartups(authUserData);
-          }
-        };
-        fredRef.remove(onComplete);
-      } else {
-        console.log("let not remove " + key + " for now");
-      }
-    });
-
-  });
-
   //////////////////////////////////////////////////////////////////////////////
   // Mentors
   //////////////////////////////////////////////////////////////////////////////
@@ -364,7 +246,7 @@
       return;
     }
 
-    // validation - TODO: take it out to a function
+    // Validation - TODO: take it out to a function
     var name = $("#form-name-field").val();
     var emailKey = $("#form-email-field").val();
     var tel = $("#form-phone-field").val();
@@ -424,7 +306,8 @@
     // save our mentor's key in local storage
     localStorage.setItem("lpa1-g-phone", tel);
     // save it in firebase
-    ref.child("mentors").child(tel).set({
+    var mentorKey = emailKey.replace('.', '-');
+    ref.child("mentors").child(mentorKey).set({
       name: name,
       email: emailKey,
       phone: tel,

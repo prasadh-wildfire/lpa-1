@@ -112,7 +112,7 @@
             scData.startup + ' | ' + getHourAsRange(key) + ' </h3> </div> <div class="panel-body">' +
             '<b>todo: highlights on the startup</b> <p class="" id="meet-details-' + key + '">Meeting Notes:<br> \
             <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + meetingNotesKey + '" name="meeting-notes">' +
-            curNotes + '</textarea> </p> <button class="btn btn-warning meeting-save-button">Save Notes</button></div> </div> </div>';
+            curNotes + '</textarea>  <button class="btn btn-warning meeting-save-button">Save Notes</button> </p> </div> </div> </div>';
           // TODO: add an option to take photos: 
           // <div class="row"> <div class="col-lg-3 col-md-3"> <input type="file" name="file" class="input-img" id="notesImg" accept="image/*"> 
           // <button type="submit" class="btn btn-info meeting-img-button">Upload Image</button> 
@@ -132,7 +132,11 @@
     var ta = $(this).closest('p').find('textarea');
     var notes = ta.val();
     var keyToSession = ta.data('key');
-    console.log("Key: " + keyToSession + " Notes: " + notes);
+    console.log("keyToSession: " + keyToSession + " Notes: " + notes);
+    if (keyToSession == undefined || keyToSession == null) {
+      bootbox.alert("Sorry - Can't save your notes. Please take them in another way and let the organizers know about it.");
+      return;
+    }
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
     ref.child("sessions").child(keyToSession).set({

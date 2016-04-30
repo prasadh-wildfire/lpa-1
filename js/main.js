@@ -4,6 +4,7 @@
 
   var startupNameList = [];
   var mentorsList = [];
+  //
   // AUTH fun
   // start the connection with firebase DB
   //
@@ -77,12 +78,12 @@
       var startupKey = startupName.replace(" ", "");
       var mentorPerHour = []
       for (var j = 1; j < 10; j++) {
-        var tmpMentorPhone = $("#mentor-" + startupKey + "-" + j + "-select").val();
+        var tmpMentorEmail = $("#mentor-" + startupKey + "-" + j + "-select").val();
         var tmpMentorName = $("#mentor-" + startupKey + "-" + j + "-select option:selected").text();
-        var tmpM = [tmpMentorPhone, tmpMentorName];
+        var tmpM = [tmpMentorEmail, tmpMentorName];
         mentorPerHour.push(tmpM);
 
-        ref.child("sessions").child(scDay).child("mentors").child(tmpMentorPhone).child("hour-" + j).set({
+        ref.child("sessions").child(scDay).child("mentors").child(tmpMentorEmail).child("hour-" + j).set({
           name: tmpMentorName,
           startup: startupKey
         }, function(error) {
@@ -187,7 +188,8 @@
     var len = mentorsList.length;
     mentorsList.sort(compare);
     for (var i = 0; i < len; i++) {
-      html += '<option value="' + mentorsList[i].phone + '">' + mentorsList[i].name + '</option>'
+      var mKey = (mentorsList[i].email).replace(".", "-");
+      html += '<option value="' + mKey + '">' + mentorsList[i].name + '</option>'
     }
     html += '</select>';
     return html;

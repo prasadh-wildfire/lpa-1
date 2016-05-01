@@ -18,6 +18,10 @@
   authUserData = null;
   ref.onAuth(function(authData) {
     if (authData) {
+      if (authData.provider !== "google") {
+         bootbox.alert("You must sign-in with your Google ID.<br>So first logout from the Admin App.<br>Thank you!");
+         return;
+      }
       authUserData = authData;
       localStorage.setItem("lpa1-g-authData", JSON.stringify(authData));
       $("#sc-reload-button").prop('disabled', false);

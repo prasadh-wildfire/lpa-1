@@ -1,4 +1,4 @@
-[](https://developers.google.com/startups/images/logo-launch.svg)
+![](https://developers.google.com/startups/images/logo-launch.svg)
 ## Overview
 
 The goal of these apps is to enable us to run a LPA event(s).

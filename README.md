@@ -1,7 +1,8 @@
+[](https://developers.google.com/startups/images/logo-launch.svg)
 ## Overview
 
-An LPA web app(s).
-We got 3 Apps:
+The goal of these apps is to enable us to run a LPA event(s).
+We got three web apps (so far):
 
 * [Admin Web App](https://lpa-1.firebaseapp.com/) - Used by the organizers to set the schedule for the mentors and startups. 
   * The mentors and attendees emails/names should be added to the system so they will be 'white listed'.
@@ -84,11 +85,23 @@ Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
 * Linkedin Url
 
 ### Session
-* Key: unixTime + startup name + mentor
-* Startup Name
-* Mentor
-* Meeting Location
-* Date
-* Time
-* Length
+
+#### This view is used by our attendee app
+* Key: date (yyyy-mm-dd) / startups / startup name 
+  * comments (for the day)
+  * mentors
+    * 0-8
+      * mentor email
+      * mentor name
+
+#### This view is used by our mentor app
+* Key: date (yyyy-mm-dd) / mentors / mentor email 
+  * hours (1-9)
+    * startup name
+    * mentor name
+    * notes 
+      * meeting notes
+      * unixTime 
+      * date
+
 

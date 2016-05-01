@@ -1,12 +1,27 @@
 ## Overview
 
-An LPA web app
-Currently it's a "Work in progress".
+An LPA web app(s).
+We got 3 Apps:
 
-* [Admin Web App](https://lpa-1.firebaseapp.com/)
-* [Mentor Web App](https://lpa-1.firebaseapp.com/index-mentor.html)
-* [Attendee Web App](https://lpa-1.firebaseapp.com/startup.html)
+* [Admin Web App](https://lpa-1.firebaseapp.com/) - Used by the organizers to set the schedule for the mentors and startups. 
+  * The mentors and attendees emails/names should be added to the system so they will be 'white listed'.
+  * The startups' details should be filled.
+  * The schedule per day of the LPA.
 
+* [Mentor Web App](https://lpa-1.firebaseapp.com/index-mentor.html) - Used by the mentors to see who they are going to meet (=which startup) and when.
+  * The mentor should sign-in with their gmail account and fill their personal details.
+  * Next, she can see what is the schedule per day.
+
+* [Attendee Web App](https://lpa-1.firebaseapp.com/startup.html) - Used by the startups/attendees to see who is the lovely mentor that will work with them.
+  * The attendee should sign-in with their gmail account and fill their personal details.
+  * Next, she can see what is the schedule per day.
+
+-----
+
+## Issue / Bug ?
+Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
+
+-----
 ## ToDos
 
 ### General
@@ -20,16 +35,10 @@ Currently it's a "Work in progress".
 
 ### Sing-in
 * [x] Enable an option to use Google
-* [ ] Enable an option to use Facebook(?)
-* [ ] Enable an option to use Twitter(?)
 
 ### Help 
 * [ ] Add mailto explanation for Chrome: chrome://settings/handlers
 * [ ] Add an introJS to show the function/power user options in the app.
-
------
-## Issue / Bug ?
-Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
 
 -----
 
@@ -40,7 +49,7 @@ Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
 ## Data Model
 
 ### Mentor 
-* Key: Phone
+* Key: email (but with '-' instead of '.')
 * Name
 * Email
 * Domain (ux, tech, product, marketing)
@@ -67,8 +76,9 @@ Please use: [Open an issue](https://github.com/greenido/lpa-1/issues)
 * Patient History File Url
 
 ### Attendee
-* Key: Email
+* Key: email (but with '-' instead of '.')
 * Name
+* Email
 * Startup he is working at
 * Pic Url
 * Linkedin Url

@@ -67,7 +67,7 @@
   //
   $("#sc-save-button").click(function() {
     var scDay = $("#schedule-day-1").val();
-    if (scDay == null || scDay == "") {
+    if (scDay === null || scDay === "") {
       bootbox.alert("You must set a date!");
       $("#schedule-day-1").focus();
       return;
@@ -76,7 +76,7 @@
     $(".sc-start-name").each(function() {
       var startupName = $.trim($(this).text());
       var startupKey = startupName.replace(" ", "");
-      var mentorPerHour = []
+      var mentorPerHour = [];
       for (var j = 1; j < 10; j++) {
         var tmpMentorEmail = $("#mentor-" + startupKey + "-" + j + "-select").val();
         var tmpMentorName = $("#mentor-" + startupKey + "-" + j + "-select option:selected").text();
@@ -118,7 +118,7 @@
   //
   $("#sc-reload-button").click(function() {
     var scDay = $("#schedule-day-1").val();
-    if (scDay == null || scDay == "") {
+    if (scDay === null || scDay === "") {
       bootbox.alert("You must set a date in order to reload schedule. Daaa!");
       $("#schedule-day-1").focus();
       return;
@@ -126,7 +126,7 @@
     var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/startups");
     readRef.orderByKey().on("value", function(snapshot) {
       var sessions = snapshot.val();
-      if (sessions != null) {
+      if (sessions !== null) {
         //console.log("The sessions: " + JSON.stringify(sessions));
         $.each(sessions, function(startupName, scData) {
           // per startup set the mentors + comments
@@ -189,7 +189,7 @@
     mentorsList.sort(compare);
     for (var i = 0; i < len; i++) {
       var mKey = (mentorsList[i].email).replace(".", "-");
-      html += '<option value="' + mKey + '">' + mentorsList[i].name + '</option>'
+      html += '<option value="' + mKey + '">' + mentorsList[i].name + '</option>';
     }
     html += '</select>';
     return html;
@@ -216,7 +216,7 @@
     var html = '<select id="att-startup-list-select" class="selectpicker" data-style="btn-info">';
     var len = startupNameList.length;
     for (var i = 0; i < len; i++) {
-      html += '<option>' + startupNameList[i] + '</option>'
+      html += '<option>' + startupNameList[i] + '</option>';
     }
     html += '</select>';
     return html;
@@ -229,9 +229,8 @@
     var name = $("#st-name-field").val();
     // we can't have spaces - easy life (for now)
     name = name.replace(" ", "-");
-
     var desc = $("#st-desc-field").val();
-    var country = $("#st-country-field").val();
+    
     // name validation
     if (name.length < 2) {
       $("#st-nameError").html("Please give a name - So you could remember this startup in the future!");
@@ -271,7 +270,7 @@
           $(".save-alert").hide();
         }, 1500);
       }
-    })
+    });
   });
 
   //
@@ -336,7 +335,7 @@
     var ref = new Firebase("https://lpa-1.firebaseio.com/startups/" + stName);
     ref.on("value", function(startupSnap) {
       var st = startupSnap.val();
-      if (st != null) {
+      if (st !== null) {
         console.log("Setting data for startup: " + JSON.stringify(st));
         $("#st-name-field").val(st.name);
         $("#st-desc-field").val(st.description);
@@ -361,7 +360,7 @@
   $('body').on('click', '.remove-startup', function(event) {
     var key = this.dataset.key;
     bootbox.confirm("Are you sure? For Real?", function(result) {
-      if (result == true) {
+      if (result === true) {
         var fredRef = new Firebase('https://lpa-1.firebaseio.com/startups/' + key);
         var onComplete = function(error) {
           if (error) {
@@ -470,7 +469,7 @@
           $(".save-alert").hide();
         }, 1500);
       }
-    })
+    });
   });
 
   //
@@ -528,7 +527,7 @@
     var ref = new Firebase("https://lpa-1.firebaseio.com/mentors/" + key);
     ref.on("value", function(mentorSnap) {
       var mentor = mentorSnap.val();
-      if (mentor != null) {
+      if (mentor !== null) {
         console.log("Setting data for: " + JSON.stringify(mentor));
         $("#form-name-field").val(mentor.name);
         $("#form-email-field").val(mentor.email);
@@ -553,7 +552,7 @@
   $('body').on('click', '.remove-mentor', function(event) {
     var key = this.dataset.key;
     bootbox.confirm("Are you sure? For Real?", function(result) {
-      if (result == true) {
+      if (result === true) {
         var fredRef = new Firebase('https://lpa-1.firebaseio.com/mentors/' + key);
         var onComplete = function(error) {
           if (error) {
@@ -638,7 +637,7 @@
           $(".save-alert").hide();
         }, 1500);
       }
-    })
+    });
   });
 
   //
@@ -687,7 +686,7 @@
     var ref = new Firebase("https://lpa-1.firebaseio.com/attendees/" + key);
     ref.on("value", function(attSnap) {
       var att = attSnap.val();
-      if (att != null) {
+      if (att !== null) {
         console.log("Setting data for: " + JSON.stringify(att));
         $("#att-name-field").val(att.name);
         $("#att-email-field").val(att.email);
@@ -707,7 +706,7 @@
   $('body').on('click', '.remove-att', function(event) {
     var key = this.dataset.key;
     bootbox.confirm("Are you sure? Delete " + key + " For Real?", function(result) {
-      if (result == true) {
+      if (result === true) {
         var fredRef = new Firebase('https://lpa-1.firebaseio.com/attendees/' + key);
         var onComplete = function(error) {
           if (error) {

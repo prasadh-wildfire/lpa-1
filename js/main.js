@@ -342,7 +342,7 @@
         $("#st-desc-field").val(st.description);
         $("#st-country-field").val(st.country);
         $("#st-city-field").val(st.city);
-        $("#st-st-fund-select").selectpicker('val', st.fund);
+        $("#st-fund-select").selectpicker('val', st.fund);
         $("#st-num-employees-select").selectpicker('val', st.numEmployees);
         $("#st-date-field").val(st.dateFounded);
         $("#st-logo-url").val(st.logo);

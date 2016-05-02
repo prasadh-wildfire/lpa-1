@@ -114,8 +114,13 @@ label {
 
 
 /********* TODO: Mentor page */
+
 .meeting-save-button {
-    margin-top: 0.5em;
+  margin-top: 0.5em;
+}
+
+#sc-reload-button {
+  margin: 0.3em;
 }
 
 .g-mentor-logo {
@@ -138,8 +143,9 @@ label {
 }
 
 .img-background-max {
-    max-width: 100%;
-    height: auto;
-    width: auto\9; /* ie8 */
-    border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  width: auto\9;
+  /* ie8 */
+  border-radius: 8px;
 }

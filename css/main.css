@@ -114,6 +114,9 @@ label {
 
 
 /********* TODO: Mentor page */
+.meeting-save-button {
+    margin-top: 0.5em;
+}
 
 .g-mentor-logo {
   height: 36px;

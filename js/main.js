@@ -80,20 +80,23 @@
       for (var j = 1; j < 10; j++) {
         var tmpMentorEmail = $("#mentor-" + startupKey + "-" + j + "-select").val();
         var tmpMentorName = $("#mentor-" + startupKey + "-" + j + "-select option:selected").text();
-        var tmpM = [tmpMentorEmail, tmpMentorName];
+        var location = $("#meeting-location-" + startupKey + "-" + j + "-select option:selected").text();
+        var tmpM = [tmpMentorEmail, tmpMentorName, location];
         mentorPerHour.push(tmpM);
 
         ref.child("sessions").child(scDay).child("mentors").child(tmpMentorEmail).child("hour-" + j).set({
           name: tmpMentorName,
-          startup: startupKey
+          startup: startupKey,
+          location: location
         }, function(error) {
           if (error) {
             bootbox.alert("Schedule could not be saved :( Details: " + error);
           }
         });
       }
+      //
       var startupComments = $("#sc-comments-" + startupKey).val();
-      console.log("Saving startup: " + startupName + " Comments:" + startupComments + " Mentors: " + mentorPerHour );
+      console.log("Saving startup: " + startupName + " Comments:" + startupComments + " Mentors: " + mentorPerHour);
       // save the sessions per startup
       ref.child("sessions").child(scDay).child("startups").child(startupName).set({
         mentors: mentorPerHour,
@@ -137,12 +140,13 @@
             var curMentor = scData.mentors[j - 1];
             var key = curMentor[0];
             var name = curMentor[1];
-            console.log("startup: " + startupName + " key:" + key + " name:" + name);
+            var loc = curMentor[2];
+              console.log("startup: " + startupName + " key:" + key + " name:" + name);
             $("#mentor-" + startupName + "-" + j + "-select").val(key);
+            $("#meeting-location-" + startupName + "-" + j + "-select").val(loc);
           }
         });
-      }
-      else {
+      } else {
         bootbox.alert("Could not find anything for this date.");
       }
     });
@@ -168,6 +172,7 @@
       for (var j = 1; j < 10; j++) {
         html += '<div class="col-md-1 col-lg-1 text-center ">';
         html += getMentorsSelect("mentor-" + startupKey + "-" + j + "-select");
+        html += '<br>' + getMeetingLocations("meeting-location-" + startupKey + "-" + j + "-select");
         html += '</div>';
       }
       html += '<div class="col-md-2 col-lg-2 text-center ">';
@@ -178,6 +183,23 @@
     }
 
     $("#schedule-tab-table").html(html);
+  }
+
+  //
+  // get list of locations for the meetings 
+  //
+  function getMeetingLocations(htmlObjId) {
+    var html = '<select id="' + htmlObjId + '" class="mentor-selector">';
+    //
+    // TODO: fetch it from firebase
+    var locationList = ["Room 1", "Room 22", "Next to Building 3", "Roy's living room"];
+    var len = locationList.length;
+    locationList.sort(compare);
+    for (var i = 0; i < len; i++) {
+      html += '<option value="' + locationList[i] + '">' + locationList[i] + '</option>';
+    }
+    html += '</select>';
+    return html;
   }
 
   //
@@ -196,14 +218,14 @@
   }
 
   //
-  function compare(a,b) {
-  if (a.name < b.name)
-    return -1;
-  else if (a.name > b.name)
-    return 1;
-  else 
-    return 0;
-}
+  function compare(a, b) {
+    if (a.name < b.name)
+      return -1;
+    else if (a.name > b.name)
+      return 1;
+    else
+      return 0;
+  }
 
 
   //////////////////////////////////////////////////////////////////////////////
@@ -230,7 +252,7 @@
     // we can't have spaces - easy life (for now)
     name = name.replace(" ", "-");
     var desc = $("#st-desc-field").val();
-    
+
     // name validation
     if (name.length < 2) {
       $("#st-nameError").html("Please give a name - So you could remember this startup in the future!");

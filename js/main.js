@@ -659,6 +659,7 @@
       startup: $("#att-startup-list-select option:selected").text(),
       linkedin: $("#att-linkedin-url").val(),
       pic: $("#att-pic-url").val(),
+      funFact: $("#att-fun-fact").val(),
       unixTime: curUnixTime,
       date: disTime
     }, function(error) {
@@ -707,6 +708,7 @@
     $("#att-email-field").val("");
     $("#att-startup-list-select").val("");
     $("#att-linkedin-url").val("");
+    $("#att-fun-fact").val("");
     $("#att-pic-url").val("");
     $("#att-name-field").focus();
     $('body').scrollTop(60);
@@ -726,6 +728,7 @@
         $("#att-email-field").val(att.email);
         $("#att-startup-list-select").selectpicker('val', att.startup);
         $("#att-linkedin-url").val(att.linkedin);
+        $("#att-fun-fact").val(att.funFact);
         $("#att-pic-url").val(att.pic);
 
         $("#att-name-field").focus();

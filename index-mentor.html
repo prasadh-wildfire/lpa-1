@@ -83,14 +83,10 @@
       <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#m-schedule-tab" aria-controls="schedule-tab" role="tab" data-toggle="tab"
-            title="Your schedule: meetings and an option to take notes">Schedule</a></li>
-          <li role="presentation"><a href="#startup-tab" aria-controls="startup-tab" role="tab" data-toggle="tab"
-            title="List of startups that are part of this LPA">Startups</a></li>
-          <li role="presentation"><a href="#attendees-tab" aria-controls="attendees-tab" role="tab" data-toggle="tab"
-            title="List of all the attendees that are part of this LPA">Attendees</a></li>
-          <li role="presentation"><a href="#mentors-tab" aria-controls="mentors-tab" role="tab" data-toggle="tab" 
-            title="Your details - please feel free to fill them all! Thx!">You</a></li>
+          <li role="presentation" class="active"><a href="#m-schedule-tab" aria-controls="schedule-tab" role="tab" data-toggle="tab" title="Your schedule: meetings and an option to take notes">Schedule</a></li>
+          <li role="presentation"><a href="#startup-tab" aria-controls="startup-tab" role="tab" data-toggle="tab" title="List of startups that are part of this LPA">Startups</a></li>
+          <li role="presentation"><a href="#attendees-tab" aria-controls="attendees-tab" role="tab" data-toggle="tab" title="List of all the attendees that are part of this LPA">Attendees</a></li>
+          <li role="presentation"><a href="#mentors-tab" aria-controls="mentors-tab" role="tab" data-toggle="tab" title="Your details - please feel free to fill them all! Thx!">You</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -193,6 +189,33 @@
                     <option>Business</option>
                   </select>
                 </div>
+                <!-- more -->
+                <label for="form-domain-sec-select">Secondary Domain</label>
+                <div class="input-group">
+                  <select id="form-domain-sec-select" class="selectpicker" data-style="btn-info">
+                    <option>UX</option>
+                    <option>Tech</option>
+                    <option>Product</option>
+                    <option>Marketing</option>
+                    <option>Business</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="form-twitter-field">Twitter</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-bullhorn"></span></div>
+                    <input type="text" class="form-control" id="form-twitter-field" value="" placeholder="@yourAccount">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="form-bio">Bio</label>
+                  <textarea class="form-control col-lg-6" id="form-bio" name="bio"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="form-fun-fact">Fun Fact</label>
+                  <textarea class="form-control col-lg-6" id="form-fun-fact" name="form-fun-fact"></textarea>
+                </div>
+                <!-- end -->
                 <label for="form-expertise">Expertise</label>
                 <textarea class="form-control col-lg-6" id="form-expertise" name="expertise"></textarea>
                 <br>

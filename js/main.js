@@ -141,7 +141,7 @@
             var key = curMentor[0];
             var name = curMentor[1];
             var loc = curMentor[2];
-              console.log("startup: " + startupName + " key:" + key + " name:" + name);
+            console.log("startup: " + startupName + " key:" + key + " name:" + name);
             $("#mentor-" + startupName + "-" + j + "-select").val(key);
             $("#meeting-location-" + startupName + "-" + j + "-select").val(loc);
           }
@@ -474,6 +474,10 @@
       country: $("#form-country-field").val(),
       city: $("#form-city-field").val(),
       domain: $("#form-domain-select option:selected").text(),
+      domainSec: $("#form-domain-sec-select option:selected").text(),
+      twitter: $("#form-twitter-field").val(),
+      bio: $("#form-bio").val(),
+      funFact: $("#form-fun-fact").val(),
       expertise: $("#form-expertise").val(),
       linkedin: $("#form-linkedin-url").val(),
       site: $("#form-personal-url").val(),
@@ -532,6 +536,10 @@
     $("#form-country-field").val("");
     $("#form-city-field").val("");
     $("#form-domain-select").selectpicker('val', "UX");
+    $("#form-domain-sec-select").selectpicker('val', "UX");
+    $("#form-twitter-field").val();
+    $("#form-bio").val();
+    $("#form-fun-fact").val();
     $("#form-expertise").val("");
     $("#form-linkedin-url").val("");
     $("#form-personal-url").val("");
@@ -557,6 +565,10 @@
         $("#form-country-field").val(mentor.country);
         $("#form-city-field").val(mentor.city);
         $("#form-domain-select").selectpicker('val', mentor.domain);
+        $("#form-domain-sec-select").selectpicker('val', mentor.domainSec);
+        $("#form-twitter-field").val(mentor.twitter);
+        $("#form-bio").val(mentor.bio);
+        $("#form-fun-fact").val(mentor.funFact);
         $("#form-expertise").val(mentor.expertise);
         $("#form-linkedin-url").val(mentor.linkedin);
         $("#form-personal-url").val(mentor.site);

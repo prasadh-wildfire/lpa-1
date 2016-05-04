@@ -210,7 +210,7 @@
     var len = mentorsList.length;
     mentorsList.sort(compare);
     for (var i = 0; i < len; i++) {
-      var mKey = (mentorsList[i].email).replace(".", "-");
+      var mKey = (mentorsList[i].email).replace(/\./g, "-");
       html += '<option value="' + mKey + '">' + mentorsList[i].name + '</option>';
     }
     html += '</select>';
@@ -466,7 +466,7 @@
     var disTime = new Date().toJSON().slice(0, 21);
 
     // Save mentor
-    var mentorKey = emailKey.replace('.', '-');
+    var mentorKey = emailKey.replace(/\./g, '-');
     ref.child("mentors").child(mentorKey).set({
       name: name,
       email: emailKey,
@@ -652,7 +652,7 @@
     console.log("saving attendee: " + name + " , " + email);
     var curUnixTime = new Date().getTime();
     var disTime = new Date().toJSON().slice(0, 21);
-    emailKey = email.replace('.', '-');
+    emailKey = email.replace(/\./g, '-');
     ref.child("attendees").child(emailKey).set({
       name: name,
       email: email,

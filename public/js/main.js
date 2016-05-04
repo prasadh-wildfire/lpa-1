@@ -227,6 +227,151 @@
       return 0;
   }
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Schedule viewer per mentor / startup
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  // reset the schedule viewer
+  //
+  $("#sc-viewer-reset-button").click(function() {
+    $("#mentor-schedule-list").html("");
+  });
+
+  //
+  // Reload the mentor or startup schedule
+  //
+  $("#sc-viewer-reload-button").click(function() {
+    if ($("#r-mentor").is(':checked')) {
+      // Fetch the mentor schedule only if it's not N/A
+      var curMentorEmail = $("#mentor-sel-viewer").val();
+      loadMentorSechdule(curMentorEmail);
+    }
+
+    if ($("#r-startup").is(':checked')) {
+      // Fetch the startup schedule
+      var curStartup = $("#sec-viewer-startup-select").val();
+      loadStartupSchedule(curStartup);
+    }
+  });
+
+  //
+  // loading the mentor schedule
+  //
+  function loadMentorSechdule(curMentorEmail) {
+    var scDay = $("#schedule-viewer-day").val();
+    if (scDay == null || scDay == "") {
+      bootbox.alert("You must set a date in order to reload schedule. Daaa!");
+      $("#schedule-viewer-day").focus();
+      return;
+    }
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/mentors/" + curMentorEmail);
+    readRef.orderByKey().on("value", function(snapshot) {
+      var sessions = snapshot.val();
+      if (sessions != null) {
+        console.log("The sessions: " + JSON.stringify(sessions));
+        var html = "";
+        $("#mentor-schedule-list").html("");
+        $.each(sessions, function(key, scData) {
+          // per startup set the mentors + comments
+          var meetingNotesKey = scDay + "/mentors/" + curMentorEmail + "/" + key + "/notes"; // + scData.startup;
+          var curNotes = "";
+          if (scData.notes && scData.notes.meetingNotes) {
+            curNotes = scData.notes.meetingNotes;
+          }
+          console.log("update mentors and comments for: " + key + " " + scData);
+          html += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
+            scData.startup + ' | ' + getHourAsRange(key) + ' </h3> </div> <div class="panel-body">' +
+            '<b>Location: ' + scData.location + '</b> <p class="" id="meet-details-' + key + '">Meeting Notes:<br> \
+            <textarea class="form-control col-lg-10 meeting-notes-text" data-key="' + meetingNotesKey + '" name="meeting-notes">' +
+            curNotes + '</textarea> </p> </div> </div> </div>';
+        });
+        $("#mentor-schedule-list").html(html);
+      } else {
+        bootbox.alert("Could not find anything for this date.");
+      }
+    });
+  }
+
+  //
+  //
+  //
+  function loadStartupSchedule(curAttendeeStartup) {
+    var scDay = $("#schedule-viewer-day").val();
+    if (scDay == null || scDay == "") {
+      bootbox.alert("You must set a date in order to reload schedule. Daaa!");
+      $("#schedule-viewer-day").focus();
+      return;
+    }
+
+    var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/startups/" + curAttendeeStartup);
+    readRef.orderByKey().on("value", function(snapshot) {
+      var sessions = snapshot.val();
+      if (sessions != null) {
+        $("#sc-reload-button").text("Reload " + curAttendeeStartup);
+        //console.log("The sessions: " + JSON.stringify(sessions));
+        var scHtml = "";
+        $("#mentor-schedule-list").html("");
+        scHtml += '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title"> Comments For The Day' +
+          '</h3> </div> <div class="panel-body">' + sessions.comments + '</div> </div>';
+
+        // we know it's the mentors and hours
+        for (var i = 0; i < sessions.mentors.length; i++) {
+          scHtml += '<div class="panel panel-default"> <div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
+            sessions.mentors[i][1] + ' | ' + getHourAsRange("hour-" + (i + 1)) + '</h3> </div> <div class="panel-body">' +
+            'Location: ' + sessions.mentors[i][2] + ' </div> </div>';
+        }
+        //console.log(scHtml);
+        $("#mentor-schedule-list").html(scHtml);
+      } else {
+        if (curAttendeeStartup == "") {
+          bootbox.alert("Please check why we don't have schedule for this startup.");
+        } else {
+          bootbox.alert("Could not find anything for " + curAttendeeStartup + " at this date.");
+        }
+
+      }
+    });
+  }
+
+  //
+  // Using these selector for the schedule viewer
+  //
+  function buildMentorStartupSelectors() {
+    var html = '<div class="row"> <div class="input-group radio-viewer"> <input class="" type="radio" id="r-mentor" name="r-sel" checked> Mentor ';
+    html += getMentorsSelect("mentor-sel-viewer"); //  input-group-addon col-lg-2 col-md-2
+    html += '</div> <div class="input-group radio-viewer"><input type="radio" class="" id="r-startup" name="r-sel"> Startup ';
+    html += getStartupSelect("sec-viewer-startup-select", "");
+    html += "</div> </div>";
+    $("#mentor-startup-viewer").html(html);
+
+  }
+
+  //
+  //
+  //
+  function getHourAsRange(key) {
+    if (key.indexOf("1") > 0) {
+      return "9:00 - 10:00";
+    } else if (key.indexOf("2") > 0) {
+      return "10:00 - 11:00";
+    } else if (key.indexOf("3") > 0) {
+      return "11:00 - 12:00";
+    } else if (key.indexOf("4") > 0) {
+      return "12:00 - 13:00";
+    } else if (key.indexOf("5") > 0) {
+      return "13:00 - 14:00";
+    } else if (key.indexOf("6") > 0) {
+      return "14:00 - 15:00";
+    } else if (key.indexOf("7") > 0) {
+      return "15:00 - 16:00";
+    } else if (key.indexOf("8") > 0) {
+      return "16:00 - 17:00";
+    } else if (key.indexOf("9") > 0) {
+      return "17:00 - 18:00";
+    } else {
+      return "--";
+    }
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // Startups
@@ -234,8 +379,9 @@
   //
   // get list of startups in a select 
   //
-  function getStartupSelect() {
-    var html = '<select id="att-startup-list-select" class="selectpicker" data-style="btn-info">';
+  function getStartupSelect(selId, classForSelect) {
+
+    var html = '<select id="' + selId + '" class="' + classForSelect + '" data-style="btn-info">';
     var len = startupNameList.length;
     for (var i = 0; i < len; i++) {
       html += '<option>' + startupNameList[i] + '</option>';
@@ -320,13 +466,16 @@
           startupData.country + '<br>' + startupData.city + ' </div> </div>'
         );
       });
-      var selHtml = getStartupSelect();
+      var selHtml = getStartupSelect("att-startup-list-select", "selectpicker");
       $("#att-startup-sel-div").html("");
       $("#att-startup-sel-div").append(selHtml);
       $('#att-startup-list-select').selectpicker();
 
       // start with building the basic ui to set a schedule
       buildScheduleRow();
+
+      // 
+      buildMentorStartupSelectors();
     });
   }
 
@@ -449,17 +598,6 @@
       }, 1500);
       return;
     }
-    // if (tel.length < 10) {
-    //   $("#phoneError").html("Please give a phone - So we can call you late at night");
-    //   $("#phoneError").removeClass("sr-only");
-    //   $("#phoneError").addClass("alert");
-    //   $("#form-name-field").focus();
-    //   setTimeout(function() {
-    //     $("#phoneError").removeClass("alert");
-    //     $("#phoneError").addClass("sr-only");
-    //   }, 1500);
-    //   return;
-    // }
 
     console.log("saving to Firebase: " + name + " , " + email);
     var curUnixTime = new Date().getTime();

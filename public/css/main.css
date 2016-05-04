@@ -112,6 +112,11 @@ label {
   height: 60px;
 }
 
+.radio-viewer {
+  margin: 0.5em;
+  font-size: 120%;
+}
+
 
 /********* TODO: Mentor page */
 

@@ -72,6 +72,16 @@
       $("#schedule-day-1").focus();
       return;
     }
+    // check for duplicate mentors
+    var isOk = isScheduleGotErrors();
+    if (isOk.length > 3) {
+      bootbox.confirm(isOk + " <br> <h5>Wanna save it anyway?</h5>", function(result) {
+        if (result === false) {
+          return;
+        }
+      });
+    }
+
     // on each startup we collect the mentors per hours and create sessions
     $(".sc-start-name").each(function() {
       var startupName = $.trim($(this).text());
@@ -113,8 +123,42 @@
         }
       });
     });
-
   });
+
+  //
+  // Check if we assign the same mentor to more then one startup in a certain time
+  //
+  function isScheduleGotErrors() {
+    var stLen = startupNameList.length;
+    for (var j = 1; j < 10; j++) {
+      var tmpMenForThisHour = [];
+      for (var i = 0; i < stLen; i++) {
+        var tmpMentorEmail = $("#mentor-" + startupNameList[i] + "-" + j + "-select").val();
+        tmpMenForThisHour.push(tmpMentorEmail);
+      }
+      // let's see if we have duplicates
+      var uniqueMentor = tmpMenForThisHour.filter(onlyUnique);
+      if (uniqueMentor.length < stLen) {
+        var hourStr = getHourAsRange("h-" + j);
+        var msg = "Yo! You have assign the same mentor to more then one startup at: " +
+          hourStr + " - Please fix it as we can't split mentors (yet).";
+        return msg;
+      }
+    }
+    return "";
+  }
+
+  //
+  // Helper function to get unique in array
+  // usage example:
+  // var a = ['a', 1, 'a', 2, '1'];
+  // var unique = a.filter( onlyUnique );
+  //
+  function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
+
 
   //
   // Reload the schedule from firebase

@@ -115,7 +115,7 @@
         for (var i = 0; i < sessions.mentors.length; i++) {
           scHtml += '<div class="panel panel-default"> <div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">' +
             sessions.mentors[i][1] + ' | ' + getHourAsRange("hour-" + (i + 1)) + '</h3> </div> <div class="panel-body">' +
-            'Location: ' + sessions.mentors[i][2]  + ' </div> </div>';
+            'Location: ' + sessions.mentors[i][2] + ' </div> </div>';
         }
         //console.log(scHtml);
         $("#attendee-schedule-list").html(scHtml);
@@ -255,6 +255,10 @@
     $('body').scrollTop(60);
   });
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Attendees
+  //////////////////////////////////////////////////////////////////////////////
+
   //
   // fetch mentor data base on its key (=phone number)
   //
@@ -265,21 +269,95 @@
       if (att != null) {
         console.log("Setting data for: " + JSON.stringify(att));
         curAttendeeStartup = att.startup;
+        $("#att-name-field").val(att.name);
+        $("#att-email-field").val(att.email);
+        $("#att-startup-list-select").selectpicker('val', att.startup);
+        $("#att-linkedin-url").val(att.linkedin);
+        $("#att-fun-fact").val(att.funFact);
+        $("#att-pic-url").val(att.pic);
+        $("#att-name-field").focus();
+        $('body').scrollTop(60);
+
         localStorage.setItem("lpa1-g-att-email", curAttendeeEmail);
         localStorage.setItem("lpa1-g-att-startup", curAttendeeStartup);
       } else {
         localStorage.removeItem("lpa1-g-att-email");
         localStorage.removeItem("lpa1-g-att-startup");
         $("#sc-reload-button").prop('disabled', true);
-        bootbox.alert("Please check with the organizer why you aren't part of any startup"); 
+        bootbox.alert("Please check with the organizer why you aren't part of any startup");
       }
     });
   }
 
+ //
+  // Save Attendee
+  //
+  $("#att-save-button").click(function() {
+    var name = $("#att-name-field").val();
+    var email = $("#att-email-field").val();
+    // name validation
+    if (name.length < 2) {
+      $("#att-nameError").html("Please give a name - C'mon dude");
+      $("#att-nameError").removeClass("sr-only");
+      $("#att-nameError").addClass("alert");
+      $("#form-name-field").focus();
+      setTimeout(function() {
+        $("#att-nameError").removeClass("alert");
+        $("#att-nameError").addClass("sr-only");
+      }, 1500);
+      return;
+    }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Attendees
-  //////////////////////////////////////////////////////////////////////////////
+    // email validation
+    if ($("#att-email-field").val().length < 2) {
+      $("#att-emailError").html("Please give an email - Don't worry we will never spam you.");
+      $("#att-emailError").removeClass("sr-only");
+      $("#att-emailError").addClass("alert");
+      $("#form-email-field").focus();
+      setTimeout(function() {
+        $("#att-emailError").removeClass("alert");
+        $("#att-emailError").addClass("sr-only");
+      }, 1500);
+      return;
+    }
+    var emailRegEx = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+    if (!emailRegEx.test(email)) {
+      $("#att-emailError").html("Please give a valid email (e.g. momo@okko.com");
+      $("#att-emailError").removeClass("sr-only");
+      $("#att-emailError").addClass("alert");
+      $("#form-email-field").focus();
+      setTimeout(function() {
+        $("#att-emailError").removeClass("alert");
+        $("#att-emailError").addClass("sr-only");
+      }, 1500);
+      return;
+    }
+
+    console.log("saving attendee: " + name + " , " + email);
+    var curUnixTime = new Date().getTime();
+    var disTime = new Date().toJSON().slice(0, 21);
+    emailKey = email.replace(/\./g, '-');
+    ref.child("attendees").child(emailKey).set({
+      name: name,
+      email: email,
+      startup: $("#att-startup-list-select option:selected").text(),
+      linkedin: $("#att-linkedin-url").val(),
+      pic: $("#att-pic-url").val(),
+      funFact: $("#att-fun-fact").val(),
+      unixTime: curUnixTime,
+      date: disTime
+    }, function(error) {
+      if (error) {
+        bootbox.alert("Attendee could not be saved :( Details: " + error);
+      } else {
+        console.log(name + " saved!");
+        $(".save-alert").show();
+        setTimeout(function() {
+          $(".save-alert").hide();
+        }, 1500);
+      }
+    });
+  });
 
   //
   // read the list of Attendees and display it
@@ -303,7 +381,6 @@
       });
     });
   }
-
 
   //////////////////////////////////////////////////////////////////////////////////
   // Utils

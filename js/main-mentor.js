@@ -222,8 +222,10 @@
         $("#startups-list").append(
           '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">' +
           startupData.name + " ( <img src='" + startupLogoUrl + "' class='logo-img' alt='startup logo'> )" +
-          '</h3> </div> <div class="panel-body startup-edit" data-key="' + key + '"> <b>' + startupData.description + '</b><br>' +
-          startupData.country + '<br>' + startupData.city + ' </div> </div>'
+          '</h3> </div> <div class="panel-body startup-edit" data-key="' + key + '"> <b>' + startupData.description + '</b><br>Country: <b>' +
+          startupData.country + '</b> City: <b>' + startupData.city + '</b><br>Num Employees: <b>' + startupData.numEmployees + ' </b>Founded: <b>' + 
+          startupData.dateFounded + '</b><br> <h4> <span class="label label-warning"> <a href="' + startupData.video + '" target="_blank">Application Video</a> </span> ' +
+          '  <span class="label label-success"><a href="' + startupData.historyUrl + '" target="_blank">History File</a> </span></h4></div> </div>'
         );
       });
       var selHtml = getStartupSelect();
@@ -392,7 +394,7 @@
   });
 
   //
-  // fetch mentor data base on its key (=phone number)
+  // fetch mentor data base on its key (=email)
   //
   function fetchMentor(key) {
     var ref = new Firebase("https://lpa-1.firebaseio.com/mentors/" + key);

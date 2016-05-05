@@ -4,6 +4,8 @@
 
   var startupNameList = [];
   var mentorsList = [];
+  var isInSaveOperation = false;
+
   //
   // AUTH fun
   // start the connection with firebase DB
@@ -84,6 +86,8 @@
 
     // on each startup we collect the mentors per hours and create sessions
     $(".sc-start-name").each(function() {
+      isInSaveOperation = true;
+      console.log("is going INTO save");
       var startupName = $.trim($(this).text());
       var startupKey = startupName.replace(" ", "");
       var mentorPerHour = [];
@@ -123,6 +127,8 @@
         }
       });
     });
+    isInSaveOperation = false;
+    console.log("is going out of save");
   });
 
   //
@@ -149,18 +155,6 @@
   }
 
   //
-  // Helper function to get unique in array
-  // usage example:
-  // var a = ['a', 1, 'a', 2, '1'];
-  // var unique = a.filter( onlyUnique );
-  //
-  function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-  }
-
-
-
-  //
   // Reload the schedule from firebase
   //
   $("#sc-reload-button").click(function() {
@@ -172,6 +166,10 @@
     }
     var readRef = new Firebase("https://lpa-1.firebaseio.com/sessions/" + scDay + "/startups");
     readRef.orderByKey().on("value", function(snapshot) {
+      if (isInSaveOperation) {
+        console.log("no no not yet");
+        return;
+      }
       var sessions = snapshot.val();
       if (sessions !== null) {
         //console.log("The sessions: " + JSON.stringify(sessions));
@@ -944,6 +942,16 @@
   //////////////////////////////////////////////////////////////////////////////////
   // Utils
   //////////////////////////////////////////////////////////////////////////////////
+
+  //
+  // Helper function to get unique in array
+  // usage example:
+  // var a = ['a', 1, 'a', 2, '1'];
+  // var unique = a.filter( onlyUnique );
+  //
+  function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
 
   //
   //
